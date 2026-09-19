@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brook | Portfolio & Tech</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Rajdhani & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            synth: {
+              bg: '#05020A',
+              card: 'rgba(20, 10, 35, 0.75)',
+              cardBorder: 'rgba(157, 78, 221, 0.3)',
+              purple: '#9D4EDD',
+              neonMagenta: '#FF007F',
+              cyan: '#00F0FF',
+              lavender: '#E0AAFF',
+              panel: '#120822'
+            }
+          },
+          fontFamily: {
+            hud: ['Rajdhani', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #05020A;
+      color: #E0AAFF;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    /* Cyberpunk / Blueprint Grid Pattern */
+    .bg-grid-pattern {
+      background-image: linear-gradient(to right, rgba(157, 78, 221, 0.08) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(157, 78, 221, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* Chamfered G-Switch HUD shape */
+    .hud-chamfer {
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    }
+    
+    .hud-chamfer-btn {
+      clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+      transition: all 0.2s ease-in-out;
+    }
+
+    /* CRT Scanline effect overlay */
+    .crt-overlay::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 10;
+      background-size: 100% 3px, 6px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    /* Ambient Spotlight Follower */
+    #spotlight {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(157, 78, 221, 0.18), transparent 80%);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #05020A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #9D4EDD;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF007F;
+    }
+
+    /* Pulsing Neon Glow animation */
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: 0 0 15px rgba(157, 78, 221, 0.4), inset 0 0 15px rgba(157, 78, 221, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(255, 0, 127, 0.6), inset 0 0 20px rgba(255, 0, 127, 0.3); }
+    }
+    
+    .neon-border-pulse {
+      animation: neonPulse 4s infinite ease-in-out;
+    }
+
+    /* Glitch text effect on hover */
+    .glitch-hover:hover {
+      text-shadow: 2px 0 #FF007F, -2px 0 #00F0FF;
+    }
+
+    @keyframes loaderSpin {
+      0% { transform: rotateY(0deg) scale(0.8); opacity: 0.4; }
+      25% { transform: rotateY(90deg) scale(1); opacity: 1; }
+      50% { transform: rotateY(180deg) scale(1.08); opacity: 1; }
+      75% { transform: rotateY(270deg) scale(1); opacity: 1; }
+      100% { transform: rotateY(360deg) scale(0.95); opacity: 0.8; }
+    }
+
+    @keyframes loaderPulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(157, 78, 221, 0) inset; }
+      50% { box-shadow: 0 0 18px rgba(157, 78, 221, 0.7), inset 0 0 18px rgba(157, 78, 221, 0.3); }
+    }
+
+    .loader-headshot {
+      object-fit: cover;
+      border-radius: 9999px;
+      width: 100%;
+      height: 100%;
+      display: block;
+      filter: saturate(1.1) contrast(1.05);
+    }
+
+    .matrix-photo-wrap {
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+    }
+
+    .matrix-photo {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      filter: grayscale(0.15) brightness(0.62) contrast(1.12) saturate(0.8);
+      transition: filter 0.35s ease, transform 0.3s ease;
+    }
+
+    .matrix-photo-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 0.5rem;
+      background: linear-gradient(180deg, rgba(10, 6, 18, 0.24), rgba(10, 6, 18, 0.58));
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .matrix-photo-layer {
+      position: absolute;
+      inset: 0;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .matrix-photo-wrap:hover .matrix-photo {
+      filter: grayscale(0.12) brightness(0.82) contrast(1.08) saturate(0.95);
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+<body class="bg-synth-bg text-synth-lavender relative min-h-screen selection:bg-synth-purple selection:text-white">
+
+  <div id="spotlight"></div>
+
+  <!-- Page Loader Overlay (Switching Tab Simulation) -->
+  <div id="loader-overlay" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center transition-opacity duration-700 opacity-100 pointer-events-auto">
+    <div class="relative w-28 h-28 mb-5" style="transform-style: preserve-3d; perspective: 800px;">
+      <div class="absolute inset-0 rounded-full border-2 border-synth-purple border-t-synth-neonMagenta animate-spin"></div>
+      <div class="absolute inset-3 rounded-full bg-synth-panel flex items-center justify-center overflow-hidden border border-synth-purple/40 shadow-[0_0_25px_rgba(157,78,221,0.4)] animate-[loaderPulse_1.4s_ease-in-out_infinite]" style="transform-style: preserve-3d; animation: loaderSpin 1.8s ease-in-out infinite, loaderPulse 1.4s ease-in-out infinite;">
+        <img src="Headshot.png" alt="Brook Animut" class="loader-headshot" />
+      </div>
+    </div>
+    <span class="font-mono text-xs tracking-widest text-synth-purple animate-pulse">[ LOADING... ]</span>
+  </div>
+
+  <div class="relative z-10 bg-grid-pattern min-h-screen flex flex-col justify-between">
+    
+    <header class="sticky top-0 z-40 bg-synth-bg/90 backdrop-blur-md border-b border-synth-purple/30 px-4 py-3">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- Logo / Name -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 hud-chamfer bg-synth-purple/20 border border-synth-purple flex items-center justify-center text-synth-neonMagenta font-bold text-xl shadow-[0_0_10px_rgba(157,78,221,0.5)]">
+            BA
+          </div>
+          <div>
+            <h1 class="font-hud font-bold text-xl tracking-wider text-white glitch-hover cursor-pointer">BROOK NETSANET ANIMUT</h1>
+            
+            <p class="font-mono text-xs text-synth-purple/80">DATA SCIENCE @ PURDUE</p>
+          </div>
+        </div>
+
+        <!-- Chamfered HUD Tabs -->
+        <nav class="flex flex-wrap justify-center gap-2 font-hud text-sm font-semibold tracking-wider">
+          <button onclick="switchTab('home')" id="tab-home" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple bg-synth-purple/20 text-white shadow-[0_0_10px_rgba(157,78,221,0.4)] hover:bg-synth-purple/40 transition">
+            [ HOME ]
+          </button>
+          <button onclick="switchTab('projects')" id="tab-projects" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
+            [ PROJECTS ]
+          </button>
+          <button onclick="switchTab('experiences')" id="tab-experiences" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
+            [ EXPERIENCES ]
+          </button>
+          <button onclick="switchTab('about')" id="tab-about" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
+            [ ABOUT ME ]
+          </button>
+        </nav>
+
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-8 w-full flex-grow">
+
+      <!-- ================= HOME TAB ================= -->
+      <section id="view-home" class="tab-view space-y-12">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          
+          <!-- Left Bio Box -->
+          <div class="md:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 hud-chamfer bg-synth-purple/10 border border-synth-purple/40 text-synth-neonMagenta text-xs font-mono">
+              <span class="w-2 h-2 rounded-full bg-synth-neonMagenta animate-ping"></span>
+              PURDUE UNIVERSITY DS + Math '30
+            </div>
+
+            <h2 class="text-4xl md:text-6xl font-hud font-bold text-white tracking-tight leading-none">
+              hi there,
+            </h2>
+
+            <p class="font-mono text-sm leading-relaxed text-synth-lavender/80 max-w-xl">
+              I'm Brook. I'm a data science student at Purdue, and I build software, work with data, and like solving problems that actually matter.
+            </p>
+
+            <!-- Sci-Fi HUD Status Panel -->
+            <div class="hud-chamfer bg-synth-panel border border-synth-purple/40 p-4 font-mono text-xs space-y-2 crt-overlay relative overflow-hidden">
+              <div class="flex justify-between border-b border-synth-purple/20 pb-2 gap-4">
+                <span class="text-synth-purple">[ STATUS ]</span>
+                <span id="calendar-status-text" class="text-synth-cyan text-right">ACTIVE // BUILDING PROJECT_SYS</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span class="text-synth-purple">[ LOCATION ]</span>
+                <span id="calendar-location-text" class="text-white text-right">PURDUE UNIVERSITY, IN</span>
+              </div>
+            </div>
+
+            <!-- Action CTAs -->
+            <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2 font-hud">
+              <button onclick="switchTab('projects')" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-purple text-white font-bold tracking-wider hover:bg-synth-neonMagenta shadow-[0_0_15px_rgba(157,78,221,0.6)] transition flex items-center justify-center gap-2">
+                <i data-lucide="code-2" class="w-4 h-4"></i> VIEW PROJECTS
+              </button>
+              <button onclick="switchTab('experiences')" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-panel border border-synth-purple/60 text-synth-lavender font-bold tracking-wider hover:border-synth-neonMagenta hover:text-white transition flex items-center justify-center gap-2">
+                <i data-lucide="briefcase-business" class="w-4 h-4"></i> VIEW EXPERIENCES
+              </button>
+              <a href="#about" onclick="switchTab('about'); return false;" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-purple/20 border border-synth-purple/50 text-synth-cyan font-bold tracking-wider hover:bg-synth-purple/30 transition flex items-center justify-center gap-2">
+                <i data-lucide="user-round" class="w-4 h-4"></i> ABOUT ME
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Interactive Headshot Box -->
+          <div class="md:col-span-5 flex flex-col items-center justify-center gap-4">
+            <div class="group relative w-12 h-12 rounded-full border border-purple-400/50 p-0.5 bg-purple-950/80 flex items-center justify-center overflow-hidden cursor-pointer shadow-[0_0_10px_rgba(168,85,247,0.3)] hover:border-purple-300 hover:shadow-[0_0_18px_rgba(168,85,247,0.6)] transition-all duration-300 self-end mr-2">
+              <img src="Headshot.png" alt="Brook Animut" class="w-full h-full object-cover rounded-full transition-transform duration-700 ease-out group-hover:[transform:rotateY(360deg)]" />
+              <div class="absolute inset-0 rounded-full border border-purple-400/20 group-hover:animate-ping pointer-events-none"></div>
+            </div>
+
+            <div class="matrix-photo-wrap relative group w-[26rem] h-[28rem] rounded-xl overflow-hidden border border-purple-500/40 bg-purple-950/20 p-2 transition-all duration-300 hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
+              <canvas id="matrixCanvas" class="absolute inset-0 z-10 pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity"></canvas>
+              <div class="matrix-photo-layer absolute inset-0 z-20"></div>
+              <img src="Your-Headshot.jpeg" alt="Brook Animut" class="matrix-photo" />
+              <div class="absolute bottom-3 left-3 z-30 font-mono text-[10px] text-purple-300 bg-black/60 px-2 py-1 rounded backdrop-blur-md">
+                [ HOVER: UNLOCK MATRIX ]
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PROJECTS TAB ================= -->
+      <section id="view-projects" class="tab-view hidden space-y-8">
+        <div class="border-b border-synth-purple/30 pb-4 flex justify-between items-end">
+          <div>
+            <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ FEATURED_BUILD_LOGS ]</h2>
+            <p class="font-mono text-xs text-synth-purple">FULL-STACK APPLICATIONS & MACHINE LEARNING EXPERIMENTS</p>
+          </div>
+          <span class="font-mono text-xs text-synth-cyan hidden sm:inline">SYSTEM_STATUS: 100% OPERATIONAL</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Project Card 1 -->
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="flex justify-between items-start">
+              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_01 ]</span>
+              <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">PYTHON</span>
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">PYTORCH</span>
+              </div>
+            </div>
+            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">NEURAL VISION PIPELINE</h3>
+            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+              Real-time image classification and object detection engine trained on custom sports telemetry data. High-throughput prediction pipeline with lower than 20ms latency.
+            </p>
+            <div class="flex items-center justify-between pt-2">
+              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
+              </a>
+              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+              </a>
+            </div>
+          </div>
+
+          <!-- Project Card 2 -->
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="flex justify-between items-start">
+              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_02 ]</span>
+              <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">REACT</span>
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">FIREBASE</span>
+              </div>
+            </div>
+            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">SYNTHWAVE ARCADE HUB</h3>
+            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+              Full-stack gaming platform with real-time Firebase Firestore global leaderboards, user session sync, and custom Canvas-rendered retro arcade games.
+            </p>
+            <div class="flex items-center justify-between pt-2">
+              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
+              </a>
+              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+              </a>
+            </div>
+          </div>
+
+          <!-- Project Card 3 -->
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="flex justify-between items-start">
+              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_03 ]</span>
+              <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">C++</span>
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">OPENGL</span>
+              </div>
+            </div>
+            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">PHYSICS RENDER ENGINE</h3>
+            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+              2D/3D physics particle collision simulation using custom shaders, quad-tree spatial partitioning, and optimized C++ memory management routines.
+            </p>
+            <div class="flex items-center justify-between pt-2">
+              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
+              </a>
+              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+              </a>
+            </div>
+          </div>
+
+          <!-- Project Card 4 -->
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="flex justify-between items-start">
+              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_04 ]</span>
+              <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">GEMINI API</span>
+                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">NODE.JS</span>
+              </div>
+            </div>
+            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">LLM WORKFLOW AUTOMATOR</h3>
+            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+              Intelligent agent system generating custom project scaffolding, real-time code optimization, and automatic documentation pipelines via Gemini Flash API.
+            </p>
+            <div class="flex items-center justify-between pt-2">
+              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
+              </a>
+              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= EXPERIENCES TAB ================= -->
+      <section id="view-experiences" class="tab-view hidden space-y-8">
+        <div class="border-b border-synth-purple/30 pb-4">
+          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ EXPERIENCES ]</h2>
+          <p class="font-mono text-xs text-synth-purple">WORK EXPERIENCE, PROJECTS, AND LEADERSHIP</p>
+        </div>
+
+        <div class="flex border-b border-synth-purple/30 space-x-4">
+          <button onclick="switchExpSubTab('internships')" id="btn-internships" class="pb-2 text-xs font-mono border-b-2 border-synth-neonMagenta text-white">
+            [ WORK EXPERIENCE ]
+          </button>
+          <button onclick="switchExpSubTab('lastSeen')" id="btn-lastSeen" class="pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white">
+            [ LEADERSHIP & ACTIVITIES ]
+          </button>
+        </div>
+
+        <div id="sub-internships" class="space-y-5 pt-4">
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">Titis Cafe | IT Lead & Full-Stack Developer</h3>
+              <span class="text-[10px] font-mono text-synth-purple">Jun 2026 – Jul 2026 | AA, Ethiopia</span>
+            </div>
+            <p class="mt-2 font-mono text-[11px] text-synth-cyan">Skills: JavaScript, HTML/CSS, Firebase, Google Analytics</p>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Launched a digital ordering platform, toggling read-only and ordering modes via URL parameters (?table=X).</li>
+              <li>Integrated Firebase Firestore NoSQL real-time listeners to stream orders directly to a live kitchen queue.</li>
+              <li>Used localStorage and PIN-based verification to manage secure client-side sessions.</li>
+              <li>Managed digital presence and local search visibility via Google Business Profile and Maps optimization.</li>
+            </ul>
+          </div>
+
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">Techally Consult | Software Testing and QA Intern</h3>
+              <span class="text-[10px] font-mono text-synth-purple">Jul 2024 – Jun 2025 | AA, Ethiopia</span>
+            </div>
+            <p class="mt-2 font-mono text-[11px] text-synth-cyan">Skills: Software QA, Python + Spreadsheets, Git, Code Review, Testing</p>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Tested and optimized core code for national healthcare platform prior to Ministry of Health deployment.</li>
+              <li>Isolated and documented 15+ edge-case software bugs alongside patches.</li>
+              <li>Partnered with senior developers to establish code readability standards across the team.</li>
+            </ul>
+          </div>
+
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">ICOS Consulting PLC | Data Analyst Intern</h3>
+              <span class="text-[10px] font-mono text-synth-purple">Jul 2022 – Aug 2023 | AA, Ethiopia</span>
+            </div>
+            <p class="mt-2 font-mono text-[11px] text-synth-cyan">Skills: Python, NumPy, Matplotlib, A/B Testing, AI Workflows, PowerPoint</p>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Designed and evaluated a controlled A/B trial across 28 workflows comparing manual vs. AI-assisted task execution.</li>
+              <li>Co-presented findings to leadership using NumPy linear projections, driving company-wide adoption of ChatGPT Pro.</li>
+              <li>Mentored incoming technical interns on workflow automation, reducing team onboarding time.</li>
+            </ul>
+          </div>
+
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">Top Technology PLC | Data Management Assistant (Part-time)</h3>
+              <span class="text-[10px] font-mono text-synth-purple">Jun 2023 – Aug 2023 | AA, Ethiopia</span>
+            </div>
+            <p class="mt-2 font-mono text-[11px] text-synth-cyan">Skills: Relational SQL, Reporting, Spreadsheets and PowerPoint</p>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Migrated legacy paper records into relational SQL databases, significantly reducing query latency and record errors.</li>
+              <li>Built corporate reporting pipelines to deliver weekly performance metrics to executive leadership.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="sub-lastSeen" class="hidden space-y-5 pt-4">
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">Purdue Indy Chess Club | Chief Operating Officer (COO)</h3>
+              <span class="text-[10px] font-mono text-synth-purple">Aug 2026 – Present | Indianapolis, IN</span>
+            </div>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Managing overall club operations, running campus tournaments, and expanding member engagement.</li>
+            </ul>
+          </div>
+
+          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+              <h3 class="font-mono text-sm font-bold text-white">Flipper International SAT Math Club | Founder & Vice President</h3>
+              <span class="text-[10px] font-mono text-synth-purple">2024 – 2026 | AA, Ethiopia</span>
+            </div>
+            <p class="mt-2 font-mono text-[11px] text-synth-cyan">Focus: Advanced Quantitative Techniques, Peer Mentorship</p>
+            <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
+              <li>Founded peer mentorship program teaching advanced quantitative techniques and logic strategies.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= ABOUT ME TAB ================= -->
+      <section id="view-about" class="tab-view hidden space-y-8">
+        <div class="border-b border-synth-purple/30 pb-4">
+          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ ABOUT_ME ]</h2>
+          <p class="font-mono text-xs text-synth-purple">PERSONAL NOTES, SHARED INTERESTS, AND CONTACTS</p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
+              <span class="font-mono text-xs text-synth-cyan">[ CONTACTS ]</span>
+              <span class="font-mono text-[10px] text-synth-purple">AVAILABLE FOR COLLABS + JOBS</span>
+            </div>
+            <div class="flex flex-wrap gap-4 font-hud text-sm text-synth-lavender">
+              <a href="mailto:brook@example.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">EMAIL</a>
+              <a href="https://www.linkedin.com" target="_blank" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">LINKEDIN</a>
+              <a href="https://www.instagram.com" target="_blank" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">INSTAGRAM</a>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
+              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
+                <i data-lucide="dumbbell" class="w-4 h-4 text-synth-neonMagenta"></i>
+                <span class="font-mono text-xs text-white font-bold">[ GYM FEED ]</span>
+              </div>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Placeholder for gym wins, routines, progress updates, and training logs.
+              </p>
+              <div class="rounded border border-synth-purple/20 bg-synth-panel/80 p-3 font-mono text-[10px] text-synth-cyan">
+                405LB SQUAT PR // RECOVERY BLOCK // CONSISTENCY > MOTIVATION
+              </div>
+            </div>
+
+            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
+              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
+                <i data-lucide="chess" class="w-4 h-4 text-synth-neonMagenta"></i>
+                <span class="font-mono text-xs text-white font-bold">[ CHESS MATCHES ]</span>
+              </div>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Anonymous comments are allowed, but the feed filters vulgar or harmful language automatically.
+              </p>
+              <div class="space-y-2 text-[10px] font-mono text-synth-lavender/75">
+                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Great attack pattern — clean progression."</div>
+                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Solid endgame conversion, good patience."</div>
+                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Need sharper opening prep next time."</div>
+              </div>
+            </div>
+
+            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
+              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-synth-neonMagenta"></i>
+                <span class="font-mono text-xs text-white font-bold">[ ABOUT ME ]</span>
+              </div>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                I grew up in Indiana, where curiosity and discipline shaped how I work. I’m into data, software, math, chess, and building things that turn messy ideas into usable systems.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- EASTER EGG FOOTER -->
+    <footer class="mt-20 border-t border-purple-900/50 pt-8 pb-12 text-center text-xs text-purple-400/60 font-mono">
+      <p class="mb-4">[ SYSTEM END // ALL RIGHTS RESERVED ]</p>
+      
+      <!-- DANCER CONTAINER -->
+      <div class="flex flex-col items-center justify-center my-6 select-none">
+        <!-- Interactive Dancer Wrapper -->
+        <div id="dancerWrapper" onclick="speedUpDancer()" class="cursor-pointer group relative flex flex-col items-center">
+          
+          <!-- Glitch / Status Banner -->
+          <div id="statusBanner" class="mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]">
+            [ CLICK ME: DANCE FASTER ]
+          </div>
+
+          <!-- Video Element -->
+          <video id="dancerVideo" autoplay loop muted playsinline class="w-36 h-auto pointer-events-none transition-all duration-300 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">
+            <source src="billy_final.webm" type="video/webm">
+            <img id="dancerFallback" src="billy_gif.gif" alt="Billy Bounce" class="w-36 h-auto">
+          </video>
+
+          <!-- CRT Overlay / Error Effect -->
+          <div id="errorOverlay" class="hidden absolute inset-0 bg-red-950/40 border border-red-500/80 rounded flex items-center justify-center backdrop-blur-[1px]">
+            <span class="font-mono text-xs font-bold text-red-400 tracking-widest animate-pulse">OVERLOAD</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader-overlay');
+      const appShell = document.querySelector('.bg-grid-pattern');
+
+      if (loader) {
+        setTimeout(() => {
+          loader.style.opacity = '0';
+          loader.style.pointerEvents = 'none';
+          if (appShell) {
+            appShell.style.opacity = '1';
+          }
+        }, 1500);
+      }
+    });
+
+    function sanitizeCalendarText(summary) {
+      if (!summary) return '';
+      return summary
+        .replace(/^updated\s*:\s*/i, '')
+        .replace(/#location\s*.*$/gi, '')
+        .replace(/#status\s*/gi, '')
+        .replace(/#\w+\s*/g, '')
+        .replace(/^[-•*\s]+/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function getLocationFromEvent(event) {
+      const summary = event && event.summary ? event.summary : '';
+      const titleLocation = summary.match(/#location\s+(.+)/i)?.[1]?.trim();
+      const eventLocation = (event && event.location ? event.location : '').trim();
+      const normalized = (eventLocation || titleLocation || 'West Lafayette, IN').trim();
+      return normalized.replace(/^\s*[-•*]\s*/, '').replace(/\s+/g, ' ');
+    }
+
+    async function fetchCalendarStatusAndLocation() {
+      const API_KEY = 'AIzaSyArwQa0bRf7zueqTaygwzy80UHMOn4BfkQ';
+      const CALENDAR_ID = 'brook2022nets@gmail.com';
+      const now = new Date();
+      const hour = now.getHours();
+      const isSleepWindow = hour >= 22 || hour < 5;
+
+      const statusEl = document.getElementById('calendar-status-text');
+      const locationEl = document.getElementById('calendar-location-text');
+      const academicEl = document.getElementById('academic-status-text');
+
+      const fallbackStatus = 'ACTIVE // BUILDING PROJECT_SYS';
+      const fallbackLocation = 'WEST LAFAYETTE, IN';
+
+      if (isSleepWindow) {
+        if (statusEl) statusEl.textContent = '💤 // REST MODE';
+        if (locationEl) locationEl.textContent = 'HOME // INDIANAPOLIS, IN';
+        if (academicEl) academicEl.textContent = getAcademicStatus();
+        return;
+      }
+
+      try {
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=10`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('Google Calendar request failed');
+
+        const data = await res.json();
+        const events = Array.isArray(data.items) ? data.items.filter(event => {
+          const start = event.start && (event.start.dateTime || event.start.date);
+          return !!start;
+        }) : [];
+
+        const currentEvent = events.find(event => {
+          const start = event.start && (event.start.dateTime || event.start.date);
+          return start && new Date(start) >= now;
+        }) || events[0];
+
+        if (currentEvent) {
+          const title = sanitizeCalendarText(currentEvent.summary) || fallbackStatus;
+          const location = getLocationFromEvent(currentEvent).toUpperCase();
+
+          if (statusEl) statusEl.textContent = title;
+          if (locationEl) locationEl.textContent = location;
+          if (academicEl) academicEl.textContent = getAcademicStatus();
+          return;
+        }
+      } catch (err) {
+        console.warn('Calendar fetch failed:', err);
+      }
+
+      if (statusEl) statusEl.textContent = fallbackStatus;
+      if (locationEl) locationEl.textContent = fallbackLocation;
+      if (academicEl) academicEl.textContent = getAcademicStatus();
+    }
+
+    setInterval(fetchCalendarStatusAndLocation, 60000);
+
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    const academicStatusText = document.getElementById('academic-status-text');
+    if (academicStatusText) {
+      academicStatusText.textContent = getAcademicStatus();
+    }
+
+    fetchCalendarStatusAndLocation();
+
+    // 1. Mouse Spotlight Tracker
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('mousemove', (e) => {
+      spotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
+      spotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    // 2. Tab Navigation Logic with Spinning Head Loader
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-view').forEach(view => view.classList.add('hidden'));
+      
+      const targetView = document.getElementById(`view-${tabId}`);
+      if (targetView) targetView.classList.remove('hidden');
+
+      document.querySelectorAll('.hud-tab').forEach(btn => {
+        btn.classList.remove('bg-synth-purple/40', 'text-white', 'shadow-[0_0_10px_rgba(157,78,221,0.4)]');
+        btn.classList.add('bg-synth-panel/80', 'text-synth-lavender/70');
+      });
+
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-synth-purple/40', 'text-white', 'shadow-[0_0_10px_rgba(157,78,221,0.4)]');
+      }
+    }
+
+    // 3. Dot Matrix Canvas Headshot Effect
+    const canvas = document.getElementById('matrixCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let width = 0;
+      let height = 0;
+      const revealPoints = [];
+      const baseRevealRadius = 42;
+
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        width = canvas.width = rect.width;
+        height = canvas.height = rect.height;
+
+        revealPoints.length = 0;
+        const faceCenterX = width * 0.54;
+        const faceCenterY = height * 0.48;
+        [
+          [faceCenterX * 0.9, faceCenterY * 0.7, 78],
+          [faceCenterX, faceCenterY, 88],
+          [faceCenterX * 1.12, faceCenterY * 1.08, 92],
+          [faceCenterX * 0.82, faceCenterY * 1.38, 72],
+          [faceCenterX * 1.08, faceCenterY * 1.42, 70],
+          [faceCenterX * 0.54, faceCenterY * 1.26, 52],
+          [faceCenterX * 1.26, faceCenterY * 0.8, 54]
+        ].forEach(([x, y, radius]) => revealPoints.push({ x, y, radius }));
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function addRevealPoint(x, y, radius = baseRevealRadius) {
+        revealPoints.push({ x, y, radius });
+        if (revealPoints.length > 160) revealPoints.shift();
+      }
+
+      const wrap = canvas.closest('.matrix-photo-wrap');
+      if (wrap) {
+        wrap.addEventListener('mousemove', (e) => {
+          const rect = wrap.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          for (let i = 0; i < 4; i++) {
+            const offsetX = (Math.random() - 0.5) * 18;
+            const offsetY = (Math.random() - 0.5) * 18;
+            addRevealPoint(x + offsetX, y + offsetY, baseRevealRadius + i * 8);
+          }
+        });
+      }
+
+      function drawMatrix() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = 'rgba(10, 6, 18, 0.76)';
+        ctx.fillRect(0, 0, width, height);
+
+        const gap = 9;
+        for (let x = gap / 2; x < width; x += gap) {
+          for (let y = gap / 2; y < height; y += gap) {
+            let inReveal = false;
+            for (const point of revealPoints) {
+              const dx = x - point.x;
+              const dy = y - point.y;
+              if (Math.sqrt(dx * dx + dy * dy) < point.radius) {
+                inReveal = true;
+                break;
+              }
+            }
+
+            if (inReveal) continue;
+
+            ctx.fillStyle = 'rgba(255, 0, 127, 0.7)';
+            ctx.beginPath();
+            ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        ctx.globalCompositeOperation = 'destination-out';
+        for (const point of revealPoints) {
+          const grad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, point.radius);
+          grad.addColorStop(0, 'rgba(0,0,0,1)');
+          grad.addColorStop(0.48, 'rgba(0,0,0,0.75)');
+          grad.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+
+        requestAnimationFrame(drawMatrix);
+      }
+
+      drawMatrix();
+    }
+
+    // 4. Gym Gains Feed Dynamic Handler
+    function handleGymPost(event) {
+      event.preventDefault();
+      const name = document.getElementById('post-name').value;
+      const caption = document.getElementById('post-caption').value;
+      const badge = document.getElementById('post-badge').value;
+
+      const feedContainer = document.getElementById('gym-feed-container');
+      const newCard = document.createElement('div');
+      newCard.className = "hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3 animate-fade-in";
+      
+      newCard.innerHTML = `
+        <div class="flex justify-between items-center border-b border-synth-purple/20 pb-2">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-synth-cyan/20 border border-synth-cyan flex items-center justify-center text-synth-cyan font-mono text-xs">
+              ${name.substring(0, 2).toUpperCase()}
+            </div>
+            <span class="font-mono text-xs text-white font-bold">${name}</span>
+          </div>
+          <span class="font-mono text-xs text-synth-cyan">[ ${badge} ]</span>
+        </div>
+        <p class="font-mono text-xs text-synth-lavender/90">${caption}</p>
+        <div class="flex items-center gap-4 pt-1 border-t border-synth-purple/20 font-mono text-xs text-synth-purple">
+          <button onclick="likePost(this)" class="hover:text-synth-neonMagenta flex items-center gap-1 transition">
+            <i data-lucide="heart" class="w-4 h-4"></i> <span class="like-count">1</span> LIKE
+          </button>
+          <span class="text-synth-purple/60">JUST NOW</span>
+        </div>
+      `;
+
+      feedContainer.prepend(newCard);
+      lucide.createIcons();
+      document.getElementById('gym-post-form').reset();
+    }
+
+    function likePost(button) {
+      const countSpan = button.querySelector('.like-count');
+      let currentLikes = parseInt(countSpan.innerText);
+      countSpan.innerText = currentLikes + 1;
+      button.classList.add('text-synth-neonMagenta');
+    }
+
+    let clickCount = 0;
+    const maxClicks = 6;
+    const playbackSpeeds = [1.0, 1.3, 1.7, 2.2, 2.8, 3.5]; // Speed multipliers
+
+    function speedUpDancer() {
+      const video = document.getElementById('dancerVideo');
+      const banner = document.getElementById('statusBanner');
+      const overlay = document.getElementById('errorOverlay');
+      const wrapper = document.getElementById('dancerWrapper');
+
+      if (clickCount < maxClicks) {
+        clickCount++;
+        
+        if (clickCount < maxClicks) {
+          // Increase video playback speed
+          video.playbackRate = playbackSpeeds[clickCount];
+          
+          // Dynamic UI feedback based on speed tier
+          banner.innerHTML = `[ SPEED: ${playbackSpeeds[clickCount]}X // CLICK AGAIN ]`;
+          banner.className = "mb-3 px-3 py-1 bg-purple-900/90 border border-purple-400 rounded text-[11px] font-mono text-purple-200 tracking-wider shadow-[0_0_12px_rgba(168,85,247,0.6)]";
+          
+          // Add subtle jitter/glow scaling as speed increases
+          video.style.transform = `scale(${1 + clickCount * 0.03})`;
+        } else {
+          // --- ERROR STATE TRIGGERED AT 6 CLICKS ---
+          video.playbackRate = 0; // Freeze video
+          video.style.filter = "grayscale(100%) brightness(50%) contrast(200%)";
+          
+          // Update text to ERR message
+          banner.innerHTML = `<span class="text-red-400 font-bold animate-pulse">ERR:) CORE_OVERFLOW // SYSTEM_CRASH</span>`;
+          banner.className = "mb-3 px-3 py-1 bg-red-950 border border-red-500/80 rounded text-[11px] font-mono text-red-400 tracking-wider shadow-[0_0_15px_rgba(239,68,68,0.5)]";
+          
+          overlay.classList.remove('hidden');
+          
+          // Reset option after 3.5 seconds
+          setTimeout(() => {
+            resetDancer();
+          }, 3500);
+        }
+      }
+    }
+
+    function resetDancer() {
+      const video = document.getElementById('dancerVideo');
+      const banner = document.getElementById('statusBanner');
+      const overlay = document.getElementById('errorOverlay');
+
+      clickCount = 0;
+      video.playbackRate = 1.0;
+      video.style.filter = "none";
+      video.style.transform = "scale(1)";
+      overlay.classList.add('hidden');
+      
+      banner.innerHTML = "[ CLICK ME: DANCE FASTER ]";
+      banner.className = "mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]";
+    }
+    function getAcademicStatus() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1; // January = 1, July = 7
+      const day = now.getDate();
+
+      const cohortStartYear = 2026;
+      const cohortGraduationYear = 2030;
+      const isPastJuly15 = (month > 7) || (month === 7 && day >= 15);
+      const academicYear = isPastJuly15 ? year : year - 1;
+      const yearInProgram = academicYear - cohortStartYear;
+
+      if (yearInProgram <= 0) return "DS freshman";
+      if (yearInProgram === 1) return "DS Sophomore";
+      if (yearInProgram === 2) return "DS Junior";
+      if (yearInProgram === 3) return "DS Senior";
+      return `Graduate '${String(cohortGraduationYear).slice(-2)}`;
+    }
+
+    function switchExpSubTab(tabName) {
+      document.getElementById('sub-internships').classList.add('hidden');
+      document.getElementById('sub-lastSeen').classList.add('hidden');
+      document.getElementById('btn-internships').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
+      document.getElementById('btn-lastSeen').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
+
+      document.getElementById(`sub-${tabName}`).classList.remove('hidden');
+      document.getElementById(`btn-${tabName}`).className = 'pb-2 text-xs font-mono border-b-2 border-synth-neonMagenta text-white';
+    }
+
+  </script>
+</body>
+</html>
