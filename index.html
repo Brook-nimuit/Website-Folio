@@ -274,7 +274,7 @@
             </h2>
 
             <p class="font-mono text-sm leading-relaxed text-synth-lavender/80 max-w-xl">
-              I'm Brook. I'm a data science student at Purdue, and I build software, work with data, and like solving problems that actually matter.
+              I'm Brook. I'm a data science student at Purdue, and I build software, work with data, and like learning more math and dabbling with AI in my free time.
             </p>
 
             <!-- Sci-Fi HUD Status Panel -->
@@ -315,7 +315,7 @@
               <div class="matrix-photo-layer absolute inset-0 z-20"></div>
               <img src="Your-Headshot.jpeg" alt="Brook Animut" class="matrix-photo" />
               <div class="absolute bottom-3 left-3 z-30 font-mono text-[10px] text-purple-300 bg-black/60 px-2 py-1 rounded backdrop-blur-md">
-                [ HOVER: UNLOCK MATRIX ]
+                [ hover me]
               </div>
             </div>
           </div>
@@ -667,9 +667,33 @@
       return normalized.replace(/^\s*[-•*]\s*/, '').replace(/\s+/g, ' ');
     }
 
+    const calendarConfig = {
+      enableRemoteCalendar: true,
+      apiKey: '',
+      calendarId: 'brook2022nets@gmail.com',
+      fallbackEvents: [
+        { summary: 'GYM SESSION', location: 'WEST LAFAYETTE ATHLETIC CLUB', startHour: 12, endHour: 13 },
+        { summary: 'WORK SESSION', location: 'REMOTE', startHour: 14, endHour: 15 }
+      ]
+    };
+
+    function getFallbackCalendarEvent(now = new Date()) {
+      const startOfDay = new Date(now);
+      startOfDay.setHours(0, 0, 0, 0);
+
+      const events = calendarConfig.fallbackEvents.map((event) => ({
+        summary: event.summary,
+        location: event.location,
+        start: new Date(startOfDay.getTime() + event.startHour * 60 * 60 * 1000),
+        end: new Date(startOfDay.getTime() + event.endHour * 60 * 60 * 1000)
+      }));
+
+      return events.find((event) => event.start >= now) || events[0] || null;
+    }
+
     async function fetchCalendarStatusAndLocation() {
-      const API_KEY = 'AIzaSyArwQa0bRf7zueqTaygwzy80UHMOn4BfkQ';
-      const CALENDAR_ID = 'brook2022nets@gmail.com';
+      const API_KEY = calendarConfig.apiKey;
+      const CALENDAR_ID = calendarConfig.calendarId;
       const now = new Date();
       const hour = now.getHours();
       const isSleepWindow = hour >= 22 || hour < 5;
@@ -688,33 +712,46 @@
         return;
       }
 
-      try {
-        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=10`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('Google Calendar request failed');
+      if (calendarConfig.enableRemoteCalendar && API_KEY && CALENDAR_ID) {
+        try {
+          const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=10`;
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('Google Calendar request failed');
 
-        const data = await res.json();
-        const events = Array.isArray(data.items) ? data.items.filter(event => {
-          const start = event.start && (event.start.dateTime || event.start.date);
-          return !!start;
-        }) : [];
+          const data = await res.json();
+          const events = Array.isArray(data.items) ? data.items.filter(event => {
+            const start = event.start && (event.start.dateTime || event.start.date);
+            return !!start;
+          }) : [];
 
-        const currentEvent = events.find(event => {
-          const start = event.start && (event.start.dateTime || event.start.date);
-          return start && new Date(start) >= now;
-        }) || events[0];
+          const currentEvent = events.find(event => {
+            const start = event.start && (event.start.dateTime || event.start.date);
+            return start && new Date(start) >= now;
+          }) || events[0];
 
-        if (currentEvent) {
-          const title = sanitizeCalendarText(currentEvent.summary) || fallbackStatus;
-          const location = getLocationFromEvent(currentEvent).toUpperCase();
+          if (currentEvent) {
+            const title = sanitizeCalendarText(currentEvent.summary) || fallbackStatus;
+            const location = getLocationFromEvent(currentEvent).toUpperCase();
 
-          if (statusEl) statusEl.textContent = title;
-          if (locationEl) locationEl.textContent = location;
-          if (academicEl) academicEl.textContent = getAcademicStatus();
-          return;
+            if (statusEl) statusEl.textContent = title;
+            if (locationEl) locationEl.textContent = location;
+            if (academicEl) academicEl.textContent = getAcademicStatus();
+            return;
+          }
+        } catch (err) {
+          console.warn('Calendar fetch failed:', err);
         }
-      } catch (err) {
-        console.warn('Calendar fetch failed:', err);
+      }
+
+      const fallbackEvent = getFallbackCalendarEvent(now);
+      if (fallbackEvent) {
+        const title = sanitizeCalendarText(fallbackEvent.summary) || fallbackStatus;
+        const location = (fallbackEvent.location || fallbackLocation).toUpperCase();
+
+        if (statusEl) statusEl.textContent = title;
+        if (locationEl) locationEl.textContent = location;
+        if (academicEl) academicEl.textContent = getAcademicStatus();
+        return;
       }
 
       if (statusEl) statusEl.textContent = fallbackStatus;
