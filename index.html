@@ -12,6 +12,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script type="module">
+    import { Chess } from './package/dist/esm/chess.js';
+    window.Chess = Chess;
+  </script>
   
   <script>
     tailwind.config = {
@@ -46,6 +51,39 @@
       font-family: 'Rajdhani', sans-serif;
       overflow-x: hidden;
       margin: 0;
+    }
+
+    .chess-board {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      width: 100%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      overflow: hidden;
+      background: rgba(12, 8, 20, 0.9);
+      border-radius: 0.5rem;
+    }
+
+    .chess-square {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.15rem, 2vw, 2rem);
+      line-height: 1;
+      user-select: none;
+      position: relative;
+    }
+
+    .chess-square.light {
+      background: rgba(168, 85, 247, 0.08);
+    }
+
+    .chess-square.dark {
+      background: rgba(91, 33, 182, 0.38);
+    }
+
+    .chess-piece {
+      filter: drop-shadow(0 0 4px rgba(255,255,255,0.15));
     }
 
     /* Cyberpunk / Blueprint Grid Pattern */
@@ -334,98 +372,159 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
+
           <!-- Project Card 1 -->
-          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="flex justify-between items-start">
-              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_01 ]</span>
-              <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">PYTHON</span>
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">PYTORCH</span>
+          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-purple-900/70 via-fuchsia-900/40 to-synth-bg">
+              <iframe
+                src="https://tts-analytics.streamlit.app/?embed=true"
+                width="100%"
+                height="100%"
+                style="border:none;"
+                title="TTS analytics live preview"
+                loading="lazy"
+              ></iframe>
+              <div class="absolute bottom-2 left-2 px-2 py-1 border border-purple-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">INDEX_PREVIEW</div>
+            </div>
+            <div class="p-6 space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_01 ]</span>
+                <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Python</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Streamlit</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Pandas</span>
+                </div>
+              </div>
+              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Cafe Data Analytics Admin Dashboard</h3>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Real-time executive analytics suite processing Firestore order payloads into denormalized Pandas DataFrames for KPI and daily sales tracking.
+              </p>
+              <div class="flex items-center justify-between gap-3 pt-2">
+                <a href="https://tts-analytics.streamlit.app/" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
+                </a>
+                <span class="font-hud font-semibold text-sm text-synth-lavender/60 flex items-center gap-1">
+                  <i data-lucide="shield" class="w-4 h-4"></i> ADMIN-ONLY
+                </span>
               </div>
             </div>
-            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">NEURAL VISION PIPELINE</h3>
-            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-              Real-time image classification and object detection engine trained on custom sports telemetry data. High-throughput prediction pipeline with lower than 20ms latency.
-            </p>
-            <div class="flex items-center justify-between pt-2">
-              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
-              </a>
-              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-              </a>
-            </div>
-          </div>
+          </article>
 
           <!-- Project Card 2 -->
-          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="flex justify-between items-start">
-              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_02 ]</span>
-              <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">REACT</span>
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">FIREBASE</span>
+          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-cyan-900/70 via-violet-900/40 to-synth-bg">
+              <iframe
+                src="https://titscafe.vercel.app/Menu.html"
+                title="TITS cafe live preview"
+                class="h-full w-full border-0 bg-synth-bg"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+              ></iframe>
+              <div class="pointer-events-none absolute inset-0 border border-cyan-400/30"></div>
+              <div class="absolute bottom-2 left-2 px-2 py-1 border border-cyan-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">MENU_PREVIEW</div>
+            </div>
+            <div class="p-6 space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_02 ]</span>
+                <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">JavaScript</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Firebase NoSQL</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">HTML/CSS</span>
+                </div>
+              </div>
+              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Titis Cafe Ordering & Live Kitchen Queue</h3>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Digital ordering web app featuring dynamic URL table-tagging, client-side session state, and real-time Firestore listeners for kitchen streams.
+              </p>
+              <div class="flex items-center justify-between gap-3 pt-2">
+                <a href="https://titscafe.vercel.app/Menu.html" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
+                </a>
+                <a href="https://github.com/Brook-nimuit/TITS-CAFE-WEBSITE" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+                </a>
               </div>
             </div>
-            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">SYNTHWAVE ARCADE HUB</h3>
-            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-              Full-stack gaming platform with real-time Firebase Firestore global leaderboards, user session sync, and custom Canvas-rendered retro arcade games.
-            </p>
-            <div class="flex items-center justify-between pt-2">
-              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
-              </a>
-              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-              </a>
-            </div>
-          </div>
+          </article>
 
           <!-- Project Card 3 -->
-          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="flex justify-between items-start">
-              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_03 ]</span>
-              <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">C++</span>
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">OPENGL</span>
+          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-violet-900/70 via-purple-900/50 to-synth-bg">
+              <img src="RBpic5.png" alt="Rubik's cube project preview" class="h-full w-full object-cover">
+              <div class="pointer-events-none absolute inset-0 border border-violet-400/30"></div>
+              <div class="absolute bottom-2 left-2 px-2 py-1 border border-violet-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">GRAPHICS_ENGINE</div>
+            </div>
+            <div class="p-6 space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_03 ]</span>
+                <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Python</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Ursina Engine</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">3D Rendering</span>
+                </div>
+              </div>
+              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Interactive 3D Rubik's Cube Engine</h3>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Tufts group project built around a collaborative Rubik's cube visualizer. The preview carousel cycles through photos of me and my group from Tufts University.
+              </p>
+
+              <div class="mt-3">
+                <div class="relative flex items-center gap-3">
+                  <button type="button" data-rubiks-step="-1" class="rubiks-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">&lt;-</button>
+                  <div class="relative flex-1 h-28 overflow-hidden rounded border border-synth-purple/30 bg-synth-panel/60">
+                    <img id="rubiks-preview-image" src="RBpic5.png" alt="Tufts group project preview" class="h-full w-full object-cover transition-opacity duration-300">
+                  </div>
+                  <button type="button" data-rubiks-step="1" class="rubiks-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">-&gt;</button>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-3 pt-2">
+                <a href="https://github.com/1nduce337/cquirrels" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
+                </a>
+                <a href="https://github.com/1nduce337/cquirrels" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+                </a>
               </div>
             </div>
-            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">PHYSICS RENDER ENGINE</h3>
-            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-              2D/3D physics particle collision simulation using custom shaders, quad-tree spatial partitioning, and optimized C++ memory management routines.
-            </p>
-            <div class="flex items-center justify-between pt-2">
-              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
-              </a>
-              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-              </a>
-            </div>
-          </div>
+          </article>
 
           <!-- Project Card 4 -->
-          <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-6 space-y-4 hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="flex justify-between items-start">
-              <span class="font-mono text-xs text-synth-cyan">[ PROJECT_04 ]</span>
-              <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">GEMINI API</span>
-                <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">NODE.JS</span>
+          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
+            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-emerald-900/70 via-sky-900/40 to-synth-bg">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.6),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.55),_transparent_35%)]"></div>
+              <div class="absolute inset-0 flex items-center justify-center text-center px-6">
+                <div>
+                  <div class="font-hud text-2xl tracking-[0.3rem] text-white/80">[ WIP ]</div>
+                  <div class="mt-2 font-mono text-[10px] text-synth-cyan">NEWSLETTER_LAYOUT</div>
+                </div>
+              </div>
+              <div class="absolute bottom-2 left-2 px-2 py-1 border border-emerald-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">NEWSLETTER_WIP</div>
+            </div>
+            <div class="p-6 space-y-4">
+              <div class="flex justify-between items-start">
+                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_04 ]</span>
+                <div class="flex gap-2 text-xs font-mono text-synth-purple">
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Web Components</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">JavaScript</span>
+                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">GitHub OSS</span>
+                </div>
+              </div>
+              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Indy Hackers Newsletter</h3>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                Work-in-progress contribution for the IndyHackers platform: I’m rebuilding the newsletter section and currently previewing the newspaper-style layout while the long-form vlog version is still in progress.
+              </p>
+              <div class="flex items-center justify-between gap-3 pt-2">
+                <a href="http://indyhackers.org/newsletter" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
+                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
+                </a>
+                <a href="https://github.com/indyhackers/indyhackers-website" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
+                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
+                </a>
               </div>
             </div>
-            <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">LLM WORKFLOW AUTOMATOR</h3>
-            <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-              Intelligent agent system generating custom project scaffolding, real-time code optimization, and automatic documentation pipelines via Gemini Flash API.
-            </p>
-            <div class="flex items-center justify-between pt-2">
-              <a href="#" onclick="alert('Launching Live Demo Simulation...'); return false;" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                <i data-lucide="external-link" class="w-4 h-4"></i> LIVE DEMO
-              </a>
-              <a href="#" onclick="alert('Redirecting to GitHub Repository...'); return false;" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-              </a>
-            </div>
-          </div>
+          </article>
 
         </div>
       </section>
@@ -526,61 +625,165 @@
 
       <!-- ================= ABOUT ME TAB ================= -->
       <section id="view-about" class="tab-view hidden space-y-8">
-        <div class="border-b border-synth-purple/30 pb-4">
-          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ ABOUT_ME ]</h2>
-          <p class="font-mono text-xs text-synth-purple">PERSONAL NOTES, SHARED INTERESTS, AND CONTACTS</p>
-        </div>
-
         <div class="space-y-6">
-          <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
-              <span class="font-mono text-xs text-synth-cyan">[ CONTACTS ]</span>
-              <span class="font-mono text-[10px] text-synth-purple">AVAILABLE FOR COLLABS + JOBS</span>
-            </div>
-            <div class="flex flex-wrap gap-4 font-hud text-sm text-synth-lavender">
-              <a href="mailto:brook@example.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">EMAIL</a>
-              <a href="https://www.linkedin.com" target="_blank" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">LINKEDIN</a>
-              <a href="https://www.instagram.com" target="_blank" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">INSTAGRAM</a>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
               <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
-                <i data-lucide="dumbbell" class="w-4 h-4 text-synth-neonMagenta"></i>
-                <span class="font-mono text-xs text-white font-bold">[ GYM FEED ]</span>
+                <span class="font-mono text-xs text-white font-bold">// ME //</span>
               </div>
               <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Placeholder for gym wins, routines, progress updates, and training logs.
+                I grew up in Addis Ababa, where I was lucky to get real-world exposure outside the classroom early on. I’m passionate about teaching, learning, and constantly exploring new ideas. A lot of my free time has gone into learning and building across data, software, math, and AI.
               </p>
-              <div class="rounded border border-synth-purple/20 bg-synth-panel/80 p-3 font-mono text-[10px] text-synth-cyan">
-                405LB SQUAT PR // RECOVERY BLOCK // CONSISTENCY > MOTIVATION
+            </div>
+
+            <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-5 font-mono text-xs space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
+              <div class="flex items-center justify-between border-b border-synth-purple/30 pb-2">
+                <span class="font-bold tracking-[0.18em] text-white">// I can use</span>
+                <span class="text-[10px] text-white/70"></span>
+              </div>
+
+              <div class="space-y-3">
+                <div>
+                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Languages &amp; Engines</span>
+                  <div class="flex flex-wrap gap-1.5 text-[11px]">
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Python</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">JavaScript</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Java</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">HTML/CSS</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Relational SQL</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Ursina Engine</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Data &amp; Analytics</span>
+                  <div class="flex flex-wrap gap-1.5 text-[11px]">
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Pandas</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">NumPy</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Matplotlib</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">A/B Testing</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Google Analytics</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Spreadsheets</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Frameworks &amp; Platforms</span>
+                  <div class="flex flex-wrap gap-1.5 text-[11px]">
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Streamlit</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Firebase</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Web Components</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">LLMs</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">AI Workflows</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Tooling, QA &amp; Workflows</span>
+                  <div class="flex flex-wrap gap-1.5 text-[11px]">
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Git</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">GitHub</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Software QA</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Code Review</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Testing</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Reporting</span>
+                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">PowerPoint</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
-              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
-                <i data-lucide="chess" class="w-4 h-4 text-synth-neonMagenta"></i>
-                <span class="font-mono text-xs text-white font-bold">[ CHESS MATCHES ]</span>
+            <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5">
+              <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
+                <span class="font-mono text-xs text-white">[ CONTACTS ]</span>
+                <span class="font-mono text-[10px] text-white/70">AVAILABLE FOR COLLABS + JOBS</span>
               </div>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Anonymous comments are allowed, but the feed filters vulgar or harmful language automatically.
-              </p>
-              <div class="space-y-2 text-[10px] font-mono text-synth-lavender/75">
-                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Great attack pattern — clean progression."</div>
-                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Solid endgame conversion, good patience."</div>
-                <div class="border border-synth-purple/20 bg-synth-panel/60 p-2">"Need sharper opening prep next time."</div>
+              <div class="flex flex-wrap gap-4 font-hud text-sm text-synth-lavender">
+                <a href="mailto:brook2022nets@gmail.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">EMAIL</a>
+                <a href="https://www.linkedin.com/in/brook-animut/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">LINKEDIN</a>
+                <a href="https://www.instagram.com/br.ook2281/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">INSTAGRAM</a>
               </div>
             </div>
 
-            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
-              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
-                <i data-lucide="map-pin" class="w-4 h-4 text-synth-neonMagenta"></i>
-                <span class="font-mono text-xs text-white font-bold">[ ABOUT ME ]</span>
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                  </span>
+                  <span class="text-purple-300 font-bold">// GIT_LAST_COMMIT</span>
+                </div>
+                <span id="gitTime" class="text-[10px] text-purple-400/60">SYNCING...</span>
               </div>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                I grew up in Indiana, where curiosity and discipline shaped how I work. I’m into data, software, math, chess, and building things that turn messy ideas into usable systems.
-              </p>
+
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between gap-3">
+                  <span id="gitRepo" class="text-purple-300 font-bold text-sm tracking-wide">Brook-nimuit / ---</span>
+                  <span id="gitBranch" class="text-[10px] bg-purple-900/40 border border-purple-500/20 px-1.5 py-0.5 rounded text-purple-400">main</span>
+                </div>
+
+                <p id="gitMessage" class="text-purple-200/80 text-[11px] leading-relaxed italic bg-purple-950/40 p-2 rounded border border-purple-900/40 truncate">
+                  "Fetching latest push payload..."
+                </p>
+              </div>
+
+              <div class="pt-1 flex justify-end">
+                <a id="gitCommitUrl" href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-[10px] text-purple-400 hover:text-purple-200 transition-colors">
+                  [ VIEW ON GITHUB ↗ ]
+                </a>
+              </div>
+            </div>
+
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <div id="spotifySignal" class="flex items-end gap-0.5 h-3 opacity-100">
+                    <div class="w-0.5 bg-emerald-400 h-full animate-[bounce_1s_infinite_100ms]"></div>
+                    <div class="w-0.5 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
+                    <div class="w-0.5 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
+                  </div>
+                  <span class="text-purple-300 font-bold">// AUX</span>
+                </div>
+                <span id="spotifyStatusTag" class="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">LIVE_STREAM</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="relative w-12 h-12 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
+                  <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover grayscale transition-all" />
+                </div>
+
+                <div class="space-y-0.5 overflow-hidden">
+                  <p id="spotifySong" class="text-purple-200 font-bold text-xs truncate">FETCHING_AUDIO...</p>
+                  <p id="spotifyArtist" class="text-purple-400/80 text-[11px] truncate">---</p>
+                  <p id="spotifyAlbum" class="text-[10px] text-purple-500/60 truncate">---</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-purple-300 font-bold">// CHESS</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button id="prevChessGame" onclick="changeChessGame(-1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
+                    ←
+                  </button>
+                  <span id="chessGameCounter" class="text-[10px] text-purple-400/80">1 / 5</span>
+                  <button id="nextChessGame" onclick="changeChessGame(1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
+                    →
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center text-[10px] text-purple-300/80">
+                <span id="chessMatchInfo">FETCHING_GAMES...</span>
+                <span id="chessResult" class="px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-200">---</span>
+              </div>
+
+              <div id="pgnBoard" class="w-full aspect-square max-w-[320px] mx-auto rounded overflow-hidden border border-purple-500/20 bg-purple-950/40"></div>
             </div>
           </div>
         </div>
@@ -618,6 +821,7 @@
 
   </div>
 
+  <script src="./calendar-logic.js?v=20260920-1"></script>
   <script>
     const loader = document.getElementById('loader-overlay');
     const appShell = document.querySelector('.bg-grid-pattern');
@@ -636,6 +840,283 @@
       }, visibleFor);
     }
 
+    async function fetchGithubCommit() {
+      const USERNAME = 'Brook-nimuit';
+      const url = `https://api.github.com/users/${USERNAME}/events/public`;
+
+      const repoEl = document.getElementById('gitRepo');
+      const messageEl = document.getElementById('gitMessage');
+      const timeEl = document.getElementById('gitTime');
+      const branchEl = document.getElementById('gitBranch');
+      const urlEl = document.getElementById('gitCommitUrl');
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('API Rate Limited or User Not Found');
+
+        const events = await res.json();
+        const lastPush = events.find(event => event.type === 'PushEvent');
+
+        if (lastPush && lastPush.payload && lastPush.payload.commits && lastPush.payload.commits.length > 0) {
+          const repoName = lastPush.repo.name.replace(`${USERNAME}/`, '');
+          const commitMessage = lastPush.payload.commits[lastPush.payload.commits.length - 1].message;
+          const refBranch = lastPush.payload.ref.replace('refs/heads/', '');
+          const commitTime = new Date(lastPush.created_at);
+          const commitSha = lastPush.payload.commits[lastPush.payload.commits.length - 1].sha;
+
+          repoEl.innerText = `${USERNAME} / ${repoName}`;
+          messageEl.innerText = `"${commitMessage}"`;
+          branchEl.innerText = refBranch;
+          timeEl.innerText = timeAgo(commitTime);
+          urlEl.href = `https://github.com/${lastPush.repo.name}/commit/${commitSha}`;
+        } else {
+          repoEl.innerText = `${USERNAME} / banimut.com`;
+          messageEl.innerText = '"Initial deployment and API HUD setup"';
+          timeEl.innerText = 'RECENT';
+        }
+      } catch (err) {
+        console.error('GitHub API error:', err);
+        repoEl.innerText = `${USERNAME} / banimut.com`;
+        messageEl.innerText = '"HUD telemetry pipeline established"';
+        timeEl.innerText = 'ACTIVE';
+      }
+    }
+
+    function timeAgo(date) {
+      const seconds = Math.floor((new Date() - date) / 1000);
+      let interval = Math.floor(seconds / 31536000);
+      if (interval >= 1) return `${interval}y ago`;
+      interval = Math.floor(seconds / 2592000);
+      if (interval >= 1) return `${interval}mo ago`;
+      interval = Math.floor(seconds / 86400);
+      if (interval >= 1) return `${interval}d ago`;
+      interval = Math.floor(seconds / 3600);
+      if (interval >= 1) return `${interval}h ago`;
+      interval = Math.floor(seconds / 60);
+      if (interval >= 1) return `${interval}m ago`;
+      return 'Just now';
+    }
+
+    async function fetchSpotifyLive() {
+      const DISCORD_ID = '1035876890126336061';
+      const url = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
+      const fallbackArt = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E";
+
+      const songEl = document.getElementById('spotifySong');
+      const artistEl = document.getElementById('spotifyArtist');
+      const albumEl = document.getElementById('spotifyAlbum');
+      const albumArtEl = document.getElementById('spotifyAlbumArt');
+      const statusTagEl = document.getElementById('spotifyStatusTag');
+      const signalEl = document.getElementById('spotifySignal');
+
+      if (!songEl || !artistEl || !albumEl || !albumArtEl || !statusTagEl || !signalEl) return;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success && data.data?.spotify) {
+          const spotify = data.data.spotify;
+
+          songEl.innerText = spotify.song || 'UNKNOWN_TRACK';
+          artistEl.innerText = `by ${spotify.artist || 'Unknown Artist'}`;
+          albumEl.innerText = spotify.album || 'Unknown Album';
+          albumArtEl.src = spotify.album_art_url || fallbackArt;
+
+          statusTagEl.innerText = 'PLAYING';
+          statusTagEl.className = 'text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded';
+          signalEl.style.opacity = '1';
+        } else {
+          songEl.innerText = 'IDLE';
+          artistEl.innerText = 'No track playing on Spotify';
+          albumEl.innerText = 'OFFLINE_STREAM';
+          albumArtEl.src = fallbackArt;
+
+          statusTagEl.innerText = 'PAUSED';
+          statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
+          signalEl.style.opacity = '0.2';
+        }
+      } catch (err) {
+        console.error('Lanyard API error:', err);
+        songEl.innerText = 'SPOTIFY_OFFLINE';
+        artistEl.innerText = 'API unavailable';
+        albumEl.innerText = 'RETRYING';
+        albumArtEl.src = fallbackArt;
+
+        statusTagEl.innerText = 'PAUSED';
+        statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
+        signalEl.style.opacity = '0.2';
+      }
+    }
+
+    let chessGames = [];
+    let currentChessIndex = 0;
+
+    async function initChessTelemetry() {
+      const CHESS_USERNAME = 'Balandor_Nacho';
+      const normalizedUsername = CHESS_USERNAME.toLowerCase();
+
+      try {
+        const archiveRes = await fetch(`https://api.chess.com/pub/player/${normalizedUsername}/games/archives`);
+        const archiveData = await archiveRes.json();
+
+        if (!archiveData.archives || archiveData.archives.length === 0) {
+          renderLocalChessFallback(CHESS_USERNAME);
+          return;
+        }
+
+        const latestMonthUrl = archiveData.archives[archiveData.archives.length - 1];
+        const gamesRes = await fetch(latestMonthUrl);
+        const gamesData = await gamesRes.json();
+
+        chessGames = gamesData.games.slice(-5).reverse();
+
+        if (chessGames.length > 0) {
+          renderChessGame(0, CHESS_USERNAME);
+        } else {
+          renderLocalChessFallback(CHESS_USERNAME);
+        }
+      } catch (err) {
+        console.error('Chess API Error:', err);
+        renderLocalChessFallback(CHESS_USERNAME);
+        const matchInfo = document.getElementById('chessMatchInfo');
+        if (matchInfo) {
+          matchInfo.innerText = 'CHESS_TELEMETRY_OFFLINE';
+        }
+      }
+    }
+
+    function renderLocalChessFallback(username = 'Balandor_Nacho') {
+      const boardEl = document.getElementById('pgnBoard');
+      if (!boardEl) return;
+
+      const pieceMap = {
+        w: { p: '♙', r: '♖', n: '♘', b: '♗', q: '♕', k: '♔' },
+        b: { p: '♟', r: '♜', n: '♞', b: '♝', q: '♛', k: '♚' }
+      };
+
+      const fallbackBoard = [
+        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['', '', '', '', '', '', '', ''],
+        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+      ];
+
+      const squares = [];
+      for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+          const piece = fallbackBoard[row][col];
+          const isDark = (row + col) % 2 === 1;
+          squares.push(`<div class="chess-square ${isDark ? 'dark' : 'light'}">${piece ? `<span class="chess-piece">${piece}</span>` : ''}</div>`);
+        }
+      }
+
+      boardEl.innerHTML = `
+        <div class="chess-board">${squares.join('')}</div>
+        <div class="mt-2 text-center text-[10px] text-purple-300/80 font-mono">${username.toLowerCase() === 'balandor_nacho' ? 'username live status: offline' : 'CHESS_OFFLINE'}</div>
+      `;
+    }
+
+    function renderChessBoardFromPgn(pgn) {
+      const boardEl = document.getElementById('pgnBoard');
+      if (!boardEl || !window.Chess || !pgn) return;
+
+      try {
+        const chess = new window.Chess();
+        chess.loadPgn(pgn);
+        const board = chess.board();
+        const pieceMap = {
+          w: { p: '♙', r: '♖', n: '♘', b: '♗', q: '♕', k: '♔' },
+          b: { p: '♟', r: '♜', n: '♞', b: '♝', q: '♛', k: '♚' }
+        };
+
+        const cells = [];
+        for (let row = 0; row < 8; row++) {
+          for (let col = 0; col < 8; col++) {
+            const square = board[row][col];
+            const isDark = (row + col) % 2 === 1;
+            const piece = square ? (pieceMap[square.color] && pieceMap[square.color][square.type]) || '' : '';
+            cells.push('<div class="chess-square ' + (isDark ? 'dark' : 'light') + '">' + (piece ? '<span class="chess-piece">' + piece + '</span>' : '') + '</div>');
+          }
+        }
+
+        boardEl.innerHTML = '<div class="chess-board">' + cells.join('') + '</div>';
+      } catch (error) {
+        console.error('Chess board render error:', error);
+        renderLocalChessFallback();
+      }
+    }
+
+    function renderChessGame(index, username) {
+      if (index < 0 || index >= chessGames.length) return;
+
+      currentChessIndex = index;
+      const game = chessGames[index];
+      const pgnBoard = document.getElementById('pgnBoard');
+
+      if (pgnBoard) {
+        pgnBoard.innerHTML = '';
+      }
+
+      if (game && game.pgn) {
+        renderChessBoardFromPgn(game.pgn);
+      } else {
+        renderLocalChessFallback(username);
+        const matchInfo = document.getElementById('chessMatchInfo');
+        if (matchInfo) {
+          matchInfo.innerText = 'CHESS_TELEMETRY_OFFLINE';
+        }
+      }
+
+      const isWhite = game.white.username.toLowerCase() === username.toLowerCase();
+      const player = isWhite ? game.white : game.black;
+      const opponent = isWhite ? game.black : game.white;
+
+      const matchInfo = document.getElementById('chessMatchInfo');
+      if (matchInfo) {
+        matchInfo.innerText = `${isWhite ? '♔ White' : '♚ Black'} vs ${opponent.username} (${opponent.rating})`;
+      }
+
+      const resultTag = document.getElementById('chessResult');
+      if (resultTag) {
+        if (player.result === 'win') {
+          resultTag.innerText = 'VICTORY';
+          resultTag.className = 'px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-bold';
+        } else {
+          resultTag.innerText = (player.result || 'draw').toUpperCase();
+          resultTag.className = 'px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-300';
+        }
+      }
+
+      const counter = document.getElementById('chessGameCounter');
+      if (counter) {
+        counter.innerText = `${index + 1} / ${chessGames.length}`;
+      }
+
+      const prevBtn = document.getElementById('prevChessGame');
+      const nextBtn = document.getElementById('nextChessGame');
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === chessGames.length - 1;
+    }
+
+    function changeChessGame(direction) {
+      const newIndex = currentChessIndex + direction;
+      const username = 'Balandor_Nacho';
+      renderChessGame(newIndex, username);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchGithubCommit();
+      fetchSpotifyLive();
+      initChessTelemetry();
+    });
+
+    setInterval(fetchSpotifyLive, 10000);
+
     window.addEventListener('load', () => {
       if (loader) {
         showLoader(loaderVisibleMs);
@@ -646,6 +1127,27 @@
         }, 120);
       }
     });
+
+    function chooseCalendarEvent(events, now = new Date()) {
+      if (window.calendarLogic && typeof window.calendarLogic.chooseCalendarEvent === 'function') {
+        return window.calendarLogic.chooseCalendarEvent(events, now);
+      }
+
+      const currentTime = now instanceof Date ? now : new Date(now);
+      if (!Array.isArray(events) || Number.isNaN(currentTime.getTime())) return null;
+
+      const upcoming = events
+        .map((event) => ({ ...event, start: event && event.start ? new Date(event.start) : null }))
+        .filter((event) => event.start && !Number.isNaN(event.start.getTime()) && event.start >= currentTime)
+        .sort((a, b) => a.start - b.start);
+
+      if (currentTime.getUTCHours() < 12) {
+        const noonPriority = upcoming.filter((event) => event.start.getUTCHours() >= 12);
+        return noonPriority[0] || upcoming[0] || null;
+      }
+
+      return upcoming[0] || null;
+    }
 
     function sanitizeCalendarText(summary) {
       if (!summary) return '';
@@ -678,6 +1180,10 @@
     };
 
     function getFallbackCalendarEvent(now = new Date()) {
+      if (window.calendarLogic && typeof window.calendarLogic.getFallbackCalendarEvent === 'function') {
+        return window.calendarLogic.getFallbackCalendarEvent(now);
+      }
+
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
 
@@ -724,10 +1230,7 @@
             return !!start;
           }) : [];
 
-          const currentEvent = events.find(event => {
-            const start = event.start && (event.start.dateTime || event.start.date);
-            return start && new Date(start) >= now;
-          }) || events[0];
+          const currentEvent = chooseCalendarEvent(events, now) || events[0];
 
           if (currentEvent) {
             const title = sanitizeCalendarText(currentEvent.summary) || fallbackStatus;
@@ -770,6 +1273,33 @@
     }
 
     fetchCalendarStatusAndLocation();
+
+    const rubiksSlides = [
+      'RBpic5.png',
+      'RBpic1.jpeg',
+      'RBpic2.jpeg',
+      'RBpic3.jpeg',
+      'RBpic4.jpeg',
+      'RBpic6.png'
+    ];
+
+    const rubiksImage = document.getElementById('rubiks-preview-image');
+    let rubiksIndex = 0;
+
+    function renderRubiksSlide(nextIndex) {
+      if (!rubiksImage) return;
+      rubiksIndex = (nextIndex + rubiksSlides.length) % rubiksSlides.length;
+      const currentSlide = rubiksSlides[rubiksIndex];
+      rubiksImage.src = currentSlide;
+      rubiksImage.alt = 'Tufts group project preview ' + (rubiksIndex + 1);
+    }
+
+    document.querySelectorAll('.rubiks-nav').forEach((button) => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.rubiksStep || 1);
+        renderRubiksSlide(rubiksIndex + step);
+      });
+    });
 
     // 1. Mouse Spotlight Tracker
     const spotlight = document.getElementById('spotlight');
