@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brook | Portfolio & Tech</title>
+  <meta name="description" content="Brook, swe, data analyst.">
+  <meta name="theme-color" content="#0A0512">
+  <title>Brook</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -46,7 +48,10 @@
 
   <style>
     body {
-      background-color: #05020A;
+      background-color: #0A0512;
+      background-image: radial-gradient(rgba(168, 85, 247, 0.15) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-attachment: fixed;
       color: #E0AAFF;
       font-family: 'Rajdhani', sans-serif;
       overflow-x: hidden;
@@ -88,9 +93,9 @@
 
     /* Cyberpunk / Blueprint Grid Pattern */
     .bg-grid-pattern {
-      background-image: linear-gradient(to right, rgba(157, 78, 221, 0.08) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(157, 78, 221, 0.08) 1px, transparent 1px);
-      background-size: 32px 32px;
+      background-image: radial-gradient(rgba(168, 85, 247, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-position: center;
     }
 
     /* Chamfered G-Switch HUD shape */
@@ -205,8 +210,23 @@
       isolation: isolate;
     }
 
+    #portrait {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      cursor: crosshair;
+      z-index: 2;
+      border-radius: 0.5rem;
+      background: #0b0b10;
+      mix-blend-mode: screen;
+    }
+
     .matrix-photo {
-      position: relative;
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
       height: 100%;
@@ -214,6 +234,74 @@
       border-radius: 0.5rem;
       filter: grayscale(0.15) brightness(0.56) contrast(1.12) saturate(0.8);
       transition: filter 0.35s ease, transform 0.3s ease;
+      opacity: 0.18;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .portrait-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      z-index: 30;
+    }
+
+    .portrait-controls label {
+      font-size: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: #9aa0b4;
+      line-height: 1.2;
+    }
+
+    .portrait-controls input[type="file"] {
+      display: none;
+    }
+
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      background: rgba(5, 2, 10, 0.92);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-overlay.visible {
+      display: flex;
+    }
+
+    .lightbox-image {
+      max-width: min(90vw, 1200px);
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid rgba(157, 78, 221, 0.45);
+      box-shadow: 0 0 32px rgba(157, 78, 221, 0.35);
+      background: rgba(10, 5, 18, 0.9);
+      cursor: pointer;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(17, 10, 25, 0.8);
+      color: rgba(255,255,255,0.9);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
     }
 
     .matrix-photo-wrap::before {
@@ -254,7 +342,7 @@
         <img src="Headshot.png" alt="Brook Animut" class="loader-headshot" />
       </div>
     </div>
-    <span class="font-mono text-xs tracking-widest text-synth-purple animate-pulse">[ LOADING... ]</span>
+    <span class="font-mono text-xs tracking-widest text-synth-purple animate-pulse">/ LOADING...</span>
   </div>
 
   <div class="relative z-10 bg-grid-pattern min-h-screen flex flex-col justify-between">
@@ -277,16 +365,16 @@
         <!-- Chamfered HUD Tabs -->
         <nav class="flex flex-wrap justify-center gap-2 font-hud text-sm font-semibold tracking-wider">
           <button onclick="switchTab('home')" id="tab-home" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple bg-synth-purple/20 text-white shadow-[0_0_10px_rgba(157,78,221,0.4)] hover:bg-synth-purple/40 transition">
-            [ HOME ]
+            / HOME
           </button>
           <button onclick="switchTab('projects')" id="tab-projects" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
-            [ PROJECTS ]
+            / PROJECTS
           </button>
           <button onclick="switchTab('experiences')" id="tab-experiences" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
-            [ EXPERIENCES ]
+            / EXPERIENCE
           </button>
           <button onclick="switchTab('about')" id="tab-about" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
-            [ ABOUT ME ]
+            / ABOUT ME
           </button>
         </nav>
 
@@ -318,11 +406,11 @@
             <!-- Sci-Fi HUD Status Panel -->
             <div class="hud-chamfer bg-synth-panel border border-synth-purple/40 p-4 font-mono text-xs space-y-2 crt-overlay relative overflow-hidden">
               <div class="flex justify-between border-b border-synth-purple/20 pb-2 gap-4">
-                <span class="text-synth-purple">[ STATUS ]</span>
+                <span class="text-synth-purple">/ STATUS</span>
                 <span id="calendar-status-text" class="text-synth-cyan text-right">ACTIVE // BUILDING PROJECT_SYS</span>
               </div>
               <div class="flex justify-between gap-4">
-                <span class="text-synth-purple">[ LOCATION ]</span>
+                <span class="text-synth-purple">/ LOCATION</span>
                 <span id="calendar-location-text" class="text-white text-right">PURDUE UNIVERSITY, IN</span>
               </div>
             </div>
@@ -349,11 +437,11 @@
             </div>
 
             <div class="matrix-photo-wrap relative group w-[26rem] h-[28rem] rounded-xl overflow-hidden border border-purple-500/40 bg-purple-950/20 p-2 transition-all duration-300 hover:border-purple-400 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)]">
-              <canvas id="matrixCanvas" class="absolute inset-0 z-10 pointer-events-none opacity-40 group-hover:opacity-75 transition-opacity"></canvas>
+              <canvas id="portrait" class="absolute inset-0 z-10 cursor-crosshair"></canvas>
               <div class="matrix-photo-layer absolute inset-0 z-20"></div>
               <img src="Your-Headshot.jpeg" alt="Brook Animut" class="matrix-photo" />
-              <div class="absolute bottom-3 left-3 z-30 font-mono text-[10px] text-purple-300 bg-black/60 px-2 py-1 rounded backdrop-blur-md">
-                [ hover me]
+              <div class="portrait-controls absolute bottom-3 left-3 z-30 opacity-0 pointer-events-none">
+                <input id="fileInput" type="file" accept="image/*" />
               </div>
             </div>
           </div>
@@ -366,9 +454,8 @@
         <div class="border-b border-synth-purple/30 pb-4 flex justify-between items-end">
           <div>
             <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ FEATURED_BUILD_LOGS ]</h2>
-            <p class="font-mono text-xs text-synth-purple">FULL-STACK APPLICATIONS & MACHINE LEARNING EXPERIMENTS</p>
+            <p class="font-mono text-xs text-synth-purple">SOME OF MY PROJECTS</p>
           </div>
-          <span class="font-mono text-xs text-synth-cyan hidden sm:inline">SYSTEM_STATUS: 100% OPERATIONAL</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -437,6 +524,17 @@
               <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
                 Digital ordering web app featuring dynamic URL table-tagging, client-side session state, and real-time Firestore listeners for kitchen streams.
               </p>
+
+              <div class="mt-3">
+                <div class="relative flex items-center gap-3">
+                  <button type="button" data-cafe-step="-1" class="cafe-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">&lt;-</button>
+                  <div class="relative flex-1 h-28 overflow-hidden rounded border border-synth-purple/30 bg-synth-panel/60">
+                    <img id="cafe-preview-image" src="cafe1.jpeg" alt="Cafe admin preview 1" class="h-full w-full object-cover transition-opacity duration-300">
+                  </div>
+                  <button type="button" data-cafe-step="1" class="cafe-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">-&gt;</button>
+                </div>
+              </div>
+
               <div class="flex items-center justify-between gap-3 pt-2">
                 <a href="https://titscafe.vercel.app/Menu.html" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
                   <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
@@ -532,16 +630,16 @@
       <!-- ================= EXPERIENCES TAB ================= -->
       <section id="view-experiences" class="tab-view hidden space-y-8">
         <div class="border-b border-synth-purple/30 pb-4">
-          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">[ EXPERIENCES ]</h2>
+          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">/ EXPERIENCE</h2>
           <p class="font-mono text-xs text-synth-purple">WORK EXPERIENCE, PROJECTS, AND LEADERSHIP</p>
         </div>
 
         <div class="flex border-b border-synth-purple/30 space-x-4">
           <button onclick="switchExpSubTab('internships')" id="btn-internships" class="pb-2 text-xs font-mono border-b-2 border-synth-neonMagenta text-white">
-            [ WORK EXPERIENCE ]
+            / WORK EXPERIENCE
           </button>
           <button onclick="switchExpSubTab('lastSeen')" id="btn-lastSeen" class="pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white">
-            [ LEADERSHIP & ACTIVITIES ]
+            / LEADERSHIP & ACTIVITIES
           </button>
         </div>
 
@@ -695,7 +793,7 @@
 
             <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5">
               <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
-                <span class="font-mono text-xs text-white">[ CONTACTS ]</span>
+                <span class="font-mono text-xs text-white">/ CONTACTS</span>
                 <span class="font-mono text-[10px] text-white/70">AVAILABLE FOR COLLABS + JOBS</span>
               </div>
               <div class="flex flex-wrap gap-4 font-hud text-sm text-synth-lavender">
@@ -730,7 +828,7 @@
 
               <div class="pt-1 flex justify-end">
                 <a id="gitCommitUrl" href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-[10px] text-purple-400 hover:text-purple-200 transition-colors">
-                  [ VIEW ON GITHUB ↗ ]
+                  / VIEW ON GITHUB ↗
                 </a>
               </div>
             </div>
@@ -791,9 +889,14 @@
 
     </main>
 
+    <div id="project-lightbox" class="lightbox-overlay" aria-hidden="true">
+      <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Close fullscreen image">×</button>
+      <img id="lightbox-image" class="lightbox-image" src="" alt="" />
+    </div>
+
     <!-- EASTER EGG FOOTER -->
     <footer class="mt-20 border-t border-purple-900/50 pt-8 pb-12 text-center text-xs text-purple-400/60 font-mono">
-      <p class="mb-4">[ SYSTEM END // ALL RIGHTS RESERVED ]</p>
+      <p class="mb-4">/ SYSTEM END // ALL RIGHTS RESERVED</p>
       
       <!-- DANCER CONTAINER -->
       <div class="flex flex-col items-center justify-center my-6 select-none">
@@ -802,7 +905,7 @@
           
           <!-- Glitch / Status Banner -->
           <div id="statusBanner" class="mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]">
-            [ CLICK ME: DANCE FASTER ]
+            / CLICK ME: DANCE FASTER
           </div>
 
           <!-- Video Element -->
@@ -1301,6 +1404,76 @@
       });
     });
 
+    const cafeSlides = [
+      'cafe1.jpeg',
+      'cafe2.jpeg',
+      'cafe3.jpeg'
+    ];
+
+    const cafeImage = document.getElementById('cafe-preview-image');
+    let cafeIndex = 0;
+
+    function renderCafeSlide(nextIndex) {
+      if (!cafeImage) return;
+      cafeIndex = (nextIndex + cafeSlides.length) % cafeSlides.length;
+      const currentSlide = cafeSlides[cafeIndex];
+      cafeImage.src = currentSlide;
+      cafeImage.alt = 'Cafe admin preview ' + (cafeIndex + 1);
+    }
+
+    document.querySelectorAll('.cafe-nav').forEach((button) => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.cafeStep || 1);
+        renderCafeSlide(cafeIndex + step);
+      });
+    });
+
+    const projectLightbox = document.getElementById('project-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    function openProjectLightbox(src, alt) {
+      if (!projectLightbox || !lightboxImage) return;
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      projectLightbox.classList.add('visible');
+      projectLightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectLightbox() {
+      if (!projectLightbox || !lightboxImage) return;
+      projectLightbox.classList.remove('visible');
+      projectLightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.src = '';
+      lightboxImage.alt = '';
+      document.body.style.overflow = '';
+    }
+
+    [rubiksImage, cafeImage].forEach((img) => {
+      if (!img) return;
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => openProjectLightbox(img.src, img.alt));
+    });
+
+    if (projectLightbox) {
+      projectLightbox.addEventListener('click', (event) => {
+        if (event.target === projectLightbox || event.target === lightboxClose) {
+          closeProjectLightbox();
+        }
+      });
+    }
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeProjectLightbox);
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && projectLightbox && projectLightbox.classList.contains('visible')) {
+        closeProjectLightbox();
+      }
+    });
+
     // 1. Mouse Spotlight Tracker
     const spotlight = document.getElementById('spotlight');
     window.addEventListener('mousemove', (e) => {
@@ -1327,116 +1500,160 @@
         if (activeBtn) {
           activeBtn.classList.add('bg-synth-purple/40', 'text-white', 'shadow-[0_0_10px_rgba(157,78,221,0.4)]');
         }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, loaderVisibleMs);
     }
 
-    // 3. Dot Matrix Canvas Headshot Effect
-    const canvas = document.getElementById('matrixCanvas');
-    const matrixWrap = document.querySelector('.matrix-photo-wrap');
+    const CONFIG = {
+      imageUrl: 'Your-Headshot.jpeg',
+      gap: 6,
+      particleSize: 2.2,
+      minAlpha: 0.15,
+      darken: 0.68,
+      drift: 1.6,
+      speed: 0.0008,
+      repelRadius: 90,
+      repelForce: 0.35,
+      glitch: 0.6,
+      displayWidth: 420,
+      background: '#0b0b10'
+    };
 
-    if (canvas && matrixWrap) {
-      const ctx = canvas.getContext('2d');
-      let width = 0;
-      let height = 0;
-      let pointer = { x: 0, y: 0, active: false };
-      const revealBursts = [];
+    const portraitCanvas = document.getElementById('portrait');
+    const portraitWrap = document.querySelector('.matrix-photo-wrap');
 
-      function resizeCanvas() {
-        const rect = matrixWrap.getBoundingClientRect();
+    if (portraitCanvas && portraitWrap) {
+      const ctx = portraitCanvas.getContext('2d');
+      let particles = [];
+      let mouse = { x: -9999, y: -9999 };
+      let glitchBands = [];
+
+      function buildFromImage(img) {
+        const scale = Math.max(1, CONFIG.displayWidth / img.width);
+        const W = Math.round(img.width * scale);
+        const H = Math.round(img.height * scale);
         const dpr = window.devicePixelRatio || 1;
-        width = rect.width;
-        height = rect.height;
-        canvas.width = Math.max(1, Math.round(width * dpr));
-        canvas.height = Math.max(1, Math.round(height * dpr));
+
+        portraitCanvas.width = W * dpr;
+        portraitCanvas.height = H * dpr;
+        portraitCanvas.style.width = W + 'px';
+        portraitCanvas.style.height = H + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
 
-      function updatePointer(event) {
-        const rect = matrixWrap.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        pointer.x = x;
-        pointer.y = y;
-        pointer.active = true;
+        const off = document.createElement('canvas');
+        off.width = W;
+        off.height = H;
+        const octx = off.getContext('2d', { willReadFrequently: true });
+        octx.drawImage(img, 0, 0, W, H);
+        const data = octx.getImageData(0, 0, W, H).data;
 
-        revealBursts.push({ x, y, radius: 55, life: 1, drift: (Math.random() - 0.5) * 12 });
-        if (revealBursts.length > 24) revealBursts.shift();
-        matrixWrap.style.setProperty('--mouse-x', `${x}px`);
-        matrixWrap.style.setProperty('--mouse-y', `${y}px`);
-      }
+        particles = [];
+        for (let y = 0; y < H; y += CONFIG.gap) {
+          for (let x = 0; x < W; x += CONFIG.gap) {
+            const i = (y * W + x) * 4;
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            if (lum < CONFIG.minAlpha) continue;
 
-      matrixWrap.addEventListener('pointermove', updatePointer);
-      matrixWrap.addEventListener('pointerleave', () => {
-        pointer.active = false;
-      });
-
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      function drawMatrix() {
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(7, 5, 15, 0.74)';
-        ctx.fillRect(0, 0, width, height);
-
-        const gap = 8;
-        const revealRadius = pointer.active ? 170 : 52;
-
-        for (let x = gap / 2; x < width; x += gap) {
-          for (let y = gap / 2; y < height; y += gap) {
-            const dist = Math.hypot(x - pointer.x, y - pointer.y);
-            const inReveal = dist < revealRadius;
-
-            if (!inReveal) {
-              const alpha = 0.35 + ((Math.sin(x * 0.23) + Math.cos(y * 0.31) + 2) / 4) * 0.45;
-              ctx.fillStyle = `rgba(255, 0, 127, ${alpha})`;
-              ctx.beginPath();
-              ctx.arc(x, y, 1.1 + (Math.sin(x * 0.8 + y * 0.6) + 1) * 0.3, 0, Math.PI * 2);
-              ctx.fill();
-            }
+            particles.push({
+              ox: x,
+              oy: y,
+              color: `rgba(${(r * CONFIG.darken) | 0},${(g * CONFIG.darken) | 0},${(b * CONFIG.darken) | 0},1)`,
+              phase: Math.random() * Math.PI * 2,
+              freq: 0.5 + Math.random(),
+              vx: 0,
+              vy: 0
+            });
           }
         }
-
-        ctx.globalCompositeOperation = 'destination-out';
-        for (let i = revealBursts.length - 1; i >= 0; i--) {
-          const burst = revealBursts[i];
-          burst.radius += 4 + burst.drift * 0.15;
-          burst.life *= 0.965;
-          burst.x += burst.drift * 0.08;
-          burst.y += (Math.random() - 0.5) * 0.8;
-
-          const grad = ctx.createRadialGradient(burst.x, burst.y, 0, burst.x, burst.y, burst.radius);
-          grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
-          grad.addColorStop(0.35, 'rgba(0, 0, 0, 0.76)');
-          grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(burst.x, burst.y, burst.radius, 0, Math.PI * 2);
-          ctx.fill();
-
-          if (burst.life < 0.08) revealBursts.splice(i, 1);
-        }
-        ctx.globalCompositeOperation = 'source-over';
-
-        if (!pointer.active && revealBursts.length === 0) {
-          const centerX = width * 0.5;
-          const centerY = height * 0.5;
-          const calmReveal = 70;
-          ctx.globalCompositeOperation = 'destination-out';
-          const calm = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, calmReveal);
-          calm.addColorStop(0, 'rgba(0,0,0,1)');
-          calm.addColorStop(0.45, 'rgba(0,0,0,0.4)');
-          calm.addColorStop(1, 'rgba(0,0,0,0)');
-          ctx.fillStyle = calm;
-          ctx.beginPath();
-          ctx.arc(centerX, centerY, calmReveal, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalCompositeOperation = 'source-over';
-        }
-
-        requestAnimationFrame(drawMatrix);
+        requestAnimationFrame(tick);
       }
 
-      drawMatrix();
+      function tick(now) {
+        const W = portraitCanvas.width / (window.devicePixelRatio || 1);
+        const H = portraitCanvas.height / (window.devicePixelRatio || 1);
+
+        if (Math.random() < CONFIG.glitch * 0.06) {
+          const bandH = 4 + Math.random() * 18;
+          glitchBands.push({
+            y: Math.random() * H,
+            h: bandH,
+            shift: (Math.random() - 0.5) * 60 * CONFIG.glitch,
+            life: 1
+          });
+        }
+        glitchBands.forEach(b => (b.life -= 0.03));
+        glitchBands = glitchBands.filter(b => b.life > 0);
+
+        ctx.fillStyle = CONFIG.background;
+        ctx.fillRect(0, 0, W, H);
+
+        const t = now * CONFIG.speed;
+
+        for (const p of particles) {
+          let x = p.ox + Math.sin(t * p.freq + p.phase) * CONFIG.drift;
+          let y = p.oy + Math.cos(t * p.freq * 0.9 + p.phase * 1.7) * CONFIG.drift;
+
+          const dx = x - mouse.x;
+          const dy = y - mouse.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < CONFIG.repelRadius * CONFIG.repelRadius) {
+            const d = Math.sqrt(d2) || 1;
+            const f = (1 - d / CONFIG.repelRadius) * CONFIG.repelForce;
+            p.vx += (dx / d) * f;
+            p.vy += (dy / d) * f;
+          }
+          p.vx *= 0.9;
+          p.vy *= 0.9;
+          x += p.vx;
+          y += p.vy;
+
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(x, y, CONFIG.particleSize, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        for (const b of glitchBands) {
+          const slice = ctx.getImageData(0, Math.max(0, b.y | 0), portraitCanvas.width, b.h);
+          ctx.putImageData(slice, b.shift, Math.max(0, b.y | 0));
+          ctx.fillStyle = `rgba(255,255,255,${0.05 * b.life})`;
+          ctx.fillRect(0, b.y, W, b.h);
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      portraitCanvas.addEventListener('pointermove', (event) => {
+        const rect = portraitCanvas.getBoundingClientRect();
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+      });
+
+      portraitCanvas.addEventListener('pointerleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+
+      const fileInput = document.getElementById('fileInput');
+      if (fileInput) {
+        fileInput.addEventListener('change', (event) => {
+          const file = event.target.files?.[0];
+          if (!file) return;
+          const img = new Image();
+          img.onload = () => buildFromImage(img);
+          img.src = URL.createObjectURL(file);
+        });
+      }
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => buildFromImage(img);
+      img.onerror = () => console.warn('Set CONFIG.imageUrl to a same-origin photo, or use the Choose photo button.');
+      img.src = CONFIG.imageUrl;
     }
 
     // 4. Gym Gains Feed Dynamic Handler
@@ -1499,7 +1716,7 @@
           video.playbackRate = playbackSpeeds[clickCount];
           
           // Dynamic UI feedback based on speed tier
-          banner.innerHTML = `[ SPEED: ${playbackSpeeds[clickCount]}X // CLICK AGAIN ]`;
+          banner.innerHTML = `/ SPEED: ${playbackSpeeds[clickCount]}X // CLICK AGAIN`;
           banner.className = "mb-3 px-3 py-1 bg-purple-900/90 border border-purple-400 rounded text-[11px] font-mono text-purple-200 tracking-wider shadow-[0_0_12px_rgba(168,85,247,0.6)]";
           
           // Add subtle jitter/glow scaling as speed increases
@@ -1534,7 +1751,7 @@
       video.style.transform = "scale(1)";
       overlay.classList.add('hidden');
       
-      banner.innerHTML = "[ CLICK ME: DANCE FASTER ]";
+      banner.innerHTML = "/ CLICK ME: DANCE FASTER";
       banner.className = "mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]";
     }
     function getAcademicStatus() {
