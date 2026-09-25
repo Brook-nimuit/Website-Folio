@@ -334,7 +334,7 @@
 
   <div id="spotlight"></div>
 
-  <!-- Page Loader Overlay (Switching Tab Simulation) -->
+  <!-- Page Loader Overlay -->
   <div id="loader-overlay" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center transition-opacity duration-700 opacity-100 pointer-events-auto">
     <div class="relative w-36 h-44 mb-5" style="transform-style: preserve-3d; perspective: 1000px;">
       <div class="absolute inset-0 rounded-[1.75rem] border-2 border-synth-purple border-t-synth-neonMagenta animate-spin"></div>
@@ -357,24 +357,23 @@
           </div>
           <div>
             <h1 class="font-hud font-bold text-xl tracking-wider text-white glitch-hover cursor-pointer">BROOK NETSANET ANIMUT</h1>
-            
             <p class="font-mono text-xs text-synth-purple/80">DATA SCIENCE @ PURDUE</p>
           </div>
         </div>
 
-        <!-- Chamfered HUD Tabs -->
+        <!-- Chamfered HUD Tabs (Home -> About Me -> Projects -> Experience) -->
         <nav class="flex flex-wrap justify-center gap-2 font-hud text-sm font-semibold tracking-wider">
           <button onclick="switchTab('home')" id="tab-home" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple bg-synth-purple/20 text-white shadow-[0_0_10px_rgba(157,78,221,0.4)] hover:bg-synth-purple/40 transition">
             / HOME
+          </button>
+          <button onclick="switchTab('about')" id="tab-about" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
+            / ABOUT ME
           </button>
           <button onclick="switchTab('projects')" id="tab-projects" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
             / PROJECTS
           </button>
           <button onclick="switchTab('experiences')" id="tab-experiences" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
             / EXPERIENCE
-          </button>
-          <button onclick="switchTab('about')" id="tab-about" class="hud-tab hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender/70 hover:border-synth-purple hover:text-white transition">
-            / ABOUT ME
           </button>
         </nav>
 
@@ -417,15 +416,15 @@
 
             <!-- Action CTAs -->
             <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2 font-hud">
+              <button onclick="switchTab('about')" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-purple/20 border border-synth-purple/50 text-synth-cyan font-bold tracking-wider hover:bg-synth-purple/30 transition flex items-center justify-center gap-2">
+                <i data-lucide="user-round" class="w-4 h-4"></i> / ABOUT ME
+              </button>
               <button onclick="switchTab('projects')" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-purple text-white font-bold tracking-wider hover:bg-synth-neonMagenta shadow-[0_0_15px_rgba(157,78,221,0.6)] transition flex items-center justify-center gap-2">
-                <i data-lucide="code-2" class="w-4 h-4"></i> VIEW PROJECTS
+                <i data-lucide="code-2" class="w-4 h-4"></i> / VIEW PROJECTS
               </button>
               <button onclick="switchTab('experiences')" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-panel border border-synth-purple/60 text-synth-lavender font-bold tracking-wider hover:border-synth-neonMagenta hover:text-white transition flex items-center justify-center gap-2">
-                <i data-lucide="briefcase-business" class="w-4 h-4"></i> VIEW EXPERIENCES
+                <i data-lucide="briefcase-business" class="w-4 h-4"></i> / VIEW EXPERIENCES
               </button>
-              <a href="#about" onclick="switchTab('about'); return false;" class="hud-chamfer-btn w-full sm:w-auto px-6 py-3 bg-synth-purple/20 border border-synth-purple/50 text-synth-cyan font-bold tracking-wider hover:bg-synth-purple/30 transition flex items-center justify-center gap-2">
-                <i data-lucide="user-round" class="w-4 h-4"></i> ABOUT ME
-              </a>
             </div>
           </div>
 
@@ -446,6 +445,204 @@
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <!-- ================= ABOUT ME TAB ================= -->
+      <section id="view-about" class="tab-view hidden space-y-8">
+        <div class="border-b border-synth-purple/30 pb-4">
+          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">/ ABOUT ME</h2>
+          <p class="font-mono text-xs text-synth-purple">Learn more about me</p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Origin Bio Card -->
+            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
+              <div class="flex items-center justify-between border-b border-synth-purple/20 pb-2">
+                <span class="font-mono text-xs text-white font-bold">/ Me</span>
+                <span class="font-mono text-[10px] text-synth-cyan">Ethiopia -> Purdue</span>
+              </div>
+              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
+                I grew up in Addis Ababa, where I was fortunate to gain real-world industry exposure outside of high school early on. I'm passionate about teaching and love learning new concepts, dedicating much of my free time to learning coding with AI,
+                I'm an avid chess player, gym rat and a Weeknd-music enthusiast.
+              </p>
+            </div>
+
+            <!-- Contacts Card -->
+            <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
+                  <span class="font-mono text-xs text-white">/ CONTACTS</span>
+                  <span class="font-mono text-[10px] text-white/70">HMU</span>
+                </div>
+                
+              </div>
+              <div class="flex flex-wrap gap-3 font-hud text-sm text-synth-lavender">
+                <a href="mailto:brook2022nets@gmail.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ EMAIL</a>
+                <a href="https://www.linkedin.com/in/brook-animut/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ LINKEDIN</a>
+                <a href="https://www.instagram.com/br.ook2281/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ INSTAGRAM</a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Technical Skills Matrix -->
+          <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-5 font-mono text-xs space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
+            <div class="flex items-center justify-between border-b border-synth-purple/30 pb-2">
+              <span class="font-bold tracking-[0.18em] text-white">/ Technical Skills Pool</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Languages &amp; Engines</span>
+                <div class="flex flex-wrap gap-1.5 text-[11px]">
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Python</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">JavaScript</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Java</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">HTML/CSS</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Relational SQL</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Ursina Engine</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Data &amp; Analytics</span>
+                <div class="flex flex-wrap gap-1.5 text-[11px]">
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Pandas</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">NumPy</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Matplotlib</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">A/B Testing</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Google Analytics</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Spreadsheets</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Frameworks &amp; Platforms</span>
+                <div class="flex flex-wrap gap-1.5 text-[11px]">
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Streamlit</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Firebase</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Web Components</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">LLMs</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">AI Workflows</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Tooling &amp; QA</span>
+                <div class="flex flex-wrap gap-1.5 text-[11px]">
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Git</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">GitHub</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Software QA</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Code Review</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Testing</span>
+                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Reporting</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TELEMETRY GRIDS: GITHUB, SPOTIFY, CHESS -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- GitHub Commits Stream Card -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                  </span>
+                  <span class="text-purple-300 font-bold">/ GIT_COMMIT_STREAM</span>
+                </div>
+                <span id="gitTime" class="text-[10px] text-purple-400/60">SYNCING...</span>
+              </div>
+
+              <div id="gitCommitStream" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                <p class="text-purple-200/80 text-[11px] leading-relaxed italic bg-purple-950/40 p-2 rounded border border-purple-900/40 truncate">
+                  "Fetching latest push payload..."
+                </p>
+              </div>
+
+              <div class="pt-1 flex justify-end">
+                <a id="gitCommitUrl" href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-[10px] text-purple-400 hover:text-purple-200 transition-colors">
+                  / VIEW ON GITHUB ↗
+                </a>
+              </div>
+            </div>
+
+            <!-- Spotify Live Card -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <div id="spotifySignal" class="flex items-end gap-0.5 h-3 opacity-100">
+                    <div class="w-0.5 bg-emerald-400 h-full animate-[bounce_1s_infinite_100ms]"></div>
+                    <div class="w-0.5 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
+                    <div class="w-0.5 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
+                  </div>
+                  <span class="text-purple-300 font-bold">/ AUDIO_STREAM</span>
+                </div>
+                <span id="spotifyStatusTag" class="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">LIVE_STREAM</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="relative w-12 h-12 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
+                  <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover grayscale transition-all" />
+                </div>
+
+                <div class="space-y-0.5 overflow-hidden">
+                  <p id="spotifySong" class="text-purple-200 font-bold text-xs truncate">FETCHING_AUDIO...</p>
+                  <p id="spotifyArtist" class="text-purple-400/80 text-[11px] truncate">---</p>
+                  <p id="spotifyAlbum" class="text-[10px] text-purple-500/60 truncate">---</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Spotify Last 5 Tracks Buffer Card -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-purple-300 font-bold">/ RECENTLY_PLAYED_AUDIO</span>
+                </div>
+                <span class="text-[10px] text-emerald-400">LAST 5 TRACKS</span>
+              </div>
+
+              <div id="recentTracksList" class="space-y-2">
+                <div class="text-[11px] text-purple-400/60 italic">Waiting for playback stream...</div>
+              </div>
+            </div>
+
+            <!-- Chess.com Matches Replay Card -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-purple-300 font-bold">/ CHESS_RECENT_MATCHES</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <button id="prevChess" onclick="changeChessGame(-1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all" disabled>
+                    ←
+                  </button>
+                  <span id="chessCounter" class="text-[10px] text-purple-400/80">1 / 5</span>
+                  <button id="nextChess" onclick="changeChessGame(1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
+                    →
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center text-[10px] text-purple-300/80">
+                <span id="chessMatchDetails">FETCHING_GAMES...</span>
+                <span id="chessOutcome" class="px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-200">---</span>
+              </div>
+
+              <div class="w-full aspect-square max-w-[320px] mx-auto rounded overflow-hidden border border-purple-500/20 bg-purple-950/40">
+                <iframe id="chessLiveFrame" title="Latest chess match" class="w-full h-full border-0 bg-[#0d0716]" loading="lazy"></iframe>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -639,14 +836,14 @@
             / WORK EXPERIENCE
           </button>
           <button onclick="switchExpSubTab('lastSeen')" id="btn-lastSeen" class="pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white">
-            / LEADERSHIP & ACTIVITIES
+            / LEADERSHIP &amp; ACTIVITIES
           </button>
         </div>
 
         <div id="sub-internships" class="space-y-5 pt-4">
           <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-              <h3 class="font-mono text-sm font-bold text-white">Titis Cafe | IT Lead & Full-Stack Developer</h3>
+              <h3 class="font-mono text-sm font-bold text-white">Titis Cafe | IT Lead &amp; Full-Stack Developer</h3>
               <span class="text-[10px] font-mono text-synth-purple">Jun 2026 – Jul 2026 | AA, Ethiopia</span>
             </div>
             <p class="mt-2 font-mono text-[11px] text-synth-cyan">Skills: JavaScript, HTML/CSS, Firebase, Google Analytics</p>
@@ -710,179 +907,13 @@
 
           <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-              <h3 class="font-mono text-sm font-bold text-white">Flipper International SAT Math Club | Founder & Vice President</h3>
+              <h3 class="font-mono text-sm font-bold text-white">Flipper International SAT Math Club | Founder &amp; Vice President</h3>
               <span class="text-[10px] font-mono text-synth-purple">2024 – 2026 | AA, Ethiopia</span>
             </div>
             <p class="mt-2 font-mono text-[11px] text-synth-cyan">Focus: Advanced Quantitative Techniques, Peer Mentorship</p>
             <ul class="mt-3 space-y-2 font-mono text-xs text-synth-lavender/80 list-disc pl-5">
               <li>Founded peer mentorship program teaching advanced quantitative techniques and logic strategies.</li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= ABOUT ME TAB ================= -->
-      <section id="view-about" class="tab-view hidden space-y-8">
-        <div class="space-y-6">
-          <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
-              <div class="flex items-center gap-2 border-b border-synth-purple/20 pb-2">
-                <span class="font-mono text-xs text-white font-bold">// ME //</span>
-              </div>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                I grew up in Addis Ababa, where I was lucky to get real-world exposure outside the classroom early on. I’m passionate about teaching, learning, and constantly exploring new ideas. A lot of my free time has gone into learning and building across data, software, math, and AI.
-              </p>
-            </div>
-
-            <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-5 font-mono text-xs space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
-              <div class="flex items-center justify-between border-b border-synth-purple/30 pb-2">
-                <span class="font-bold tracking-[0.18em] text-white">// I can use</span>
-                <span class="text-[10px] text-white/70"></span>
-              </div>
-
-              <div class="space-y-3">
-                <div>
-                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Languages &amp; Engines</span>
-                  <div class="flex flex-wrap gap-1.5 text-[11px]">
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Python</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">JavaScript</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Java</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">HTML/CSS</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Relational SQL</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Ursina Engine</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Data &amp; Analytics</span>
-                  <div class="flex flex-wrap gap-1.5 text-[11px]">
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Pandas</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">NumPy</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Matplotlib</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">A/B Testing</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Google Analytics</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Spreadsheets</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Frameworks &amp; Platforms</span>
-                  <div class="flex flex-wrap gap-1.5 text-[11px]">
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Streamlit</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Firebase</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Web Components</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">LLMs</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">AI Workflows</span>
-                  </div>
-                </div>
-
-                <div>
-                  <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Tooling, QA &amp; Workflows</span>
-                  <div class="flex flex-wrap gap-1.5 text-[11px]">
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Git</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">GitHub</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Software QA</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Code Review</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Testing</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Reporting</span>
-                    <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">PowerPoint</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5">
-              <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
-                <span class="font-mono text-xs text-white">/ CONTACTS</span>
-                <span class="font-mono text-[10px] text-white/70">AVAILABLE FOR COLLABS + JOBS</span>
-              </div>
-              <div class="flex flex-wrap gap-4 font-hud text-sm text-synth-lavender">
-                <a href="mailto:brook2022nets@gmail.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">EMAIL</a>
-                <a href="https://www.linkedin.com/in/brook-animut/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">LINKEDIN</a>
-                <a href="https://www.instagram.com/br.ook2281/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">INSTAGRAM</a>
-              </div>
-            </div>
-
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
-              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
-                  </span>
-                  <span class="text-purple-300 font-bold">// GIT_LAST_COMMIT</span>
-                </div>
-                <span id="gitTime" class="text-[10px] text-purple-400/60">SYNCING...</span>
-              </div>
-
-              <div class="space-y-1.5">
-                <div class="flex items-center justify-between gap-3">
-                  <span id="gitRepo" class="text-purple-300 font-bold text-sm tracking-wide">Brook-nimuit / ---</span>
-                  <span id="gitBranch" class="text-[10px] bg-purple-900/40 border border-purple-500/20 px-1.5 py-0.5 rounded text-purple-400">main</span>
-                </div>
-
-                <p id="gitMessage" class="text-purple-200/80 text-[11px] leading-relaxed italic bg-purple-950/40 p-2 rounded border border-purple-900/40 truncate">
-                  "Fetching latest push payload..."
-                </p>
-              </div>
-
-              <div class="pt-1 flex justify-end">
-                <a id="gitCommitUrl" href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-[10px] text-purple-400 hover:text-purple-200 transition-colors">
-                  / VIEW ON GITHUB ↗
-                </a>
-              </div>
-            </div>
-
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
-              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <div id="spotifySignal" class="flex items-end gap-0.5 h-3 opacity-100">
-                    <div class="w-0.5 bg-emerald-400 h-full animate-[bounce_1s_infinite_100ms]"></div>
-                    <div class="w-0.5 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
-                    <div class="w-0.5 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
-                  </div>
-                  <span class="text-purple-300 font-bold">// AUX</span>
-                </div>
-                <span id="spotifyStatusTag" class="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">LIVE_STREAM</span>
-              </div>
-
-              <div class="flex items-center gap-3">
-                <div class="relative w-12 h-12 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
-                  <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover grayscale transition-all" />
-                </div>
-
-                <div class="space-y-0.5 overflow-hidden">
-                  <p id="spotifySong" class="text-purple-200 font-bold text-xs truncate">FETCHING_AUDIO...</p>
-                  <p id="spotifyArtist" class="text-purple-400/80 text-[11px] truncate">---</p>
-                  <p id="spotifyAlbum" class="text-[10px] text-purple-500/60 truncate">---</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
-              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <span class="text-purple-300 font-bold">// CHESS</span>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <button id="prevChessGame" onclick="changeChessGame(-1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
-                    ←
-                  </button>
-                  <span id="chessGameCounter" class="text-[10px] text-purple-400/80">1 / 5</span>
-                  <button id="nextChessGame" onclick="changeChessGame(1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
-                    →
-                  </button>
-                </div>
-              </div>
-
-              <div class="flex justify-between items-center text-[10px] text-purple-300/80">
-                <span id="chessMatchInfo">FETCHING_GAMES...</span>
-                <span id="chessResult" class="px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-200">---</span>
-              </div>
-
-              <div id="pgnBoard" class="w-full aspect-square max-w-[320px] mx-auto rounded overflow-hidden border border-purple-500/20 bg-purple-950/40"></div>
-            </div>
           </div>
         </div>
       </section>
@@ -898,23 +929,18 @@
     <footer class="mt-20 border-t border-purple-900/50 pt-8 pb-12 text-center text-xs text-purple-400/60 font-mono">
       <p class="mb-4">/ SYSTEM END // ALL RIGHTS RESERVED</p>
       
-      <!-- DANCER CONTAINER -->
-      <div class="flex flex-col items-center justify-center my-6 select-none">
-        <!-- Interactive Dancer Wrapper -->
+      <!-- DANCER CONTAINER (Only revealed at bottom of page) -->
+      <div id="billyBounceEmote" class="hidden flex-col items-center justify-center my-6 select-none">
         <div id="dancerWrapper" onclick="speedUpDancer()" class="cursor-pointer group relative flex flex-col items-center">
-          
-          <!-- Glitch / Status Banner -->
           <div id="statusBanner" class="mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]">
             / CLICK ME: DANCE FASTER
           </div>
 
-          <!-- Video Element -->
           <video id="dancerVideo" autoplay loop muted playsinline class="w-36 h-auto pointer-events-none transition-all duration-300 drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">
             <source src="billy_final.webm" type="video/webm">
             <img id="dancerFallback" src="billy_gif.gif" alt="Billy Bounce" class="w-36 h-auto">
           </video>
 
-          <!-- CRT Overlay / Error Effect -->
           <div id="errorOverlay" class="hidden absolute inset-0 bg-red-950/40 border border-red-500/80 rounded flex items-center justify-center backdrop-blur-[1px]">
             <span class="font-mono text-xs font-bold text-red-400 tracking-widest animate-pulse">OVERLOAD</span>
           </div>
@@ -928,7 +954,7 @@
   <script>
     const loader = document.getElementById('loader-overlay');
     const appShell = document.querySelector('.bg-grid-pattern');
-    const loaderVisibleMs = 500;
+    const loaderVisibleMs = 400;
     let loaderTimeout = null;
 
     function showLoader(visibleFor = loaderVisibleMs) {
@@ -943,45 +969,62 @@
       }, visibleFor);
     }
 
-    async function fetchGithubCommit() {
-      const USERNAME = 'Brook-nimuit';
-      const url = `https://api.github.com/users/${USERNAME}/events/public`;
+    // --- 1. GITHUB TELEMETRY ---
+    const GITHUB_USERNAME = 'Brook-nimuit';
 
-      const repoEl = document.getElementById('gitRepo');
-      const messageEl = document.getElementById('gitMessage');
+    async function fetchGithubCommitStream() {
+      const container = document.getElementById('gitCommitStream');
       const timeEl = document.getElementById('gitTime');
-      const branchEl = document.getElementById('gitBranch');
       const urlEl = document.getElementById('gitCommitUrl');
+      if (!container) return;
 
       try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('API Rate Limited or User Not Found');
-
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public`);
+        if (!res.ok) throw new Error('GitHub API error');
         const events = await res.json();
-        const lastPush = events.find(event => event.type === 'PushEvent');
 
-        if (lastPush && lastPush.payload && lastPush.payload.commits && lastPush.payload.commits.length > 0) {
-          const repoName = lastPush.repo.name.replace(`${USERNAME}/`, '');
-          const commitMessage = lastPush.payload.commits[lastPush.payload.commits.length - 1].message;
-          const refBranch = lastPush.payload.ref.replace('refs/heads/', '');
-          const commitTime = new Date(lastPush.created_at);
-          const commitSha = lastPush.payload.commits[lastPush.payload.commits.length - 1].sha;
+        const pushEvents = events.filter(e => e.type === 'PushEvent');
+        const commitList = [];
 
-          repoEl.innerText = `${USERNAME} / ${repoName}`;
-          messageEl.innerText = `"${commitMessage}"`;
-          branchEl.innerText = refBranch;
-          timeEl.innerText = timeAgo(commitTime);
-          urlEl.href = `https://github.com/${lastPush.repo.name}/commit/${commitSha}`;
+        for (const push of pushEvents) {
+          const repoName = push.repo.name.replace(`${GITHUB_USERNAME}/`, '');
+          for (const commit of push.payload.commits.reverse()) {
+            commitList.push({
+              repo: repoName,
+              message: commit.message,
+              time: new Date(push.created_at),
+              sha: commit.sha.substring(0, 7),
+              url: `https://github.com/${push.repo.name}/commit/${commit.sha}`
+            });
+            if (commitList.length >= 5) break;
+          }
+          if (commitList.length >= 5) break;
+        }
+
+        if (commitList.length > 0) {
+          if (timeEl) timeEl.innerText = timeAgo(commitList[0].time);
+          if (urlEl) urlEl.href = commitList[0].url;
+
+          container.innerHTML = commitList.map(c => `
+            <div class="flex items-start justify-between border-b border-purple-900/40 pb-2 text-[11px]">
+              <div class="space-y-0.5 truncate pr-2">
+                <div class="flex items-center gap-1.5 font-bold text-purple-300">
+                  <span>${c.repo}</span>
+                  <span class="text-[9px] bg-purple-900/60 px-1 rounded text-purple-400 font-mono">${c.sha}</span>
+                </div>
+                <p class="text-purple-200/80 truncate italic">"${c.message}"</p>
+              </div>
+              <a href="${c.url}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-purple-400 hover:text-purple-200 shrink-0 font-mono mt-0.5">
+                VIEW ↗
+              </a>
+            </div>
+          `).join('');
         } else {
-          repoEl.innerText = `${USERNAME} / banimut.com`;
-          messageEl.innerText = '"Initial deployment and API HUD setup"';
-          timeEl.innerText = 'RECENT';
+          container.innerHTML = '<span class="text-[10px] text-purple-500/60">NO_RECENT_COMMITS</span>';
         }
       } catch (err) {
         console.error('GitHub API error:', err);
-        repoEl.innerText = `${USERNAME} / banimut.com`;
-        messageEl.innerText = '"HUD telemetry pipeline established"';
-        timeEl.innerText = 'ACTIVE';
+        container.innerHTML = '<span class="text-[10px] text-purple-500/60">GIT_FEED_OFFLINE</span>';
       }
     }
 
@@ -1000,8 +1043,47 @@
       return 'Just now';
     }
 
+    // --- 2. SPOTIFY LIVE & 5-TRACK BUFFER ---
+    const DISCORD_ID = '1035876890126336061';
+    const CACHE_KEY = 'banimut_recent_tracks';
+
+    function updateRecentTracks(newTrack) {
+      let tracks = JSON.parse(localStorage.getItem(CACHE_KEY) || '[]');
+
+      if (tracks.length === 0 || tracks[0].song !== newTrack.song) {
+        tracks.unshift(newTrack);
+        if (tracks.length > 5) tracks.pop();
+        localStorage.setItem(CACHE_KEY, JSON.stringify(tracks));
+      }
+      renderRecentTracksList(tracks);
+    }
+
+    function renderRecentTracksList(tracks) {
+      const container = document.getElementById('recentTracksList');
+      if (!container) return;
+
+      if (tracks.length === 0) {
+        container.innerHTML = '<div class="text-[11px] text-purple-400/60 italic">Waiting for playback stream...</div>';
+        return;
+      }
+
+      container.innerHTML = tracks.map((track, i) => `
+        <div class="flex items-center justify-between bg-purple-900/20 p-2 rounded border border-purple-500/10 hover:border-purple-500/30 transition-all">
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <img src="${track.albumArt}" alt="art" class="w-8 h-8 rounded object-cover shrink-0 ${i === 0 ? 'border border-emerald-500/40' : 'opacity-60'}" />
+            <div class="truncate">
+              <p class="text-purple-200 font-bold text-[11px] truncate">${track.song}</p>
+              <p class="text-purple-400/80 text-[10px] truncate">${track.artist}</p>
+            </div>
+          </div>
+          <span class="text-[9px] font-mono shrink-0 ${i === 0 ? 'text-emerald-400' : 'text-purple-500/60'}">
+            ${i === 0 ? '/ NOW' : '#' + (i + 1)}
+          </span>
+        </div>
+      `).join('');
+    }
+
     async function fetchSpotifyLive() {
-      const DISCORD_ID = '1035876890126336061';
       const url = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
       const fallbackArt = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E";
 
@@ -1029,6 +1111,12 @@
           statusTagEl.innerText = 'PLAYING';
           statusTagEl.className = 'text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded';
           signalEl.style.opacity = '1';
+
+          updateRecentTracks({
+            song: spotify.song,
+            artist: spotify.artist,
+            albumArt: spotify.album_art_url
+          });
         } else {
           songEl.innerText = 'IDLE';
           artistEl.innerText = 'No track playing on Spotify';
@@ -1038,450 +1126,87 @@
           statusTagEl.innerText = 'PAUSED';
           statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
           signalEl.style.opacity = '0.2';
+
+          renderRecentTracksList(JSON.parse(localStorage.getItem(CACHE_KEY) || '[]'));
         }
       } catch (err) {
         console.error('Lanyard API error:', err);
         songEl.innerText = 'SPOTIFY_OFFLINE';
         artistEl.innerText = 'API unavailable';
-        albumEl.innerText = 'RETRYING';
-        albumArtEl.src = fallbackArt;
-
-        statusTagEl.innerText = 'PAUSED';
-        statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
-        signalEl.style.opacity = '0.2';
+        renderRecentTracksList(JSON.parse(localStorage.getItem(CACHE_KEY) || '[]'));
       }
     }
 
-    let chessGames = [];
-    let currentChessIndex = 0;
+    // --- 3. CHESS.COM MATCH TELEMETRY ---
+    const CHESS_USER = 'Balandor_Nacho';
+    let lastFiveGames = [];
+    let activeGameIdx = 0;
 
-    async function initChessTelemetry() {
-      const CHESS_USERNAME = 'Balandor_Nacho';
-      const normalizedUsername = CHESS_USERNAME.toLowerCase();
-
+    async function syncChessMatches() {
       try {
-        const archiveRes = await fetch(`https://api.chess.com/pub/player/${normalizedUsername}/games/archives`);
-        const archiveData = await archiveRes.json();
+        const archRes = await fetch(`https://api.chess.com/pub/player/${CHESS_USER}/games/archives`);
+        const archData = await archRes.json();
+        if (!archData.archives?.length) return;
 
-        if (!archiveData.archives || archiveData.archives.length === 0) {
-          renderLocalChessFallback(CHESS_USERNAME);
-          return;
-        }
-
-        const latestMonthUrl = archiveData.archives[archiveData.archives.length - 1];
-        const gamesRes = await fetch(latestMonthUrl);
+        const latestMonth = archData.archives[archData.archives.length - 1];
+        const gamesRes = await fetch(latestMonth);
         const gamesData = await gamesRes.json();
 
-        chessGames = gamesData.games.slice(-5).reverse();
-
-        if (chessGames.length > 0) {
-          renderChessGame(0, CHESS_USERNAME);
-        } else {
-          renderLocalChessFallback(CHESS_USERNAME);
+        lastFiveGames = (gamesData.games || []).slice(-5).reverse();
+        if (lastFiveGames.length > 0) {
+          renderChessBoard(0);
         }
       } catch (err) {
-        console.error('Chess API Error:', err);
-        renderLocalChessFallback(CHESS_USERNAME);
-        const matchInfo = document.getElementById('chessMatchInfo');
-        if (matchInfo) {
-          matchInfo.innerText = 'CHESS_TELEMETRY_OFFLINE';
-        }
+        console.error('Chess telemetry error:', err);
       }
     }
 
-    function renderLocalChessFallback(username = 'Balandor_Nacho') {
-      const boardEl = document.getElementById('pgnBoard');
-      if (!boardEl) return;
+    function renderChessBoard(index) {
+      if (!lastFiveGames[index]) return;
+      activeGameIdx = index;
+      const game = lastFiveGames[index];
+      const gameId = game.url.split('/').pop().split('?')[0];
 
-      const pieceMap = {
-        w: { p: '♙', r: '♖', n: '♘', b: '♗', q: '♕', k: '♔' },
-        b: { p: '♟', r: '♜', n: '♞', b: '♝', q: '♛', k: '♚' }
-      };
-
-      const fallbackBoard = [
-        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
-        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', ''],
-        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
-        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
-      ];
-
-      const squares = [];
-      for (let row = 0; row < 8; row++) {
-        for (let col = 0; col < 8; col++) {
-          const piece = fallbackBoard[row][col];
-          const isDark = (row + col) % 2 === 1;
-          squares.push(`<div class="chess-square ${isDark ? 'dark' : 'light'}">${piece ? `<span class="chess-piece">${piece}</span>` : ''}</div>`);
-        }
+      const frame = document.getElementById('chessLiveFrame');
+      if (frame) {
+        frame.src = `https://www.chess.com/emboard?id=${gameId}`;
       }
 
-      boardEl.innerHTML = `
-        <div class="chess-board">${squares.join('')}</div>
-        <div class="mt-2 text-center text-[10px] text-purple-300/80 font-mono">${username.toLowerCase() === 'balandor_nacho' ? 'username live status: offline' : 'CHESS_OFFLINE'}</div>
-      `;
-    }
-
-    function renderChessBoardFromPgn(pgn) {
-      const boardEl = document.getElementById('pgnBoard');
-      if (!boardEl || !window.Chess || !pgn) return;
-
-      try {
-        const chess = new window.Chess();
-        chess.loadPgn(pgn);
-        const board = chess.board();
-        const pieceMap = {
-          w: { p: '♙', r: '♖', n: '♘', b: '♗', q: '♕', k: '♔' },
-          b: { p: '♟', r: '♜', n: '♞', b: '♝', q: '♛', k: '♚' }
-        };
-
-        const cells = [];
-        for (let row = 0; row < 8; row++) {
-          for (let col = 0; col < 8; col++) {
-            const square = board[row][col];
-            const isDark = (row + col) % 2 === 1;
-            const piece = square ? (pieceMap[square.color] && pieceMap[square.color][square.type]) || '' : '';
-            cells.push('<div class="chess-square ' + (isDark ? 'dark' : 'light') + '">' + (piece ? '<span class="chess-piece">' + piece + '</span>' : '') + '</div>');
-          }
-        }
-
-        boardEl.innerHTML = '<div class="chess-board">' + cells.join('') + '</div>';
-      } catch (error) {
-        console.error('Chess board render error:', error);
-        renderLocalChessFallback();
-      }
-    }
-
-    function renderChessGame(index, username) {
-      if (index < 0 || index >= chessGames.length) return;
-
-      currentChessIndex = index;
-      const game = chessGames[index];
-      const pgnBoard = document.getElementById('pgnBoard');
-
-      if (pgnBoard) {
-        pgnBoard.innerHTML = '';
-      }
-
-      if (game && game.pgn) {
-        renderChessBoardFromPgn(game.pgn);
-      } else {
-        renderLocalChessFallback(username);
-        const matchInfo = document.getElementById('chessMatchInfo');
-        if (matchInfo) {
-          matchInfo.innerText = 'CHESS_TELEMETRY_OFFLINE';
-        }
-      }
-
-      const isWhite = game.white.username.toLowerCase() === username.toLowerCase();
+      const isWhite = game.white.username.toLowerCase() === CHESS_USER.toLowerCase();
       const player = isWhite ? game.white : game.black;
       const opponent = isWhite ? game.black : game.white;
 
-      const matchInfo = document.getElementById('chessMatchInfo');
-      if (matchInfo) {
-        matchInfo.innerText = `${isWhite ? '♔ White' : '♚ Black'} vs ${opponent.username} (${opponent.rating})`;
+      const detailsEl = document.getElementById('chessMatchDetails');
+      if (detailsEl) {
+        detailsEl.innerText = `${isWhite ? '♔ White' : '♚ Black'} vs ${opponent.username} (${opponent.rating})`;
       }
 
-      const resultTag = document.getElementById('chessResult');
-      if (resultTag) {
-        if (player.result === 'win') {
-          resultTag.innerText = 'VICTORY';
-          resultTag.className = 'px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-bold';
-        } else {
-          resultTag.innerText = (player.result || 'draw').toUpperCase();
-          resultTag.className = 'px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-300';
-        }
+      const outcomeEl = document.getElementById('chessOutcome');
+      if (outcomeEl) {
+        outcomeEl.innerText = player.result.toUpperCase();
+        outcomeEl.className = player.result === 'win'
+          ? 'px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-bold text-[10px]'
+          : 'px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-300 text-[10px]';
       }
 
-      const counter = document.getElementById('chessGameCounter');
+      const counter = document.getElementById('chessCounter');
       if (counter) {
-        counter.innerText = `${index + 1} / ${chessGames.length}`;
+        counter.innerText = `${index + 1} / ${lastFiveGames.length}`;
       }
 
-      const prevBtn = document.getElementById('prevChessGame');
-      const nextBtn = document.getElementById('nextChessGame');
+      const prevBtn = document.getElementById('prevChess');
+      const nextBtn = document.getElementById('nextChess');
       if (prevBtn) prevBtn.disabled = index === 0;
-      if (nextBtn) nextBtn.disabled = index === chessGames.length - 1;
+      if (nextBtn) nextBtn.disabled = index === lastFiveGames.length - 1;
     }
 
     function changeChessGame(direction) {
-      const newIndex = currentChessIndex + direction;
-      const username = 'Balandor_Nacho';
-      renderChessGame(newIndex, username);
+      const newIndex = activeGameIdx + direction;
+      if (newIndex < 0 || newIndex >= lastFiveGames.length) return;
+      renderChessBoard(newIndex);
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchGithubCommit();
-      fetchSpotifyLive();
-      initChessTelemetry();
-    });
-
-    setInterval(fetchSpotifyLive, 10000);
-
-    window.addEventListener('load', () => {
-      if (loader) {
-        showLoader(loaderVisibleMs);
-        setTimeout(() => {
-          if (appShell) {
-            appShell.style.opacity = '1';
-          }
-        }, 120);
-      }
-    });
-
-    function chooseCalendarEvent(events, now = new Date()) {
-      if (window.calendarLogic && typeof window.calendarLogic.chooseCalendarEvent === 'function') {
-        return window.calendarLogic.chooseCalendarEvent(events, now);
-      }
-
-      const currentTime = now instanceof Date ? now : new Date(now);
-      if (!Array.isArray(events) || Number.isNaN(currentTime.getTime())) return null;
-
-      const upcoming = events
-        .map((event) => ({ ...event, start: event && event.start ? new Date(event.start) : null }))
-        .filter((event) => event.start && !Number.isNaN(event.start.getTime()) && event.start >= currentTime)
-        .sort((a, b) => a.start - b.start);
-
-      if (currentTime.getUTCHours() < 12) {
-        const noonPriority = upcoming.filter((event) => event.start.getUTCHours() >= 12);
-        return noonPriority[0] || upcoming[0] || null;
-      }
-
-      return upcoming[0] || null;
-    }
-
-    function sanitizeCalendarText(summary) {
-      if (!summary) return '';
-      return summary
-        .replace(/^updated\s*:\s*/i, '')
-        .replace(/#location\s*.*$/gi, '')
-        .replace(/#status\s*/gi, '')
-        .replace(/#\w+\s*/g, '')
-        .replace(/^[-•*\s]+/, '')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
-    function getLocationFromEvent(event) {
-      const summary = event && event.summary ? event.summary : '';
-      const titleLocation = summary.match(/#location\s+(.+)/i)?.[1]?.trim();
-      const eventLocation = (event && event.location ? event.location : '').trim();
-      const normalized = (eventLocation || titleLocation || 'West Lafayette, IN').trim();
-      return normalized.replace(/^\s*[-•*]\s*/, '').replace(/\s+/g, ' ');
-    }
-
-    const calendarConfig = {
-      enableRemoteCalendar: true,
-      apiKey: '',
-      calendarId: 'brook2022nets@gmail.com',
-      fallbackEvents: [
-        { summary: 'GYM SESSION', location: 'WEST LAFAYETTE ATHLETIC CLUB', startHour: 12, endHour: 13 },
-        { summary: 'WORK SESSION', location: 'REMOTE', startHour: 14, endHour: 15 }
-      ]
-    };
-
-    function getFallbackCalendarEvent(now = new Date()) {
-      if (window.calendarLogic && typeof window.calendarLogic.getFallbackCalendarEvent === 'function') {
-        return window.calendarLogic.getFallbackCalendarEvent(now);
-      }
-
-      const startOfDay = new Date(now);
-      startOfDay.setHours(0, 0, 0, 0);
-
-      const events = calendarConfig.fallbackEvents.map((event) => ({
-        summary: event.summary,
-        location: event.location,
-        start: new Date(startOfDay.getTime() + event.startHour * 60 * 60 * 1000),
-        end: new Date(startOfDay.getTime() + event.endHour * 60 * 60 * 1000)
-      }));
-
-      return events.find((event) => event.start >= now) || events[0] || null;
-    }
-
-    async function fetchCalendarStatusAndLocation() {
-      const API_KEY = calendarConfig.apiKey;
-      const CALENDAR_ID = calendarConfig.calendarId;
-      const now = new Date();
-      const hour = now.getHours();
-      const isSleepWindow = hour >= 22 || hour < 5;
-
-      const statusEl = document.getElementById('calendar-status-text');
-      const locationEl = document.getElementById('calendar-location-text');
-      const academicEl = document.getElementById('academic-status-text');
-
-      const fallbackStatus = 'ACTIVE // BUILDING PROJECT_SYS';
-      const fallbackLocation = 'WEST LAFAYETTE, IN';
-
-      if (isSleepWindow) {
-        if (statusEl) statusEl.textContent = '💤 // REST MODE';
-        if (locationEl) locationEl.textContent = 'HOME // INDIANAPOLIS, IN';
-        if (academicEl) academicEl.textContent = getAcademicStatus();
-        return;
-      }
-
-      if (calendarConfig.enableRemoteCalendar && API_KEY && CALENDAR_ID) {
-        try {
-          const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CALENDAR_ID)}/events?key=${API_KEY}&timeMin=${now.toISOString()}&singleEvents=true&orderBy=startTime&maxResults=10`;
-          const res = await fetch(url);
-          if (!res.ok) throw new Error('Google Calendar request failed');
-
-          const data = await res.json();
-          const events = Array.isArray(data.items) ? data.items.filter(event => {
-            const start = event.start && (event.start.dateTime || event.start.date);
-            return !!start;
-          }) : [];
-
-          const currentEvent = chooseCalendarEvent(events, now) || events[0];
-
-          if (currentEvent) {
-            const title = sanitizeCalendarText(currentEvent.summary) || fallbackStatus;
-            const location = getLocationFromEvent(currentEvent).toUpperCase();
-
-            if (statusEl) statusEl.textContent = title;
-            if (locationEl) locationEl.textContent = location;
-            if (academicEl) academicEl.textContent = getAcademicStatus();
-            return;
-          }
-        } catch (err) {
-          console.warn('Calendar fetch failed:', err);
-        }
-      }
-
-      const fallbackEvent = getFallbackCalendarEvent(now);
-      if (fallbackEvent) {
-        const title = sanitizeCalendarText(fallbackEvent.summary) || fallbackStatus;
-        const location = (fallbackEvent.location || fallbackLocation).toUpperCase();
-
-        if (statusEl) statusEl.textContent = title;
-        if (locationEl) locationEl.textContent = location;
-        if (academicEl) academicEl.textContent = getAcademicStatus();
-        return;
-      }
-
-      if (statusEl) statusEl.textContent = fallbackStatus;
-      if (locationEl) locationEl.textContent = fallbackLocation;
-      if (academicEl) academicEl.textContent = getAcademicStatus();
-    }
-
-    setInterval(fetchCalendarStatusAndLocation, 60000);
-
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
-    const academicStatusText = document.getElementById('academic-status-text');
-    if (academicStatusText) {
-      academicStatusText.textContent = getAcademicStatus();
-    }
-
-    fetchCalendarStatusAndLocation();
-
-    const rubiksSlides = [
-      'RBpic5.png',
-      'RBpic1.jpeg',
-      'RBpic2.jpeg',
-      'RBpic3.jpeg',
-      'RBpic4.jpeg',
-      'RBpic6.png'
-    ];
-
-    const rubiksImage = document.getElementById('rubiks-preview-image');
-    let rubiksIndex = 0;
-
-    function renderRubiksSlide(nextIndex) {
-      if (!rubiksImage) return;
-      rubiksIndex = (nextIndex + rubiksSlides.length) % rubiksSlides.length;
-      const currentSlide = rubiksSlides[rubiksIndex];
-      rubiksImage.src = currentSlide;
-      rubiksImage.alt = 'Tufts group project preview ' + (rubiksIndex + 1);
-    }
-
-    document.querySelectorAll('.rubiks-nav').forEach((button) => {
-      button.addEventListener('click', () => {
-        const step = Number(button.dataset.rubiksStep || 1);
-        renderRubiksSlide(rubiksIndex + step);
-      });
-    });
-
-    const cafeSlides = [
-      'cafe1.jpeg',
-      'cafe2.jpeg',
-      'cafe3.jpeg'
-    ];
-
-    const cafeImage = document.getElementById('cafe-preview-image');
-    let cafeIndex = 0;
-
-    function renderCafeSlide(nextIndex) {
-      if (!cafeImage) return;
-      cafeIndex = (nextIndex + cafeSlides.length) % cafeSlides.length;
-      const currentSlide = cafeSlides[cafeIndex];
-      cafeImage.src = currentSlide;
-      cafeImage.alt = 'Cafe admin preview ' + (cafeIndex + 1);
-    }
-
-    document.querySelectorAll('.cafe-nav').forEach((button) => {
-      button.addEventListener('click', () => {
-        const step = Number(button.dataset.cafeStep || 1);
-        renderCafeSlide(cafeIndex + step);
-      });
-    });
-
-    const projectLightbox = document.getElementById('project-lightbox');
-    const lightboxImage = document.getElementById('lightbox-image');
-    const lightboxClose = document.getElementById('lightbox-close');
-
-    function openProjectLightbox(src, alt) {
-      if (!projectLightbox || !lightboxImage) return;
-      lightboxImage.src = src;
-      lightboxImage.alt = alt;
-      projectLightbox.classList.add('visible');
-      projectLightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeProjectLightbox() {
-      if (!projectLightbox || !lightboxImage) return;
-      projectLightbox.classList.remove('visible');
-      projectLightbox.setAttribute('aria-hidden', 'true');
-      lightboxImage.src = '';
-      lightboxImage.alt = '';
-      document.body.style.overflow = '';
-    }
-
-    [rubiksImage, cafeImage].forEach((img) => {
-      if (!img) return;
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => openProjectLightbox(img.src, img.alt));
-    });
-
-    if (projectLightbox) {
-      projectLightbox.addEventListener('click', (event) => {
-        if (event.target === projectLightbox || event.target === lightboxClose) {
-          closeProjectLightbox();
-        }
-      });
-    }
-
-    if (lightboxClose) {
-      lightboxClose.addEventListener('click', closeProjectLightbox);
-    }
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && projectLightbox && projectLightbox.classList.contains('visible')) {
-        closeProjectLightbox();
-      }
-    });
-
-    // 1. Mouse Spotlight Tracker
-    const spotlight = document.getElementById('spotlight');
-    window.addEventListener('mousemove', (e) => {
-      spotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
-      spotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
-    });
-
-    // 2. Tab Navigation Logic with Spinning Head Loader
+    // --- 4. TAB NAVIGATION & VIEWPORT RESET ---
     function switchTab(tabId) {
       showLoader(loaderVisibleMs);
 
@@ -1504,6 +1229,80 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, loaderVisibleMs);
     }
+
+    function switchExpSubTab(tabName) {
+      document.getElementById('sub-internships').classList.add('hidden');
+      document.getElementById('sub-lastSeen').classList.add('hidden');
+      document.getElementById('btn-internships').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
+      document.getElementById('btn-lastSeen').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
+
+      document.getElementById(`sub-${tabName}`).classList.remove('hidden');
+      document.getElementById(`btn-${tabName}`).className = 'pb-2 text-xs font-mono border-b-2 border-synth-neonMagenta text-white';
+    }
+
+    // --- 5. FOOTER SCROLL DETECTION FOR BILLY BOUNCE ---
+    window.addEventListener('scroll', () => {
+      const emoteEl = document.getElementById('billyBounceEmote');
+      if (!emoteEl) return;
+      const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 60);
+      if (atBottom) {
+        emoteEl.classList.remove('hidden');
+        emoteEl.classList.add('flex');
+      } else {
+        emoteEl.classList.add('hidden');
+        emoteEl.classList.remove('flex');
+      }
+    });
+
+    let clickCount = 0;
+    const maxClicks = 6;
+    const playbackSpeeds = [1.0, 1.3, 1.7, 2.2, 2.8, 3.5];
+
+    function speedUpDancer() {
+      const video = document.getElementById('dancerVideo');
+      const banner = document.getElementById('statusBanner');
+      const overlay = document.getElementById('errorOverlay');
+
+      if (clickCount < maxClicks) {
+        clickCount++;
+        if (clickCount < maxClicks) {
+          video.playbackRate = playbackSpeeds[clickCount];
+          banner.innerHTML = `/ SPEED: ${playbackSpeeds[clickCount]}X // CLICK AGAIN`;
+          banner.className = "mb-3 px-3 py-1 bg-purple-900/90 border border-purple-400 rounded text-[11px] font-mono text-purple-200 tracking-wider shadow-[0_0_12px_rgba(168,85,247,0.6)]";
+          video.style.transform = `scale(${1 + clickCount * 0.03})`;
+        } else {
+          video.playbackRate = 0;
+          video.style.filter = "grayscale(100%) brightness(50%) contrast(200%)";
+          banner.innerHTML = `<span class="text-red-400 font-bold animate-pulse">ERR:) CORE_OVERFLOW // SYSTEM_CRASH</span>`;
+          banner.className = "mb-3 px-3 py-1 bg-red-950 border border-red-500/80 rounded text-[11px] font-mono text-red-400 tracking-wider shadow-[0_0_15px_rgba(239,68,68,0.5)]";
+          overlay.classList.remove('hidden');
+          setTimeout(() => { resetDancer(); }, 3500);
+        }
+      }
+    }
+
+    function resetDancer() {
+      const video = document.getElementById('dancerVideo');
+      const banner = document.getElementById('statusBanner');
+      const overlay = document.getElementById('errorOverlay');
+
+      clickCount = 0;
+      video.playbackRate = 1.0;
+      video.style.filter = "none";
+      video.style.transform = "scale(1)";
+      overlay.classList.add('hidden');
+      banner.innerHTML = "/ CLICK ME: DANCE FASTER";
+      banner.className = "mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]";
+    }
+
+    // --- 6. SPOTLIGHT & MATRIX VISUALS ---
+    const spotlight = document.getElementById('spotlight');
+    window.addEventListener('mousemove', (e) => {
+      if (spotlight) {
+        spotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
+        spotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
+      }
+    });
 
     const CONFIG = {
       imageUrl: 'Your-Headshot.jpeg',
@@ -1656,133 +1455,98 @@
       img.src = CONFIG.imageUrl;
     }
 
-    // 4. Gym Gains Feed Dynamic Handler
-    function handleGymPost(event) {
-      event.preventDefault();
-      const name = document.getElementById('post-name').value;
-      const caption = document.getElementById('post-caption').value;
-      const badge = document.getElementById('post-badge').value;
+    // --- 7. CAROUSEL & LIGHTBOX LOGIC ---
+    const rubiksSlides = ['RBpic5.png', 'RBpic1.jpeg', 'RBpic2.jpeg', 'RBpic3.jpeg', 'RBpic4.jpeg', 'RBpic6.png'];
+    const rubiksImage = document.getElementById('rubiks-preview-image');
+    let rubiksIndex = 0;
 
-      const feedContainer = document.getElementById('gym-feed-container');
-      const newCard = document.createElement('div');
-      newCard.className = "hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3 animate-fade-in";
-      
-      newCard.innerHTML = `
-        <div class="flex justify-between items-center border-b border-synth-purple/20 pb-2">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-synth-cyan/20 border border-synth-cyan flex items-center justify-center text-synth-cyan font-mono text-xs">
-              ${name.substring(0, 2).toUpperCase()}
-            </div>
-            <span class="font-mono text-xs text-white font-bold">${name}</span>
-          </div>
-          <span class="font-mono text-xs text-synth-cyan">[ ${badge} ]</span>
-        </div>
-        <p class="font-mono text-xs text-synth-lavender/90">${caption}</p>
-        <div class="flex items-center gap-4 pt-1 border-t border-synth-purple/20 font-mono text-xs text-synth-purple">
-          <button onclick="likePost(this)" class="hover:text-synth-neonMagenta flex items-center gap-1 transition">
-            <i data-lucide="heart" class="w-4 h-4"></i> <span class="like-count">1</span> LIKE
-          </button>
-          <span class="text-synth-purple/60">JUST NOW</span>
-        </div>
-      `;
-
-      feedContainer.prepend(newCard);
-      lucide.createIcons();
-      document.getElementById('gym-post-form').reset();
+    function renderRubiksSlide(nextIndex) {
+      if (!rubiksImage) return;
+      rubiksIndex = (nextIndex + rubiksSlides.length) % rubiksSlides.length;
+      rubiksImage.src = rubiksSlides[rubiksIndex];
     }
 
-    function likePost(button) {
-      const countSpan = button.querySelector('.like-count');
-      let currentLikes = parseInt(countSpan.innerText);
-      countSpan.innerText = currentLikes + 1;
-      button.classList.add('text-synth-neonMagenta');
+    document.querySelectorAll('.rubiks-nav').forEach((button) => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.rubiksStep || 1);
+        renderRubiksSlide(rubiksIndex + step);
+      });
+    });
+
+    const cafeSlides = ['cafe1.jpeg', 'cafe2.jpeg', 'cafe3.jpeg'];
+    const cafeImage = document.getElementById('cafe-preview-image');
+    let cafeIndex = 0;
+
+    function renderCafeSlide(nextIndex) {
+      if (!cafeImage) return;
+      cafeIndex = (nextIndex + cafeSlides.length) % cafeSlides.length;
+      cafeImage.src = cafeSlides[cafeIndex];
     }
 
-    let clickCount = 0;
-    const maxClicks = 6;
-    const playbackSpeeds = [1.0, 1.3, 1.7, 2.2, 2.8, 3.5]; // Speed multipliers
+    document.querySelectorAll('.cafe-nav').forEach((button) => {
+      button.addEventListener('click', () => {
+        const step = Number(button.dataset.cafeStep || 1);
+        renderCafeSlide(cafeIndex + step);
+      });
+    });
 
-    function speedUpDancer() {
-      const video = document.getElementById('dancerVideo');
-      const banner = document.getElementById('statusBanner');
-      const overlay = document.getElementById('errorOverlay');
-      const wrapper = document.getElementById('dancerWrapper');
+    const projectLightbox = document.getElementById('project-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
 
-      if (clickCount < maxClicks) {
-        clickCount++;
-        
-        if (clickCount < maxClicks) {
-          // Increase video playback speed
-          video.playbackRate = playbackSpeeds[clickCount];
-          
-          // Dynamic UI feedback based on speed tier
-          banner.innerHTML = `/ SPEED: ${playbackSpeeds[clickCount]}X // CLICK AGAIN`;
-          banner.className = "mb-3 px-3 py-1 bg-purple-900/90 border border-purple-400 rounded text-[11px] font-mono text-purple-200 tracking-wider shadow-[0_0_12px_rgba(168,85,247,0.6)]";
-          
-          // Add subtle jitter/glow scaling as speed increases
-          video.style.transform = `scale(${1 + clickCount * 0.03})`;
-        } else {
-          // --- ERROR STATE TRIGGERED AT 6 CLICKS ---
-          video.playbackRate = 0; // Freeze video
-          video.style.filter = "grayscale(100%) brightness(50%) contrast(200%)";
-          
-          // Update text to ERR message
-          banner.innerHTML = `<span class="text-red-400 font-bold animate-pulse">ERR:) CORE_OVERFLOW // SYSTEM_CRASH</span>`;
-          banner.className = "mb-3 px-3 py-1 bg-red-950 border border-red-500/80 rounded text-[11px] font-mono text-red-400 tracking-wider shadow-[0_0_15px_rgba(239,68,68,0.5)]";
-          
-          overlay.classList.remove('hidden');
-          
-          // Reset option after 3.5 seconds
-          setTimeout(() => {
-            resetDancer();
-          }, 3500);
-        }
+    function openProjectLightbox(src, alt) {
+      if (!projectLightbox || !lightboxImage) return;
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      projectLightbox.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectLightbox() {
+      if (!projectLightbox || !lightboxImage) return;
+      projectLightbox.classList.remove('visible');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+    }
+
+    [rubiksImage, cafeImage].forEach((img) => {
+      if (!img) return;
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => openProjectLightbox(img.src, img.alt));
+    });
+
+    if (projectLightbox) {
+      projectLightbox.addEventListener('click', (event) => {
+        if (event.target === projectLightbox || event.target === lightboxClose) closeProjectLightbox();
+      });
+    }
+
+    if (lightboxClose) lightboxClose.addEventListener('click', closeProjectLightbox);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && projectLightbox?.classList.contains('visible')) {
+        closeProjectLightbox();
       }
-    }
+    });
 
-    function resetDancer() {
-      const video = document.getElementById('dancerVideo');
-      const banner = document.getElementById('statusBanner');
-      const overlay = document.getElementById('errorOverlay');
+    // --- 8. INITIAL LIFECYCLE HOOKS ---
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      fetchGithubCommitStream();
+      fetchSpotifyLive();
+      syncChessMatches();
+    });
 
-      clickCount = 0;
-      video.playbackRate = 1.0;
-      video.style.filter = "none";
-      video.style.transform = "scale(1)";
-      overlay.classList.add('hidden');
-      
-      banner.innerHTML = "/ CLICK ME: DANCE FASTER";
-      banner.className = "mb-3 px-3 py-1 bg-purple-950/80 border border-purple-500/30 rounded text-[11px] font-mono text-purple-300 tracking-wider transition-all duration-200 group-hover:border-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.4)]";
-    }
-    function getAcademicStatus() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth() + 1; // January = 1, July = 7
-      const day = now.getDate();
+    setInterval(fetchSpotifyLive, 10000);
 
-      const cohortStartYear = 2026;
-      const cohortGraduationYear = 2030;
-      const isPastJuly15 = (month > 7) || (month === 7 && day >= 15);
-      const academicYear = isPastJuly15 ? year : year - 1;
-      const yearInProgram = academicYear - cohortStartYear;
-
-      if (yearInProgram <= 0) return "DS freshman";
-      if (yearInProgram === 1) return "DS Sophomore";
-      if (yearInProgram === 2) return "DS Junior";
-      if (yearInProgram === 3) return "DS Senior";
-      return `Graduate '${String(cohortGraduationYear).slice(-2)}`;
-    }
-
-    function switchExpSubTab(tabName) {
-      document.getElementById('sub-internships').classList.add('hidden');
-      document.getElementById('sub-lastSeen').classList.add('hidden');
-      document.getElementById('btn-internships').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
-      document.getElementById('btn-lastSeen').className = 'pb-2 text-xs font-mono border-b-2 border-transparent text-synth-lavender/60 hover:text-white';
-
-      document.getElementById(`sub-${tabName}`).classList.remove('hidden');
-      document.getElementById(`btn-${tabName}`).className = 'pb-2 text-xs font-mono border-b-2 border-synth-neonMagenta text-white';
-    }
-
+    window.addEventListener('load', () => {
+      if (loader) {
+        showLoader(loaderVisibleMs);
+        setTimeout(() => {
+          if (appShell) appShell.style.opacity = '1';
+        }, 120);
+      }
+    });
   </script>
 </body>
 </html>
