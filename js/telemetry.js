@@ -1,5 +1,5 @@
 // =============================================================================
-// TELEMETRY ENGINE: GITHUB, SPOTIFY (LANYARD), & CHESS.COM
+// TELEMETRY ENGINE: GITHUB, SPOTIFY (LANYARD WEBSOCKET), & CHESS.COM
 // =============================================================================
 
 // In-memory state for live match browsing
@@ -119,7 +119,7 @@ function syncRecentTracksBuffer(newTrack) {
   // Deduplicate against the most recent entry
   if (newTrack && (!tracks.length || tracks[0].song !== newTrack.song)) {
     tracks.unshift(newTrack);
-    if (tracks.length > 5) tracks.pop(); // Keep maximum 5
+    if (tracks.length > 5) tracks.pop(); // Keep max 5 tracks
     try {
       localStorage.setItem(cacheKey, JSON.stringify(tracks));
     } catch (e) {
@@ -155,9 +155,7 @@ function renderRecentTracksUI(tracks) {
   `).join('');
 }
 
-// =============================================================================
-// SPOTIFY LIVE VIA LANYARD WEBSOCKET (ZERO LATENCY)
-// =============================================================================
+// Live WebSocket connection to Lanyard Gateway
 let lanyardSocket = null;
 let heartbeatInterval = null;
 
@@ -174,70 +172,81 @@ function connectLanyardSocket() {
 
   if (!songEl || !artistEl || !albumEl || !albumArtEl || !statusTagEl) return;
 
-  lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+  try {
+    lanyardSocket = new WebSocket('wss://api.lanyard.rest/socket');
+  } catch (err) {
+    console.warn('[Telemetry] WebSocket unsupported or blocked:', err);
+    return;
+  }
 
   lanyardSocket.onmessage = (event) => {
-    const data = JSON.parse(event.data);
-    const { op, d, t } = data;
+    try {
+      const data = JSON.parse(event.data);
+      const { op, d, t } = data;
 
-    // Opcode 1: Hello -> Start heartbeat & subscribe
-    if (op === 1) {
-      clearInterval(heartbeatInterval);
-      heartbeatInterval = setInterval(() => {
-        lanyardSocket.send(JSON.stringify({ op: 3 }));
-      }, d.heartbeat_interval);
+      // Opcode 1: Hello -> Heartbeat handshake & subscribe
+      if (op === 1) {
+        clearInterval(heartbeatInterval);
+        heartbeatInterval = setInterval(() => {
+          if (lanyardSocket && lanyardSocket.readyState === WebSocket.OPEN) {
+            lanyardSocket.send(JSON.stringify({ op: 3 }));
+          }
+        }, d.heartbeat_interval);
 
-      // Opcode 2: Initialize subscription
-      lanyardSocket.send(JSON.stringify({
-        op: 2,
-        d: { subscribe_to_id: discordId }
-      }));
-    }
-
-    // Event updates: INIT_STATE or PRESENCE_UPDATE
-    if (t === 'INIT_STATE' || t === 'PRESENCE_UPDATE') {
-      const spotify = d.spotify;
-
-      if (d.listening_to_spotify && spotify) {
-        songEl.textContent = spotify.song || 'UNKNOWN_TRACK';
-        artistEl.textContent = `by ${spotify.artist || 'Unknown Artist'}`;
-        albumEl.textContent = spotify.album || 'Unknown Album';
-        albumArtEl.src = spotify.album_art_url || fallbackArt;
-
-        statusTagEl.textContent = 'PLAYING';
-        statusTagEl.className = 'text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded';
-        if (signalEl) signalEl.style.opacity = '1';
-
-        syncRecentTracksBuffer({
-          song: spotify.song,
-          artist: spotify.artist,
-          albumArt: spotify.album_art_url || fallbackArt
-        });
-      } else {
-        songEl.textContent = 'IDLE';
-        artistEl.textContent = 'No active track detected';
-        albumEl.textContent = 'OFFLINE_STREAM';
-        albumArtEl.src = fallbackArt;
-
-        statusTagEl.textContent = 'PAUSED';
-        statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
-        if (signalEl) signalEl.style.opacity = '0.2';
-
-        syncRecentTracksBuffer(null);
+        // Opcode 2: Subscribe to Discord User ID
+        lanyardSocket.send(JSON.stringify({
+          op: 2,
+          d: { subscribe_to_id: discordId }
+        }));
       }
+
+      // Event payloads: INIT_STATE or PRESENCE_UPDATE
+      if (t === 'INIT_STATE' || t === 'PRESENCE_UPDATE') {
+        const spotify = d.spotify;
+
+        if (d.listening_to_spotify && spotify) {
+          songEl.textContent = spotify.song || 'UNKNOWN_TRACK';
+          artistEl.textContent = `by ${spotify.artist || 'Unknown Artist'}`;
+          albumEl.textContent = spotify.album || 'Unknown Album';
+          albumArtEl.src = spotify.album_art_url || fallbackArt;
+
+          statusTagEl.textContent = 'PLAYING';
+          statusTagEl.className = 'text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded';
+          if (signalEl) signalEl.style.opacity = '1';
+
+          syncRecentTracksBuffer({
+            song: spotify.song,
+            artist: spotify.artist,
+            albumArt: spotify.album_art_url || fallbackArt
+          });
+        } else {
+          songEl.textContent = 'IDLE';
+          artistEl.textContent = 'No active track detected';
+          albumEl.textContent = 'OFFLINE_STREAM';
+          albumArtEl.src = fallbackArt;
+
+          statusTagEl.textContent = 'PAUSED';
+          statusTagEl.className = 'text-[10px] text-purple-400/60 bg-purple-950/40 border border-purple-500/20 px-1.5 py-0.5 rounded';
+          if (signalEl) signalEl.style.opacity = '0.2';
+
+          syncRecentTracksBuffer(null);
+        }
+      }
+    } catch (e) {
+      console.warn('[Telemetry] Socket parse error:', e);
     }
   };
 
   lanyardSocket.onclose = () => {
     clearInterval(heartbeatInterval);
-    // Automatic reconnect with backoff after 5 seconds if disconnected
-    setTimeout(connectLanyardSocket, 5000);
+    setTimeout(connectLanyardSocket, 5000); // Auto-reconnect after 5s
   };
 
   lanyardSocket.onerror = () => {
-    lanyardSocket.close();
+    if (lanyardSocket) lanyardSocket.close();
   };
 }
+
 // =============================================================================
 // 3. CHESS.COM RECENT MATCH TELEMETRY
 // =============================================================================
@@ -245,14 +254,13 @@ async function syncChessTelemetry() {
   const chessUser = window.APP_CONFIG?.chessUsername || 'Balandor_Nacho';
 
   try {
-    // 1. Get user game archives list
     const archRes = await fetch(`https://api.chess.com/pub/player/${chessUser}/games/archives`);
     if (!archRes.ok) throw new Error(`CHESS_ARCHIVE_STATUS_${archRes.status}`);
     const archData = await archRes.json();
 
     if (!archData.archives || !archData.archives.length) return;
 
-    // 2. Fetch the latest month archive
+    // Grab latest active month archive
     const latestArchiveUrl = archData.archives[archData.archives.length - 1];
     const gamesRes = await fetch(latestArchiveUrl);
     if (!gamesRes.ok) throw new Error(`CHESS_MONTH_STATUS_${gamesRes.status}`);
@@ -261,7 +269,6 @@ async function syncChessTelemetry() {
     const games = gamesData.games || [];
     if (!games.length) return;
 
-    // Keep the 5 most recent matches
     chessGamesBuffer = games.slice(-5).reverse();
     renderChessMatchCard(0);
   } catch (err) {
@@ -277,15 +284,6 @@ function renderChessMatchCard(index) {
   const game = chessGamesBuffer[index];
   const chessUser = (window.APP_CONFIG?.chessUsername || 'Balandor_Nacho').toLowerCase();
 
-  // Extract Chess game ID from URL
-  const gameId = game.url ? game.url.split('/').pop().split('?')[0] : '';
-  const frame = document.getElementById('chessLiveFrame');
-
-  if (frame && gameId) {
-    frame.src = `https://www.chess.com/emboard?id=${gameId}`;
-  }
-
-  // Determine perspective and opponent
   const isWhite = (game.white?.username || '').toLowerCase() === chessUser;
   const player = isWhite ? game.white : game.black;
   const opponent = isWhite ? game.black : game.white;
@@ -315,8 +313,130 @@ function renderChessMatchCard(index) {
   const nextBtn = document.getElementById('nextChess');
   if (prevBtn) prevBtn.disabled = (index === 0);
   if (nextBtn) nextBtn.disabled = (index === chessGamesBuffer.length - 1);
-}
 
+  // 1. Calculate the final position FEN using chess.js
+  let finalFen = '';
+  let lastMoveDesc = '';
+
+  if (game.pgn && window.Chess) {
+    try {
+      const chess = new window.Chess();
+      chess.loadPgn(game.pgn);
+      const history = chess.history({ verbose: true });
+      if (history.length > 0) {
+        const lastMove = history[history.length - 1];
+        lastMoveDesc = `${lastMove.color === 'w' ? 'White' : 'Black'}: ${lastMove.san}`;
+      }
+      finalFen = chess.fen();
+    } catch (e) {
+      console.warn('[Chess] PGN parse fallback:', e);
+    }
+  }
+
+  // Fallback to start position if PGN parse fails
+  if (!finalFen) {
+    finalFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+  }
+
+  // 2. Official Lichess Export API (clean, fast, no watermark)
+  const orientation = isWhite ? 'white' : 'black';
+  const boardImgUrl = `https://lichess1.org/export/fen.gif?fen=${encodeURIComponent(finalFen)}&theme=green&piece=neo&color=${orientation}`;
+
+  // 3. Render inside iframe via srcdoc
+  const frame = document.getElementById('chessLiveFrame');
+  if (frame) {
+    frame.srcdoc = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          body {
+            position: relative;
+            background: #0d0716;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+          }
+          .board-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .board-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+          }
+          .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(13, 7, 22, 0.65);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.25s ease-in-out;
+            border-radius: 4px;
+            backdrop-filter: blur(2px);
+          }
+          .board-wrapper:hover .overlay {
+            opacity: 1;
+          }
+          .move-tag {
+            color: #00F0FF;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 4px 8px;
+            border-radius: 4px;
+          }
+          .analysis-btn {
+            background: #9D4EDD;
+            color: #ffffff;
+            border: 1px solid #FF007F;
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 0 12px rgba(157, 78, 221, 0.5);
+            transition: all 0.2s ease;
+          }
+          .analysis-btn:hover {
+            background: #FF007F;
+            box-shadow: 0 0 18px rgba(255, 0, 127, 0.8);
+          }
+        </style>
+      </head>
+      <body>
+        <div class="board-wrapper">
+          <img class="board-img" src="${boardImgUrl}" alt="Final Position" />
+          <div class="overlay">
+            ${lastMoveDesc ? `<div class="move-tag">FINAL MOVE: ${lastMoveDesc}</div>` : ''}
+            <a class="analysis-btn" href="${game.url}" target="_blank" rel="noopener noreferrer">
+              ANALYZE ON CHESS.COM ↗
+            </a>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+}
 // Global button handler for Prev / Next arrows
 window.changeChessGame = function(direction) {
   const targetIdx = currentChessIdx + direction;
@@ -330,9 +450,6 @@ window.changeChessGame = function(direction) {
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
   syncGithubTelemetry();
-  syncSpotifyTelemetry();
+  connectLanyardSocket();
   syncChessTelemetry();
-
-  // Poll Spotify/Lanyard every 10 seconds
-  setInterval(syncSpotifyTelemetry, 10000);
 });
