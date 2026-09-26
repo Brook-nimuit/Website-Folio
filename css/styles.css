@@ -1,0 +1,274 @@
+body {
+  background-color: #0A0512;
+  background-image: radial-gradient(rgba(168, 85, 247, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+  color: #E0AAFF;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  overflow: hidden;
+  background: rgba(12, 8, 20, 0.9);
+  border-radius: 0.5rem;
+}
+
+.chess-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.15rem, 2vw, 2rem);
+  line-height: 1;
+  user-select: none;
+  position: relative;
+}
+
+.chess-square.light {
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.chess-square.dark {
+  background: rgba(91, 33, 182, 0.38);
+}
+
+.chess-piece {
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.15));
+}
+
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(168, 85, 247, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: center;
+}
+
+.hud-chamfer {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.hud-chamfer-btn {
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: all 0.2s ease-in-out;
+}
+
+.crt-overlay::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 10;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+#spotlight {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(157, 78, 221, 0.18), transparent 80%);
+  transition: opacity 0.3s ease;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #05020A;
+}
+::-webkit-scrollbar-thumb {
+  background: #9D4EDD;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF007F;
+}
+
+@keyframes neonPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(157, 78, 221, 0.4), inset 0 0 15px rgba(157, 78, 221, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(255, 0, 127, 0.6), inset 0 0 20px rgba(255, 0, 127, 0.3); }
+}
+
+.neon-border-pulse {
+  animation: neonPulse 4s infinite ease-in-out;
+}
+
+.glitch-hover:hover {
+  text-shadow: 2px 0 #FF007F, -2px 0 #00F0FF;
+}
+
+@keyframes loaderSpin {
+  0% { transform: rotateZ(0deg) scale(0.9); opacity: 0.55; }
+  20% { transform: rotateZ(72deg) scale(1); opacity: 1; }
+  50% { transform: rotateZ(180deg) scale(1.06); opacity: 1; }
+  80% { transform: rotateZ(288deg) scale(1); opacity: 1; }
+  100% { transform: rotateZ(360deg) scale(0.92); opacity: 0.7; }
+}
+
+@keyframes loaderPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(157, 78, 221, 0) inset; }
+  50% { box-shadow: 0 0 18px rgba(157, 78, 221, 0.7), inset 0 0 18px rgba(157, 78, 221, 0.3); }
+}
+
+.loader-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: rgba(6, 4, 13, 0.9);
+  filter: saturate(1.15) contrast(1.08) brightness(1.02);
+  transform-origin: center center;
+}
+
+.loader-frame {
+  position: absolute;
+  inset: 0.75rem;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(157, 78, 221, 0.4);
+  background: rgba(18, 8, 34, 0.7);
+  box-shadow: 0 0 25px rgba(157, 78, 221, 0.4);
+  transform-style: preserve-3d;
+  animation: loaderSpin 1.8s ease-in-out infinite, loaderPulse 1.4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.matrix-photo-wrap {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  background: linear-gradient(180deg, rgba(8, 5, 15, 0.9), rgba(11, 8, 18, 0.9));
+  isolation: isolate;
+}
+
+#portrait {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  cursor: crosshair;
+  z-index: 2;
+  border-radius: 0.5rem;
+  background: #0b0b10;
+  mix-blend-mode: screen;
+}
+
+.matrix-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  filter: grayscale(0.15) brightness(0.56) contrast(1.12) saturate(0.8);
+  transition: filter 0.35s ease, transform 0.3s ease;
+  opacity: 0.18;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.portrait-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  z-index: 30;
+}
+
+.portrait-controls label {
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #9aa0b4;
+  line-height: 1.2;
+}
+
+.portrait-controls input[type="file"] {
+  display: none;
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(5, 2, 10, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-overlay.visible {
+  display: flex;
+}
+
+.lightbox-image {
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 1px solid rgba(157, 78, 221, 0.45);
+  box-shadow: 0 0 32px rgba(157, 78, 221, 0.35);
+  background: rgba(10, 5, 18, 0.9);
+  cursor: pointer;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(17, 10, 25, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.matrix-photo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.14), rgba(17, 10, 26, 0.12) 22%, rgba(8, 5, 15, 0.76) 60%);
+  z-index: 2;
+  pointer-events: none;
+  transition: background 0.2s ease-out;
+}
+
+.matrix-photo-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+}
+
+.matrix-photo-wrap:hover .matrix-photo {
+  filter: grayscale(0.12) brightness(0.82) contrast(1.08) saturate(0.95);
+  transform: scale(1.02);
+}
