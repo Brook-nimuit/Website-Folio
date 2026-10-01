@@ -117,7 +117,7 @@
             </h2>
 
             <p class="font-mono text-sm leading-relaxed text-synth-lavender/80 max-w-xl">
-              I'm Brook. I'm a data science student at Purdue, and I build software, work with data, and like learning more math and dabbling with AI in my free time.
+              I'm Brook. I'm a data science student at Purdue, and this is my personal portfolio website.
             </p>
 
             <!-- Sci-Fi HUD Status Panel -->
@@ -184,11 +184,11 @@
               </div>
               
               <div class="overflow-hidden pt-1">
-                <div class="float-left mr-4 mb-2 w-24 h-28 sm:w-28 sm:h-32 rounded-lg border border-synth-purple/50 overflow-hidden shadow-[0_0_12px_rgba(157,78,221,0.3)] shrink-0">
-                  <img src="assets/img/Other-Headshot.webp" alt="Brook Animut" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300">
-                </div>
+<div class="float-left mr-4 mb-2 w-24 h-28 sm:w-28 sm:h-32 rounded-lg border border-synth-purple/50 overflow-hidden shadow-[0_0_12px_rgba(157,78,221,0.3)] shrink-0">
+  <img src="assets/img/Other-Headshot.webp" alt="Brook Animut" class="w-full h-full object-cover">
+</div>
                 <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                  I grew up in Addis Ababa, where I was fortunate to gain real-world industry exposure outside of high school early on. I'm passionate about teaching and love learning new concepts, dedicating much of my free time to learning coding with AI.
+                  I grew up in Addis Ababa, where I was fortunate to gain real-world industry exposure outside of high school early on. I'm passionate about teaching and love learning new concepts, dedicating much of my free time to learning math and coding with AI.
                   I'm an avid chess player, gym rat, and a Weeknd-music enthusiast.
                 </p>
               </div>
@@ -267,10 +267,10 @@
             </div>
           </div>
 
-          <!-- TELEMETRY GRIDS: GITHUB, SPOTIFY, CHESS -->
+<!-- TELEMETRY GRIDS: GITHUB, SPOTIFY DUAL-TAB, CHESS DUAL-TAB -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- GitHub Commits Stream Card -->
+<!-- GitHub Commits Stream + Cyberpunk Activity Heatmap -->
             <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
               <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
                 <div class="flex items-center gap-2">
@@ -278,15 +278,40 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
                   </span>
-                  <span class="text-purple-300 font-bold">/ GIT_COMMIT_STREAM</span>
+                  <span class="text-purple-300 font-bold">/ GIT_ACTIVITY_STREAM</span>
                 </div>
-                <span id="gitTime" class="text-[10px] text-purple-400/60">SYNCING...</span>
+                <span id="gitTime" class="text-[10px] text-purple-400/60">ACTIVE</span>
               </div>
 
-              <div id="gitCommitStream" class="space-y-2 max-h-48 overflow-y-auto pr-1">
-                <p class="text-purple-200/80 text-[11px] leading-relaxed italic bg-purple-950/40 p-2 rounded border border-purple-900/40 truncate">
-                  "Fetching latest push payload..."
-                </p>
+              <!-- Real Activity Heatmap (Styled Cyberpunk SVG) -->
+              <div class="p-2 bg-synth-bg/90 rounded border border-purple-900/40 overflow-hidden">
+                <div class="flex justify-between items-center text-[10px] mb-1.5 px-1">
+                  <span class="text-synth-cyan font-bold">CONTRIBUTION GRAPH</span>
+                  <span class="text-purple-400/70">PUBLIC COMMITS</span>
+                </div>
+                <div class="overflow-x-auto overflow-y-hidden">
+                  <img 
+                    src="https://ghchart.rshah.org/9d4edd/Brook-nimuit" 
+                    alt="Brook's GitHub Contributions" 
+                    class="w-full min-w-[500px] h-auto filter contrast-125 brightness-110"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <div id="gitCommitStream" class="space-y-2 max-h-36 overflow-y-auto pr-1">
+                <div class="flex items-start justify-between border-b border-purple-900/40 pb-2 text-[11px]">
+                  <div class="space-y-0.5 truncate pr-2">
+                    <div class="flex items-center gap-1.5 font-bold text-purple-300">
+                      <span>Website-Folio</span>
+                      <span class="text-[9px] bg-purple-900/60 px-1 rounded text-purple-400 font-mono">HEAD</span>
+                    </div>
+                    <p class="text-purple-200/80 truncate italic">"Portfolio HUD with live Lanyard & Chess telemetry"</p>
+                  </div>
+                  <a href="https://github.com/Brook-nimuit/Website-Folio" target="_blank" rel="noopener noreferrer" class="text-[9px] text-purple-400 hover:text-purple-200 shrink-0 font-mono mt-0.5">
+                    VIEW ↗
+                  </a>
+                </div>
               </div>
 
               <div class="pt-1 flex justify-end">
@@ -296,78 +321,88 @@
               </div>
             </div>
 
-            <!-- Spotify Live Card -->
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
-              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <div id="spotifySignal" class="flex items-end gap-0.5 h-3 opacity-100">
-                    <div class="w-0.5 bg-emerald-400 h-full animate-[bounce_1s_infinite_100ms]"></div>
-                    <div class="w-0.5 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
-                    <div class="w-0.5 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
+            <!-- Spotify Dual-Card: / QUEUE vs / AUX -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-purple-900/60 pb-2 mb-3">
+                  <div class="flex items-center gap-4">
+                    <button id="tab-spotify-queue" onclick="switchSpotifyTab('queue')" class="font-bold text-white border-b-2 border-synth-neonMagenta pb-0.5 text-xs">
+                      / QUEUE
+                    </button>
+                    <button id="tab-spotify-aux" onclick="switchSpotifyTab('aux')" class="font-bold text-purple-400/80 hover:text-white pb-0.5 text-xs">
+                      / AUX
+                    </button>
                   </div>
-                  <span class="text-purple-300 font-bold">/ AUX</span>
-                </div>
-                <span id="spotifyStatusTag" class="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">LIVE_STREAM</span>
-              </div>
-
-              <div class="flex items-center gap-3">
-                <div class="relative w-12 h-12 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
-                  <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover grayscale transition-all" />
+                  <span id="spotifyStatusTag" class="text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-1.5 py-0.5 rounded">LIVE_STREAM</span>
                 </div>
 
-                <div class="space-y-0.5 overflow-hidden">
-                  <p id="spotifySong" class="text-purple-200 font-bold text-xs truncate">...</p>
-                  <p id="spotifyArtist" class="text-purple-400/80 text-[11px] truncate">---</p>
-                  <p id="spotifyAlbum" class="text-[10px] text-purple-500/60 truncate">---</p>
+                <!-- Tab 1: / QUEUE (Live Playback) -->
+                <div id="spotifyQueueView" class="space-y-4 pt-2">
+                  <div class="flex items-center gap-3">
+                    <div class="relative w-14 h-14 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
+                      <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="space-y-0.5 overflow-hidden">
+                      <p id="spotifySong" class="text-purple-200 font-bold text-sm truncate">IDLE</p>
+                      <p id="spotifyArtist" class="text-purple-400/80 text-xs truncate">No active track detected</p>
+                      <p id="spotifyAlbum" class="text-[10px] text-purple-500/60 truncate">OFFLINE_STREAM</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div id="spotifySignal" class="flex items-end gap-1 h-3 opacity-20">
+                      <div class="w-1 bg-emerald-400 h-full animate-[bounce_1s_infinite_100ms]"></div>
+                      <div class="w-1 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
+                      <div class="w-1 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
+                    </div>
+                    <span class="text-[10px] text-emerald-400/80 font-mono">SPOTIFY GATEWAY</span>
+                  </div>
+                </div>
+
+                <!-- Tab 2: / AUX (Recent 6 Songs with Album Covers) -->
+                <div id="spotifyAuxView" class="hidden space-y-2 max-h-56 overflow-y-auto pr-1">
+                  <div id="recentTracksList" class="space-y-2">
+                    <div class="text-[11px] text-purple-400/60 italic p-3">Waiting for playback stream...</div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            <!-- Spotify Last 5 Tracks Buffer Card -->
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
+            <!-- Chess Dual-Card: / RECENT MATCHES vs / CHESS RATING -->
+            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300 md:col-span-2">
               <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <span class="text-purple-300 font-bold">/ RECENTLY PLAYED AUDIO</span>
-                </div>
-                <span class="text-[10px] text-emerald-400">LAST 5 TRACKS</span>
-              </div>
-
-              <div id="recentTracksList" class="space-y-2">
-                <div class="text-[11px] text-purple-400/60 italic">Waiting for playback stream...</div>
-              </div>
-            </div>
-
-            <!-- Chess.com Matches Replay Card -->
-            <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
-              <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
-                <div class="flex items-center gap-2">
-                  <span class="text-purple-300 font-bold">/ CHESS_RECENT_MATCHES</span>
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <button id="prevChess" onclick="changeChessGame(-1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all" disabled>
-                    ←
+                <div class="flex items-center gap-4">
+                  <button id="tab-chess-match" onclick="switchChessTab('matches')" class="font-bold text-white border-b-2 border-synth-neonMagenta pb-0.5 text-xs">
+                    / RECENT MATCHES
                   </button>
+                  <button id="tab-chess-rating" onclick="switchChessTab('ratings')" class="font-bold text-purple-400/80 hover:text-white pb-0.5 text-xs">
+                    / CHESS RATING
+                  </button>
+                </div>
+
+                <div id="chessNavControls" class="flex items-center gap-2">
+                  <button id="prevChess" onclick="changeChessGame(-1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none" disabled>&larr;</button>
                   <span id="chessCounter" class="text-[10px] text-purple-400/80">1 / 5</span>
-                  <button id="nextChess" onclick="changeChessGame(1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 hover:border-purple-300 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none transition-all">
-                    →
-                  </button>
+                  <button id="nextChess" onclick="changeChessGame(1)" class="px-2 py-0.5 bg-purple-900/40 border border-purple-500/30 text-purple-300 hover:text-purple-100 rounded text-[11px] disabled:opacity-30 disabled:pointer-events-none">&rarr;</button>
                 </div>
               </div>
 
-              <div class="flex justify-between items-center text-[10px] text-purple-300/80">
-                <span id="chessMatchDetails">FETCHING_GAMES...</span>
-                <span id="chessOutcome" class="px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-200">---</span>
+              <!-- View 1: Matches -->
+              <div id="chessMatchView" class="space-y-3">
+                <div class="flex justify-between items-center text-[10px] text-purple-300/80">
+                  <span id="chessMatchDetails">FETCHING_GAMES...</span>
+                  <span id="chessOutcome" class="px-1.5 py-0.5 rounded bg-purple-900/50 border border-purple-500/20 text-purple-200">---</span>
+                </div>
+                <div class="w-full aspect-square max-w-[340px] mx-auto rounded overflow-hidden border border-purple-500/20 bg-purple-950/40">
+                  <iframe id="chessLiveFrame" title="Latest chess match" class="w-full h-full border-0 bg-[#0d0716]" loading="lazy"></iframe>
+                </div>
               </div>
 
-              <div class="w-full aspect-square max-w-[320px] mx-auto rounded overflow-hidden border border-purple-500/20 bg-purple-950/40">
-                <iframe id="chessLiveFrame" title="Latest chess match" class="w-full h-full border-0 bg-[#0d0716]" loading="lazy"></iframe>
+              <!-- View 2: Ratings Breakdown -->
+              <div id="chessRatingView" class="hidden pt-2">
+                <div class="text-purple-400/60 italic text-center py-4">Fetching rating telemetry from Chess.com...</div>
               </div>
             </div>
-
           </div>
-        </div>
-      </section>
+                  </section>
 
       <!-- ================= PROJECTS TAB ================= -->
       <section id="view-projects" class="tab-view hidden space-y-8">
@@ -676,10 +711,212 @@
 
   </div>
 
-  <script src="./calendar-logic.js?v=20260920-1"></script>
-  <script src="js/config.js"></script>
+<script src="js/config.js"></script>
+  <script src="js/spotify_firebase.js"></script>
   <script src="js/telemetry.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/admin.js"></script>
   <script src="js/app.js"></script>
+<!-- Floating Localhost/Admin Button -->
+<!-- Floating Admin Button -->
+<button 
+  id="admin-trigger-btn" 
+  onclick="toggleAdminModal()" 
+  class="fixed bottom-4 right-4 z-[9999] px-3 py-1.5 bg-synth-panel/90 border border-synth-purple/60 text-synth-cyan hover:text-synth-neonMagenta text-[11px] font-mono rounded shadow-[0_0_15px_rgba(0,0,0,0.8)] backdrop-blur-md cursor-pointer"
+>
+  [⚙ ADMIN CONSOLE]
+</button>
+  <!-- Multi-Tab Admin Console Modal -->
+  <div id="admin-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-synth-panel border border-synth-purple/60 rounded-xl p-6 max-w-xl w-full font-mono text-xs text-synth-lavender space-y-4 max-h-[90vh] overflow-y-auto shadow-[0_0_30px_rgba(157,78,221,0.3)]">
+      
+      <!-- Modal Header & Tab Switches -->
+      <div class="flex justify-between items-center border-b border-synth-purple/30 pb-3">
+        <div class="flex items-center gap-3 overflow-x-auto">
+          <button id="tab-btn-projects" onclick="switchAdminTab('projects')" class="font-bold text-white border-b-2 border-synth-neonMagenta pb-1 text-xs whitespace-nowrap">
+            + PROJECTS
+          </button>
+          <button id="tab-btn-experiences" onclick="switchAdminTab('experiences')" class="font-bold text-synth-lavender/60 hover:text-white pb-1 text-xs whitespace-nowrap">
+            + EXPERIENCES
+          </button>
+          <button id="tab-btn-leadership" onclick="switchAdminTab('leadership')" class="font-bold text-synth-lavender/60 hover:text-white pb-1 text-xs whitespace-nowrap">
+            + LEADERSHIP
+          </button>
+          <button id="tab-btn-manage" onclick="switchAdminTab('manage')" class="font-bold text-synth-cyan hover:text-synth-neonMagenta pb-1 text-xs whitespace-nowrap">
+            &#128465; MANAGE / UNDO
+          </button>
+        </div>
+        <button onclick="toggleAdminModal()" class="text-synth-purple hover:text-white text-base">✕</button>
+      </div>
+
+      <!-- FORM 1: ADD PROJECT -->
+      <form id="admin-form-projects" onsubmit="submitAdminProject(event)" class="space-y-3">
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">PROJECT TITLE</label>
+          <input name="title" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. IndyHackers Platform" />
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">DESCRIPTION</label>
+          <textarea name="description" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" rows="2" placeholder="Brief summary of what it does..."></textarea>
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">TECH STACK TAGS (comma-separated)</label>
+          <input name="tags" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Vue 3, PocketBase, Vite, Docker" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">PREVIEW TYPE</label>
+            <select name="previewType" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white">
+              <option value="image">Static Image</option>
+              <option value="iframe">Live Interactive iframe</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">PREVIEW URL (if iframe)</label>
+            <input name="previewUrl" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="https://..." />
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">COVER IMAGE (if image preview)</label>
+          <input name="coverImage" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="assets/img/myphoto.webp" />
+        </div>
+        <div class="border border-synth-purple/20 p-3 rounded space-y-2">
+          <label class="flex items-center gap-2 text-white">
+            <input type="checkbox" name="hasCarousel" /> ENABLE IMAGE CAROUSEL
+          </label>
+          <div class="grid grid-cols-2 gap-2">
+            <input name="carouselPrefix" class="bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="Prefix (e.g. cafe, RBpic)" />
+            <input name="carouselCount" type="number" class="bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="Count (e.g. 4)" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">LIVE DEMO URL</label>
+            <input name="liveUrl" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="https://..." />
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">SOURCE CODE URL</label>
+            <input name="githubUrl" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="https://github.com/..." />
+          </div>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button type="submit" class="flex-1 bg-synth-purple hover:bg-synth-neonMagenta text-white font-bold py-2 rounded transition">
+            + DEPLOY PROJECT
+          </button>
+          <button type="button" onclick="exportAdminData()" class="px-3 bg-synth-bg border border-synth-purple/40 text-synth-cyan hover:text-white rounded">
+            EXPORT JSON
+          </button>
+        </div>
+      </form>
+
+      <!-- FORM 2: ADD WORK EXPERIENCE -->
+      <form id="admin-form-experiences" onsubmit="submitAdminExperience(event)" class="hidden space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">COMPANY</label>
+            <input name="company" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. IndyHackers" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">ROLE / TITLE</label>
+            <input name="role" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. Frontend Contributor" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">TIMEFRAME</label>
+            <input name="duration" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Aug 2026 – Present" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">LOCATION</label>
+            <input name="location" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Indianapolis, IN" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">SKILLS USED</label>
+          <input name="skills" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Vue 3, PocketBase, Vite, Docker" />
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">BULLET POINTS (one per line)</label>
+          <textarea name="bullets" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" rows="3" placeholder="Engineered dynamic newsletter component...&#10;Containerized dev environment via Docker..."></textarea>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button type="submit" class="flex-1 bg-synth-purple hover:bg-synth-neonMagenta text-white font-bold py-2 rounded transition">
+            + LOG EXPERIENCE
+          </button>
+          <button type="button" onclick="exportAdminData()" class="px-3 bg-synth-bg border border-synth-purple/40 text-synth-cyan hover:text-white rounded">
+            EXPORT JSON
+          </button>
+        </div>
+      </form>
+
+      <!-- FORM 3: ADD LEADERSHIP & ACTIVITIES -->
+      <form id="admin-form-leadership" onsubmit="submitAdminLeadership(event)" class="hidden space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">ORGANIZATION / CLUB</label>
+            <input name="org" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. Purdue Indy Chess Club" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">ROLE / TITLE</label>
+            <input name="role" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. Chief Operating Officer" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">TIMEFRAME</label>
+            <input name="duration" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Aug 2026 – Present" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-synth-cyan mb-1">LOCATION</label>
+            <input name="location" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="Indianapolis, IN" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">FOCUS / KEY INITIATIVE (optional)</label>
+          <input name="focus" class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" placeholder="e.g. Tournament Ops & Member Expansion" />
+        </div>
+        <div>
+          <label class="block text-[10px] text-synth-cyan mb-1">BULLET POINTS (one per line)</label>
+          <textarea name="bullets" required class="w-full bg-synth-bg border border-synth-purple/40 p-2 rounded text-white" rows="3" placeholder="Managed club logistics and scheduling...&#10;Organized regional blitz and rapid tournaments..."></textarea>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button type="submit" class="flex-1 bg-synth-purple hover:bg-synth-neonMagenta text-white font-bold py-2 rounded transition">
+            + LOG LEADERSHIP
+          </button>
+          <button type="button" onclick="exportAdminData()" class="px-3 bg-synth-bg border border-synth-purple/40 text-synth-cyan hover:text-white rounded">
+            EXPORT JSON
+          </button>
+        </div>
+      </form>
+
+      <!-- FORM 4: MANAGE CUSTOM CONTENT -->
+      <div id="admin-form-manage" class="hidden space-y-3">
+        <div class="flex items-center justify-between gap-3 border-b border-synth-purple/30 pb-2">
+          <span class="font-bold text-white">/ MANAGE CUSTOM CONTENT</span>
+          <div class="flex items-center gap-2">
+            <button id="admin-undo-btn" type="button" onclick="undoAdminAction()" disabled class="text-synth-cyan hover:text-white border border-synth-purple/40 px-2 py-1 rounded whitespace-nowrap disabled:opacity-40 disabled:pointer-events-none">
+              UNDO LAST
+            </button>
+            <button type="button" onclick="clearAllAdminData()" class="text-red-400 hover:text-red-300 border border-red-500/30 bg-red-950/40 px-2 py-1 rounded whitespace-nowrap">
+              CLEAR ALL
+            </button>
+          </div>
+        </div>
+        <div id="admin-manage-entries" class="max-h-64 overflow-y-auto pr-1 space-y-1"></div>
+
+        <div class="pt-3 border-t border-synth-purple/30 space-y-2">
+          <button id="publish-cloud-btn" type="button" onclick="publishToCloud()" class="w-full py-2.5 bg-synth-purple hover:bg-synth-neonMagenta text-white font-bold rounded shadow-[0_0_15px_rgba(157,78,221,0.5)] transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none">
+            &#128640; PUBLISH LIVE TO CLOUD
+          </button>
+          <p id="publish-status" role="status" aria-live="polite" class="text-center font-mono text-[10px] text-emerald-400 font-bold tracking-wider"></p>
+        </div>
+
+        <button type="button" onclick="exportAdminData()" class="w-full py-1.5 bg-synth-bg border border-synth-purple/40 text-synth-cyan hover:text-white rounded text-center text-[10px]">
+          EXPORT LOCAL JSON BACKUP
+        </button>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
