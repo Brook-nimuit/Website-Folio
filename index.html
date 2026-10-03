@@ -120,17 +120,21 @@
               I'm Brook. I'm a data science student at Purdue, and this is my personal portfolio website.
             </p>
 
-            <!-- Sci-Fi HUD Status Panel -->
-            <div class="hud-chamfer bg-synth-panel border border-synth-purple/40 p-4 font-mono text-xs space-y-2 crt-overlay relative overflow-hidden">
-              <div class="flex justify-between border-b border-synth-purple/20 pb-2 gap-4">
-                <span class="text-synth-purple">/ STATUS</span>
-                <span id="calendar-status-text" class="text-synth-cyan text-right">ACTIVE</span>
+            <!-- Status & Last Seen Readout -->
+              <div class="space-y-1.5 border-t border-synth-purple/20 pt-3 font-mono text-[11px]">
+                <div class="flex items-center justify-between">
+                  <span class="text-synth-purple">/ LAST SEEN</span>
+                  <span id="hud-last-seen" class="text-synth-cyan font-bold truncate max-w-[200px] sm:max-w-[280px]">
+                    INITIALIZING...
+                  </span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-synth-purple">/ LOCATION</span>
+                  <span id="hud-last-location" class="text-synth-lavender font-bold truncate max-w-[200px] sm:max-w-[280px]">
+                    PURDUE UNIVERSITY, IN
+                  </span>
+                </div>
               </div>
-              <div class="flex justify-between gap-4">
-                <span class="text-synth-purple">/ LOCATION</span>
-                <span id="calendar-location-text" class="text-white text-right">PURDUE UNIVERSITY, IN</span>
-              </div>
-            </div>
 
             <!-- Action CTAs -->
             <div class="flex flex-wrap justify-center md:justify-start gap-3 pt-2 font-hud">
@@ -211,59 +215,15 @@
 
           </div>
 
-          <!-- Technical Skills Matrix -->
+<!-- Technical Skills Matrix -->
           <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-5 font-mono text-xs space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
             <div class="flex items-center justify-between border-b border-synth-purple/30 pb-2">
               <span class="font-bold tracking-[0.18em] text-white">/ Technical Skills Pool</span>
+              <span class="text-[10px] text-synth-cyan font-mono" id="skills-count-indicator"></span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Languages &amp; Engines</span>
-                <div class="flex flex-wrap gap-1.5 text-[11px]">
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Python</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">JavaScript</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Java</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">HTML/CSS</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Relational SQL</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Ursina Engine</span>
-                </div>
-              </div>
-
-              <div>
-                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Data &amp; Analytics</span>
-                <div class="flex flex-wrap gap-1.5 text-[11px]">
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Pandas</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">NumPy</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Matplotlib</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">A/B Testing</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Google Analytics</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Spreadsheets</span>
-                </div>
-              </div>
-
-              <div>
-                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Frameworks &amp; Platforms</span>
-                <div class="flex flex-wrap gap-1.5 text-[11px]">
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Streamlit</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Firebase</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Web Components</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">LLMs</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">AI Workflows</span>
-                </div>
-              </div>
-
-              <div>
-                <span class="text-white text-[10px] uppercase font-bold block mb-1 tracking-[0.18em]">Tooling &amp; QA</span>
-                <div class="flex flex-wrap gap-1.5 text-[11px]">
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Git</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">GitHub</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Software QA</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Code Review</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Testing</span>
-                  <span class="px-2 py-0.5 border border-synth-purple/30 bg-synth-purple/10 text-synth-lavender rounded-sm">Reporting</span>
-                </div>
-              </div>
+            <div id="skills-matrix-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <!-- Rendered dynamically by admin.js -->
             </div>
           </div>
 
@@ -415,170 +375,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-          <!-- Project Card 1 -->
-          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-purple-900/70 via-fuchsia-900/40 to-synth-bg">
-              <iframe
-                src="https://tts-analytics.streamlit.app/?embed=true"
-                width="100%"
-                height="100%"
-                style="border:none;"
-                title="TTS analytics live preview"
-                loading="lazy"
-              ></iframe>
-              <div class="absolute bottom-2 left-2 px-2 py-1 border border-purple-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">INDEX_PREVIEW</div>
-            </div>
-            <div class="p-6 space-y-4">
-              <div class="flex justify-between items-start">
-                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_01 ]</span>
-                <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Python</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Streamlit</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Pandas</span>
-                </div>
-              </div>
-              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Cafe Data Analytics Admin Dashboard</h3>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Real-time executive analytics dashboard, processing Firestore order payloads into denormalized Pandas DataFrames for KPI and daily sales tracking.
-              </p>
-              <div class="flex items-center justify-between gap-3 pt-2">
-                <a href="https://tts-analytics.streamlit.app/" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
-                </a>
-                <span class="font-hud font-semibold text-sm text-synth-lavender/60 flex items-center gap-1">
-                  <i data-lucide="shield" class="w-4 h-4"></i> ADMIN-ONLY
-                </span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project Card 2 -->
-          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-cyan-900/70 via-violet-900/40 to-synth-bg">
-              <iframe
-                src="https://titscafe.vercel.app/Menu.html"
-                title="TITS cafe live preview"
-                class="h-full w-full border-0 bg-synth-bg"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-              ></iframe>
-              <div class="pointer-events-none absolute inset-0 border border-cyan-400/30"></div>
-              <div class="absolute bottom-2 left-2 px-2 py-1 border border-cyan-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">MENU_PREVIEW</div>
-            </div>
-            <div class="p-6 space-y-4">
-              <div class="flex justify-between items-start">
-                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_02 ]</span>
-                <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">JavaScript</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Firebase NoSQL</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">HTML/CSS</span>
-                </div>
-              </div>
-              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Titis Cafe Ordering & Live Kitchen Queue</h3>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Digital ordering web app featuring dynamic URL table-tagging, client-side session state, and real-time Firestore listeners for kitchen streams.
-              </p>
-
-              <div class="mt-3">
-                <div class="relative flex items-center gap-3">
-                  <button type="button" data-cafe-step="-1" class="cafe-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">&lt;-</button>
-                  <div class="relative flex-1 h-28 overflow-hidden rounded border border-synth-purple/30 bg-synth-panel/60">
-                    <img id="cafe-preview-image" src="assets/img/cafe1.webp" alt="Cafe admin preview 1" class="h-full w-full object-cover transition-opacity duration-300">
-                  </div>
-                  <button type="button" data-cafe-step="1" class="cafe-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">-&gt;</button>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between gap-3 pt-2">
-                <a href="https://titscafe.vercel.app/Menu.html" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
-                </a>
-                <a href="https://github.com/Brook-nimuit/TITS-CAFE-WEBSITE" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project Card 3 -->
-          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-violet-900/70 via-purple-900/50 to-synth-bg">
-              <img src="assets/img/RBpic5.webp" alt="Rubik's cube project preview" class="h-full w-full object-cover">
-              <div class="pointer-events-none absolute inset-0 border border-violet-400/30"></div>
-              <div class="absolute bottom-2 left-2 px-2 py-1 border border-violet-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">GRAPHICS_ENGINE</div>
-            </div>
-            <div class="p-6 space-y-4">
-              <div class="flex justify-between items-start">
-                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_03 ]</span>
-                <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Python</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Ursina Engine</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">3D Rendering</span>
-                </div>
-              </div>
-              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Interactive 3D Rubik's Cube Engine</h3>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Tufts group project built around a collaborative Rubik's cube visualizer. The preview carousel cycles through photos of me and my group from Tufts University.
-              </p>
-
-              <div class="mt-3">
-                <div class="relative flex items-center gap-3">
-                  <button type="button" data-rubiks-step="-1" class="rubiks-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">&lt;-</button>
-                  <div class="relative flex-1 h-28 overflow-hidden rounded border border-synth-purple/30 bg-synth-panel/60">
-                    <img id="rubiks-preview-image" src="assets/img/RBpic5.webp" alt="Tufts group project preview" class="h-full w-full object-cover transition-opacity duration-300">
-                  </div>
-                  <button type="button" data-rubiks-step="1" class="rubiks-nav hud-chamfer-btn px-2 py-1 border border-synth-purple/50 bg-synth-panel/70 text-synth-cyan text-sm font-hud hover:border-synth-neonMagenta">-&gt;</button>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between gap-3 pt-2">
-                <a href="https://github.com/1nduce337/cquirrels" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
-                </a>
-                <a href="https://github.com/1nduce337/cquirrels" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Project Card 4 -->
-          <article class="hud-chamfer bg-synth-card border border-synth-cardBorder p-0 overflow-hidden hover:border-synth-neonMagenta transition group relative crt-overlay">
-            <div class="relative h-44 w-full overflow-hidden border-b border-synth-purple/30 bg-gradient-to-br from-emerald-900/70 via-sky-900/40 to-synth-bg">
-              <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.6),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.55),_transparent_35%)]"></div>
-              <div class="absolute inset-0 flex items-center justify-center text-center px-6">
-                <div>
-                  <div class="font-hud text-2xl tracking-[0.3rem] text-white/80">[ WIP ]</div>
-                  <div class="mt-2 font-mono text-[10px] text-synth-cyan">NEWSLETTER_LAYOUT</div>
-                </div>
-              </div>
-              <div class="absolute bottom-2 left-2 px-2 py-1 border border-emerald-400/40 bg-black/40 backdrop-blur-sm font-mono text-[10px] text-synth-cyan">NEWSLETTER_WIP</div>
-            </div>
-            <div class="p-6 space-y-4">
-              <div class="flex justify-between items-start">
-                <span class="font-mono text-xs text-synth-cyan">[ PROJECT_04 ]</span>
-                <div class="flex gap-2 text-xs font-mono text-synth-purple">
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">Web Components</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">JavaScript</span>
-                  <span class="px-2 py-0.5 bg-synth-purple/20 border border-synth-purple/40">GitHub OSS</span>
-                </div>
-              </div>
-              <h3 class="font-hud font-bold text-2xl text-white group-hover:text-synth-neonMagenta transition">Indy Hackers Newsletter</h3>
-              <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                Work-in-progress contribution for the IndyHackers platform: I’m rebuilding the newsletter section and currently previewing the newspaper-style layout while the long-form vlog version is still in progress.
-              </p>
-              <div class="flex items-center justify-between gap-3 pt-2">
-                <a href="http://indyhackers.org/newsletter" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-cyan hover:text-white flex items-center gap-1">
-                  <i data-lucide="external-link" class="w-4 h-4"></i> VIEW FULL
-                </a>
-                <a href="https://github.com/indyhackers/indyhackers-website" target="_blank" rel="noopener noreferrer" class="font-hud font-semibold text-sm text-synth-lavender hover:text-white flex items-center gap-1">
-                  <i data-lucide="github" class="w-4 h-4"></i> SOURCE CODE
-                </a>
-              </div>
-            </div>
-          </article>
-
         </div>
       </section>
 
@@ -717,15 +513,22 @@
   <script src="js/effects.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/app.js"></script>
-<!-- Floating Localhost/Admin Button -->
-<!-- Floating Admin Button -->
-<button 
-  id="admin-trigger-btn" 
-  onclick="toggleAdminModal()" 
-  class="fixed bottom-4 right-4 z-[9999] px-3 py-1.5 bg-synth-panel/90 border border-synth-purple/60 text-synth-cyan hover:text-synth-neonMagenta text-[11px] font-mono rounded shadow-[0_0_15px_rgba(0,0,0,0.8)] backdrop-blur-md cursor-pointer"
->
-  [⚙ ADMIN CONSOLE]
-</button>
+  <script src="js/calendar.js"></script>
+<!-- Admin Floating Trigger with Pending Changes Badge & Tooltip -->
+<div class="fixed bottom-4 right-4 z-50 group">
+  <!-- Tooltip above button on hover -->
+  <div id="admin-pending-tooltip" class="hidden pointer-events-none absolute -top-8 right-0 whitespace-nowrap rounded bg-synth-panel/95 border border-red-500/60 px-2 py-0.5 text-[10px] font-mono font-bold text-red-300 shadow-[0_0_10px_rgba(239,68,68,0.3)] opacity-0 group-hover:opacity-100 transition-opacity">
+    <span id="admin-pending-tooltip-text">0 PENDING CHANGES</span>
+  </div>
+
+  <button id="admin-trigger-btn" onclick="toggleAdminModal()" class="relative flex items-center gap-2 px-3 py-1.5 rounded-md bg-synth-card border border-synth-purple/40 text-synth-lavender hover:text-white hover:border-synth-cyan transition font-mono text-xs shadow-lg backdrop-blur-sm">
+    <!-- Red Pending Badge -->
+    <span id="admin-pending-badge" class="hidden items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-red-600 border border-red-400 rounded-full font-mono">
+      0
+    </span>
+    <span>[⚙ ADMIN CONSOLE]</span>
+  </button>
+</div>
   <!-- Multi-Tab Admin Console Modal -->
   <div id="admin-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-synth-panel border border-synth-purple/60 rounded-xl p-6 max-w-xl w-full font-mono text-xs text-synth-lavender space-y-4 max-h-[90vh] overflow-y-auto shadow-[0_0_30px_rgba(157,78,221,0.3)]">
@@ -741,6 +544,9 @@
           </button>
           <button id="tab-btn-leadership" onclick="switchAdminTab('leadership')" class="font-bold text-synth-lavender/60 hover:text-white pb-1 text-xs whitespace-nowrap">
             + LEADERSHIP
+          </button>
+          <button id="tab-btn-skills" onclick="switchAdminTab('skills')" class="font-bold text-synth-lavender/60 hover:text-white pb-1 text-xs whitespace-nowrap">
+            + SKILLS
           </button>
           <button id="tab-btn-manage" onclick="switchAdminTab('manage')" class="font-bold text-synth-cyan hover:text-synth-neonMagenta pb-1 text-xs whitespace-nowrap">
             &#128465; MANAGE / UNDO
@@ -887,6 +693,35 @@
             EXPORT JSON
           </button>
         </div>
+      </form>
+
+      <!-- FORM: ADD / MANAGE SKILLS -->
+      <form id="admin-form-skills" onsubmit="submitAdminSkill(event)" class="hidden space-y-3">
+        <div>
+          <label class="block text-[10px] font-mono text-synth-cyan uppercase mb-1">Target Category</label>
+          <select name="category" class="w-full bg-synth-bg border border-synth-purple/40 rounded p-2 text-xs text-white focus:outline-none focus:border-synth-cyan font-mono">
+            <option value="Languages &amp; Engines">Languages &amp; Engines</option>
+            <option value="Data &amp; Analytics">Data &amp; Analytics</option>
+            <option value="Frameworks &amp; Platforms">Frameworks &amp; Platforms</option>
+            <option value="Tooling &amp; QA">Tooling &amp; QA</option>
+            <option value="Project Tech &amp; Engines">Project Tech &amp; Engines (Dynamic)</option>
+            <option value="__custom__">+ Create New Category...</option>
+          </select>
+        </div>
+
+        <div id="custom-cat-wrapper" class="hidden">
+          <label class="block text-[10px] font-mono text-synth-lavender uppercase mb-1">New Category Name</label>
+          <input type="text" name="customCategory" placeholder="e.g. Systems &amp; Networking" class="w-full bg-synth-bg border border-synth-purple/40 rounded p-2 text-xs text-white focus:outline-none focus:border-synth-cyan font-mono" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-mono text-synth-cyan uppercase mb-1">Skill Name(s) (Comma-separated)</label>
+          <input type="text" name="skillNames" required placeholder="e.g. C++, Redis, GraphQL, WebSockets" class="w-full bg-synth-bg border border-synth-purple/40 rounded p-2 text-xs text-white focus:outline-none focus:border-synth-cyan font-mono" />
+        </div>
+
+        <button type="submit" class="w-full py-2 bg-synth-purple hover:bg-synth-neonMagenta text-white font-bold rounded text-xs transition mt-2">
+          + INJECT SKILL(S) INTO MATRIX
+        </button>
       </form>
 
       <!-- FORM 4: MANAGE CUSTOM CONTENT -->

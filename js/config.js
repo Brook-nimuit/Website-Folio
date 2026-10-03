@@ -18,5 +18,11 @@ const APP_CONFIG = {
   }
 };
 
+export const CALENDAR_CONFIG = {
+  apiKey: 'AIzaSyDReXA4LBLtDAakYX7z3V50koNNPCk_gog',
+  calendarId: 'brook2022nets@gmail.com', // or group calendar ID
+  maxResults: 6
+};
+
 // Export to window scope so other modules can consume it cleanly
 window.APP_CONFIG = APP_CONFIG;
