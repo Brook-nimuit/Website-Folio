@@ -103,21 +103,53 @@ window.persistTrackToFirebase = async function(track) {
   }
 };
 
-// 2. Fetch the last 5-6 songs for external visitors
-window.fetchRecentTracksFromFirebase = async function() {
-  try {
-    const db = await initFirebaseStore();
-    const tracksRef = db.collection('recent_tracks');
-    const documents = (await getRecentTrackDocuments(tracksRef)).slice(0, 6);
-    if (!documents.length) return null;
+// Time-ago formatting helper
+function formatTimeAgo(timestamp) {
+  if (!timestamp) return 'RECENT';
+  const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+  const diffSec = Math.floor((Date.now() - date.getTime()) / 1000);
 
-    return documents.map(doc => {
-      const track = doc.data();
-      const albumArt = track.album_art_url || track.albumArt || '';
-      return { ...track, album_art_url: albumArt, albumArt };
-    });
-  } catch (err) {
-    console.warn('[Spotify Firebase] Read notice:', err.message);
-    return null;
-  }
-};
+  if (diffSec < 60) return 'JUST NOW';
+  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}M AGO`;
+  if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}H AGO`;
+  return `${Math.floor(diffSec / 86400)}D AGO`;
+}
+
+// In your fetchRecentTracksFromFirebase mapping logic:
+container.innerHTML = tracks.map((t, idx) => {
+  const timeAgo = formatTimeAgo(t.timestamp);
+  const exactTime = t.timestamp?.toDate 
+    ? t.timestamp.toDate().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) 
+    : 'Live telemetry';
+
+  const badgeColor = idx === 0 
+    ? 'text-emerald-400 border-emerald-500/30 bg-emerald-950/20' 
+    : 'text-purple-400/70 border-purple-900/40 bg-purple-950/20';
+
+  return `
+    <div 
+      class="group relative flex items-center gap-3 p-2 rounded bg-synth-bg/50 border border-purple-900/30 hover:border-purple-500/40 transition cursor-default"
+      title="Played: ${exactTime}"
+    >
+      <div class="relative w-10 h-10 rounded bg-purple-950/60 overflow-hidden shrink-0 border border-purple-900/50">
+        <img 
+          src="${t.album_art_url || 'assets/img/Headshot.webp'}" 
+          alt="${escapeHTML(t.song)}" 
+          class="w-full h-full object-cover" 
+          onerror="this.src='assets/img/Headshot.webp';"
+        />
+      </div>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center justify-between gap-1">
+          <p class="text-white text-xs font-bold truncate">${escapeHTML(t.song)}</p>
+          
+          <!-- Subtle Timestamp Badge -->
+          <span class="font-mono text-[9px] px-1.5 py-0.2 rounded border ${badgeColor} shrink-0 group-hover:border-synth-cyan group-hover:text-synth-cyan transition-colors">
+            ${timeAgo}
+          </span>
+        </div>
+        <p class="text-purple-300/80 text-[10px] truncate">${escapeHTML(t.artist)}</p>
+      </div>
+    </div>
+  `;
+}).join('');

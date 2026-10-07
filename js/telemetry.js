@@ -424,6 +424,50 @@ function connectLanyardSocket() {
     setTimeout(connectLanyardSocket, 5000);
   };
 }
+function adaptCommitGraph(weeksData) {
+  // weeksData is an array of week objects from the GitHub GraphQL/REST response
+  // Each week has 7 days of commit counts: [{ contributionDays: [{ date, contributionCount }, ...] }]
+
+  const allDays = weeksData.flatMap(w => w.contributionDays);
+  const now = new Date();
+
+  // Helper to count commits within past N days
+  const getCommitCountInRange = (days) => {
+    const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
+    return allDays
+      .filter(d => new Date(d.date) >= cutoff)
+      .reduce((sum, d) => sum + d.contributionCount, 0);
+  };
+
+  const count30 = getCommitCountInRange(30);
+  const count60 = getCommitCountInRange(60);
+  const count90 = getCommitCountInRange(90);
+
+  let targetWeeks = 12; // Default to ~3 months
+  let signalLabel = 'LAST 90 DAYS';
+
+  if (count30 >= 25) {
+    targetWeeks = 5; // Focus on the intense last 4-5 weeks
+    signalLabel = 'LAST 30 DAYS';
+  } else if (count60 >= 40) {
+    targetWeeks = 9; // ~2 months
+    signalLabel = 'LAST 60 DAYS';
+  } else if (count90 >= 60) {
+    targetWeeks = 13;
+    signalLabel = 'LAST QUARTER';
+  } else {
+    targetWeeks = 26; // 6 months maximum to maintain visual density
+    signalLabel = 'LAST 6 MONTHS';
+  }
+
+  // Update header label in the HUD
+  const labelEl = document.getElementById('git-signal-label');
+  if (labelEl) labelEl.textContent = signalLabel;
+
+  // Slice only the most recent N weeks to render
+  const visibleWeeks = weeksData.slice(-targetWeeks);
+  renderWeeksGrid(visibleWeeks);
+}
 
 // =============================================================================
 // BOOTSTRAP
