@@ -32,7 +32,7 @@ async function syncGithubTelemetry() {
   if (!container) return;
 
   try {
-    const res = await fetch(`https://api.github.com/users/${username}/events/public?per_page=15`);
+    const res = await fetch(`https://api.github.com/users/${username}/events/public?per_page=100`);
     if (!res.ok) throw new Error(`GITHUB_${res.status}`);
     const events = await res.json();
     const commits = [];
@@ -74,6 +74,72 @@ async function syncGithubTelemetry() {
   } catch (err) {
     if (timeEl) timeEl.textContent = 'ACTIVE';
   }
+}
+
+async function syncGithubContributionGraph() {
+  const graph = document.getElementById('gitContributionGraph');
+  if (!graph) return;
+
+  const username = window.APP_CONFIG?.githubUsername || 'Brook-nimuit';
+  try {
+    const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${encodeURIComponent(username)}?y=last`);
+    if (!res.ok) throw new Error(`CONTRIBUTIONS_${res.status}`);
+    const data = await res.json();
+    if (!Array.isArray(data.contributions)) throw new Error('CONTRIBUTIONS_INVALID_RESPONSE');
+    renderGithubCommitGraph(data.contributions);
+  } catch (err) {
+    console.warn('[GitHub] Contribution graph unavailable:', err.message);
+    graph.textContent = 'ACTIVITY DATA UNAVAILABLE';
+    graph.classList.add('text-[10px]', 'text-purple-400', 'font-mono', 'text-center');
+  }
+}
+
+function renderGithubCommitGraph(contributions) {
+  const graph = document.getElementById('gitContributionGraph');
+  if (!graph) return;
+
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const cutoff = new Date(today);
+  cutoff.setUTCDate(cutoff.getUTCDate() - 59);
+
+  const commitsByDate = new Map();
+  for (const contribution of contributions) {
+    if (!contribution.date || !Number.isFinite(contribution.count)) continue;
+    const date = contribution.date;
+    const eventDate = new Date(`${date}T00:00:00Z`);
+    if (Number.isNaN(eventDate.getTime()) || eventDate < cutoff || eventDate > today) continue;
+    commitsByDate.set(date, contribution.count);
+  }
+
+  const start = new Date(today);
+  start.setUTCDate(today.getUTCDate() - today.getUTCDay() - 56);
+  const fragment = document.createDocumentFragment();
+
+  for (let week = 0; week < 9; week += 1) {
+    for (let day = 0; day < 7; day += 1) {
+      const date = new Date(start);
+      date.setUTCDate(start.getUTCDate() + week * 7 + day);
+      const dateString = date.toISOString().slice(0, 10);
+      const count = date < cutoff ? 0 : (commitsByDate.get(dateString) || 0);
+      const cell = document.createElement('span');
+      const intensity = count === 0
+        ? 'bg-purple-950/60'
+        : count === 1
+          ? 'bg-purple-800'
+          : count <= 3
+            ? 'bg-purple-600'
+            : count <= 6
+              ? 'bg-purple-400'
+              : 'bg-fuchsia-400';
+
+      cell.className = `w-3 h-3 rounded-sm ${intensity}`;
+      cell.title = `${count} contribution${count === 1 ? '' : 's'} on ${dateString}`;
+      fragment.appendChild(cell);
+    }
+  }
+
+  graph.replaceChildren(fragment);
 }
 
 // =============================================================================
@@ -424,56 +490,12 @@ function connectLanyardSocket() {
     setTimeout(connectLanyardSocket, 5000);
   };
 }
-function adaptCommitGraph(weeksData) {
-  // weeksData is an array of week objects from the GitHub GraphQL/REST response
-  // Each week has 7 days of commit counts: [{ contributionDays: [{ date, contributionCount }, ...] }]
-
-  const allDays = weeksData.flatMap(w => w.contributionDays);
-  const now = new Date();
-
-  // Helper to count commits within past N days
-  const getCommitCountInRange = (days) => {
-    const cutoff = new Date(now.getTime() - days * 24 * 60 * 60 * 1000);
-    return allDays
-      .filter(d => new Date(d.date) >= cutoff)
-      .reduce((sum, d) => sum + d.contributionCount, 0);
-  };
-
-  const count30 = getCommitCountInRange(30);
-  const count60 = getCommitCountInRange(60);
-  const count90 = getCommitCountInRange(90);
-
-  let targetWeeks = 12; // Default to ~3 months
-  let signalLabel = 'LAST 90 DAYS';
-
-  if (count30 >= 25) {
-    targetWeeks = 5; // Focus on the intense last 4-5 weeks
-    signalLabel = 'LAST 30 DAYS';
-  } else if (count60 >= 40) {
-    targetWeeks = 9; // ~2 months
-    signalLabel = 'LAST 60 DAYS';
-  } else if (count90 >= 60) {
-    targetWeeks = 13;
-    signalLabel = 'LAST QUARTER';
-  } else {
-    targetWeeks = 26; // 6 months maximum to maintain visual density
-    signalLabel = 'LAST 6 MONTHS';
-  }
-
-  // Update header label in the HUD
-  const labelEl = document.getElementById('git-signal-label');
-  if (labelEl) labelEl.textContent = signalLabel;
-
-  // Slice only the most recent N weeks to render
-  const visibleWeeks = weeksData.slice(-targetWeeks);
-  renderWeeksGrid(visibleWeeks);
-}
-
 // =============================================================================
 // BOOTSTRAP
 // =============================================================================
 document.addEventListener('DOMContentLoaded', () => {
   syncGithubTelemetry();
+  syncGithubContributionGraph();
   connectLanyardSocket();
   syncChessTelemetry();
   initAuxTracks();

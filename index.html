@@ -243,19 +243,18 @@
                 <span id="gitTime" class="text-[10px] text-purple-400/60">ACTIVE</span>
               </div>
 
-              <!-- Real Activity Heatmap (Styled Cyberpunk SVG) -->
+              <!-- GitHub contribution heatmap -->
               <div class="p-2 bg-synth-bg/90 rounded border border-purple-900/40 overflow-hidden">
-<div class="flex items-center justify-between text-[10px] font-mono text-synth-cyan pb-1">
-  <span>CONTRIBUTION GRAPH</span>
-  <span id="git-signal-label" class="text-synth-purple">LAST 60 DAYS</span>
-</div>
-                <div class="overflow-x-auto overflow-y-hidden">
-                  <img 
-                    src="https://ghchart.rshah.org/9d4edd/Brook-nimuit" 
-                    alt="Brook's GitHub Contributions" 
-                    class="w-full min-w-[500px] h-auto filter contrast-125 brightness-110"
-                    loading="lazy"
-                  />
+                <div class="flex items-center justify-between text-[10px] font-mono text-synth-cyan pb-1">
+                  <span>CONTRIBUTION GRAPH</span>
+                  <span id="git-signal-label" class="text-synth-purple">LAST 60 DAYS</span>
+                </div>
+                <div
+                  id="gitContributionGraph"
+                  class="grid grid-flow-col grid-rows-7 gap-[3px] justify-center py-1"
+                  role="img"
+                  aria-label="GitHub contributions over the last 60 days"
+                >
                 </div>
               </div>
 
