@@ -5,7 +5,7 @@
 let chessGamesBuffer = [];
 let currentChessIdx = 0;
 let currentChessTab = 'matches'; // 'ratings' or 'matches'
-let currentSpotifyTab = 'queue'; // 'queue' or 'aux'
+let currentSpotifyTab = 'aux'; // 'queue' or 'aux'
 
 // Helper: Relative time
 function formatTimeAgo(isoDate) {
@@ -24,55 +24,57 @@ function formatTimeAgo(isoDate) {
 // 1. GITHUB TELEMETRY: 30-DAY COMPACT HEATMAP & COMMIT COUNTER
 // =============================================================================
 async function syncGithubTelemetry() {
-  const container = document.getElementById('gitCommitStream');
   const timeEl = document.getElementById('gitTime');
-  const urlEl = document.getElementById('gitCommitUrl');
+  const repoEl = document.getElementById('git-latest-repo');
+  const dateEl = document.getElementById('git-latest-date');
+  const messageEl = document.getElementById('git-latest-message');
+  const linkEl = document.getElementById('git-latest-link');
   const username = window.APP_CONFIG?.githubUsername || 'Brook-nimuit';
 
-  if (!container) return;
+  if (!repoEl || !messageEl) return;
 
   try {
-    const res = await fetch(`https://api.github.com/users/${username}/events/public?per_page=100`);
+    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=15`);
     if (!res.ok) throw new Error(`GITHUB_${res.status}`);
     const events = await res.json();
-    const commits = [];
+    const pushEvent = events
+      .filter(event => event.type === 'PushEvent' && event.payload?.head && event.repo?.name)
+      .sort((left, right) => new Date(right.created_at) - new Date(left.created_at))[0];
 
-    for (const evt of events) {
-      if (evt.type === 'PushEvent' && evt.payload?.commits?.length) {
-        const repoClean = evt.repo.name.replace(`${username}/`, '');
-        for (const c of [...evt.payload.commits].reverse()) {
-          commits.push({
-            repo: repoClean,
-            message: c.message.split('\n')[0],
-            sha: (c.sha || 'HEAD').substring(0, 7),
-            time: evt.created_at,
-            url: `https://github.com/${evt.repo.name}/commit/${c.sha}`
-          });
-          if (commits.length >= 5) break;
-        }
-      }
-      if (commits.length >= 5) break;
+    if (!pushEvent) {
+      repoEl.textContent = 'NO RECENT PUBLIC PUSH';
+      messageEl.textContent = '"No recent public commit is available."';
+      if (dateEl) dateEl.textContent = '--/--/--';
+      if (linkEl) linkEl.href = `https://github.com/${encodeURIComponent(username)}`;
+      return;
     }
 
-    if (commits.length > 0) {
-      if (timeEl) timeEl.textContent = formatTimeAgo(commits[0].time);
-      if (urlEl) urlEl.href = commits[0].url;
+    const repoFullName = pushEvent.repo.name;
+    const commitSha = pushEvent.payload.head;
+    const encodedRepoPath = repoFullName.split('/').map(encodeURIComponent).join('/');
+    const commitRes = await fetch(`https://api.github.com/repos/${encodedRepoPath}/commits/${encodeURIComponent(commitSha)}`);
+    if (!commitRes.ok) throw new Error(`GITHUB_COMMIT_${commitRes.status}`);
+    const latestCommit = await commitRes.json();
+    const commitDate = latestCommit.commit?.committer?.date
+      || latestCommit.commit?.author?.date
+      || pushEvent.created_at;
+    const eventDate = new Date(commitDate);
+    if (Number.isNaN(eventDate.getTime())) throw new Error('GITHUB_COMMIT_INVALID_DATE');
+    const day = String(eventDate.getDate()).padStart(2, '0');
+    const month = String(eventDate.getMonth() + 1).padStart(2, '0');
+    const year = String(eventDate.getFullYear()).slice(-2);
 
-      container.innerHTML = commits.map(c => `
-        <div class="flex items-start justify-between border-b border-purple-900/40 pb-2 text-[11px] gap-2">
-          <div class="space-y-0.5 min-w-0 flex-1">
-            <div class="flex items-center gap-1.5 font-bold text-purple-300">
-              <span class="truncate">${c.repo}</span>
-              <span class="text-[9px] bg-purple-900/60 px-1 py-0.5 rounded text-purple-400 font-mono shrink-0">${c.sha}</span>
-            </div>
-            <p class="text-purple-200/80 truncate italic">"${c.message}"</p>
-          </div>
-          <a href="${c.url}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-purple-400 hover:text-purple-200 shrink-0 font-mono mt-0.5">VIEW ↗</a>
-        </div>
-      `).join('');
-    }
+    repoEl.textContent = repoFullName.split('/').pop();
+    messageEl.textContent = `"${(latestCommit.commit?.message || 'Commit message unavailable').split('\n')[0].trim()}"`;
+    if (dateEl) dateEl.textContent = `${day}/${month}/${year}`;
+    if (timeEl) timeEl.textContent = formatTimeAgo(commitDate);
+    if (linkEl) linkEl.href = `https://github.com/${repoFullName}/commit/${latestCommit.sha || commitSha}`;
   } catch (err) {
-    if (timeEl) timeEl.textContent = 'ACTIVE';
+    console.warn('[GitHub Latest Commit Fallback]:', err.message);
+    repoEl.textContent = 'GITHUB UNAVAILABLE';
+    messageEl.textContent = '"Latest public commit could not be loaded."';
+    if (dateEl) dateEl.textContent = '--/--/--';
+    if (linkEl) linkEl.href = `https://github.com/${encodeURIComponent(username)}`;
   }
 }
 
@@ -97,6 +99,7 @@ async function syncGithubContributionGraph() {
 function renderGithubCommitGraph(contributions) {
   const graph = document.getElementById('gitContributionGraph');
   if (!graph) return;
+  const signalLabel = document.getElementById('git-signal-label');
 
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
@@ -112,6 +115,12 @@ function renderGithubCommitGraph(contributions) {
     commitsByDate.set(date, contribution.count);
   }
 
+  const totalContributions = [...commitsByDate.values()].reduce((total, count) => total + count, 0);
+  if (signalLabel) {
+    const contributionLabel = totalContributions === 1 ? 'CONTRIBUTION' : 'CONTRIBUTIONS';
+    signalLabel.textContent = `${totalContributions} ${contributionLabel} / LAST 60 DAYS`;
+  }
+
   const start = new Date(today);
   start.setUTCDate(today.getUTCDate() - today.getUTCDay() - 56);
   const fragment = document.createDocumentFragment();
@@ -124,14 +133,14 @@ function renderGithubCommitGraph(contributions) {
       const count = date < cutoff ? 0 : (commitsByDate.get(dateString) || 0);
       const cell = document.createElement('span');
       const intensity = count === 0
-        ? 'bg-purple-950/60'
+        ? 'bg-green-950/60'
         : count === 1
-          ? 'bg-purple-800'
+          ? 'bg-green-900'
           : count <= 3
-            ? 'bg-purple-600'
+            ? 'bg-green-700'
             : count <= 6
-              ? 'bg-purple-400'
-              : 'bg-fuchsia-400';
+              ? 'bg-green-500'
+              : 'bg-green-300';
 
       cell.className = `w-3 h-3 rounded-sm ${intensity}`;
       cell.title = `${count} contribution${count === 1 ? '' : 's'} on ${dateString}`;
@@ -388,10 +397,14 @@ function renderRecentTracksUI(tracks) {
 // Initial load for AUX tracks (From Firebase if available, otherwise localStorage)
 async function initAuxTracks() {
   if (window.fetchRecentTracksFromFirebase) {
-    const remoteTracks = await window.fetchRecentTracksFromFirebase();
-    if (remoteTracks && remoteTracks.length) {
-      renderRecentTracksUI(remoteTracks);
-      return;
+    try {
+      const remoteTracks = await window.fetchRecentTracksFromFirebase();
+      if (remoteTracks && remoteTracks.length) {
+        renderRecentTracksUI(remoteTracks);
+        return;
+      }
+    } catch (err) {
+      console.warn('[Spotify Firebase] Recent tracks unavailable:', err.message);
     }
   }
   const cached = localStorage.getItem('banimut_recent_tracks');
@@ -498,5 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
   syncGithubContributionGraph();
   connectLanyardSocket();
   syncChessTelemetry();
+  window.switchSpotifyTab('aux');
   initAuxTracks();
 });

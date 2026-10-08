@@ -172,49 +172,74 @@
 
       <!-- ================= ABOUT ME TAB ================= -->
       <section id="view-about" class="tab-view hidden space-y-8">
-        <div class="border-b border-synth-purple/30 pb-4">
-          <h2 class="font-hud font-bold text-3xl text-white tracking-wider">/ ABOUT ME</h2>
-          <p class="font-mono text-xs text-synth-purple">Learn more about me</p>
-        </div>
-
-        <div class="space-y-6">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- Origin Bio Card -->
-            <div class="hud-chamfer bg-synth-card border border-synth-cardBorder p-5 space-y-3">
-              <div class="flex items-center justify-between border-b border-synth-purple/20 pb-2">
-                <span class="font-mono text-xs text-white font-bold">/ Me</span>
-                <span class="font-mono text-[10px] text-synth-cyan">Ethiopia -> Purdue</span>
-              </div>
-              
-              <div class="overflow-hidden pt-1">
-<div class="float-left mr-4 mb-2 w-24 h-28 sm:w-28 sm:h-32 rounded-lg border border-synth-purple/50 overflow-hidden shadow-[0_0_12px_rgba(157,78,221,0.3)] shrink-0">
-  <img src="assets/img/Other-Headshot.webp" alt="Brook Animut" class="w-full h-full object-cover">
-</div>
-                <p class="font-mono text-xs text-synth-lavender/80 leading-relaxed">
-                  I grew up in Addis Ababa, where I was fortunate to gain real-world industry exposure outside of high school early on. I'm passionate about teaching and love learning new concepts, dedicating much of my free time to learning math and coding with AI.
-                  I'm an avid chess player, gym rat, and a Weeknd-music enthusiast.
-                </p>
-              </div>
-            </div>
-
-            <!-- Contacts Card -->
-            <div class="hud-chamfer bg-synth-panel border border-synth-purple/60 p-5 flex flex-col justify-between">
-              <div>
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-synth-purple/30 pb-3 mb-3">
-                  <span class="font-mono text-xs text-white">/ CONTACTS</span>
-                  <span class="font-mono text-[10px] text-white/70">HMU</span>
-                </div>
-              </div>
-              <div class="flex flex-wrap gap-3 font-hud text-sm text-synth-lavender">
-                <a href="mailto:brook2022nets@gmail.com" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ EMAIL</a>
-                <a href="https://www.linkedin.com/in/brook-animut/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ LINKEDIN</a>
-                <a href="https://www.instagram.com/br.ook2281/" target="_blank" rel="noopener noreferrer" class="hud-chamfer-btn px-4 py-2 border border-synth-purple/40 bg-synth-bg/70 hover:border-synth-neonMagenta hover:text-white transition">/ INSTAGRAM</a>
-              </div>
-            </div>
-
+<!-- Header & Direct Contact Links Row -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-synth-purple/20 pb-4">
+          <div>
+            <h2 class="font-hud font-bold text-3xl sm:text-4xl text-white tracking-wide">
+              / ABOUT ME
+            </h2>
+            <p class="font-mono text-xs text-synth-lavender/60 mt-1">
+              Learn more about me
+            </p>
           </div>
 
+          <!-- Direct Contact Pills in Header -->
+          <div class="flex items-center gap-2 font-mono text-xs">
+            <a 
+              href="mailto:banimut@purdue.edu" 
+              class="hud-chamfer-btn px-3 py-1.5 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender hover:text-synth-cyan hover:border-synth-cyan transition"
+            >
+              / EMAIL
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/brook-animut/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="hud-chamfer-btn px-3 py-1.5 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender hover:text-synth-cyan hover:border-synth-cyan transition"
+            >
+              / LINKEDIN
+            </a>
+            <a 
+              href="https://www.instagram.com/br.ook2281/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="hud-chamfer-btn px-3 py-1.5 border border-synth-purple/40 bg-synth-panel/80 text-synth-lavender hover:text-synth-neonMagenta hover:border-synth-neonMagenta transition"
+            >
+              / INSTAGRAM
+            </a>
+          </div>
+        </div>
+
+        <!-- Full-Width / Me Showcase Card -->
+        <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-6 md:p-8 space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)] relative overflow-hidden">
+          <div class="flex items-center justify-between border-b border-synth-purple/30 pb-3 font-mono text-xs">
+            <span class="font-bold tracking-[0.18em] text-white">/ Me</span>
+            <span class="text-synth-cyan font-bold tracking-widest text-[11px]">Ethiopia &rarr; Purdue</span>
+          </div>
+
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 pt-2">
+            <!-- Expanded Headshot -->
+            <div class="relative w-36 h-36 md:w-44 md:h-44 shrink-0 rounded border border-synth-purple/60 overflow-hidden shadow-[0_0_15px_rgba(168,85,247,0.2)] bg-synth-card">
+              <img 
+                src="assets/img/Other-Headshot.webp" 
+                alt="Brook Netsanet Animut" 
+                class="w-full h-full object-cover object-center" 
+                onerror="this.src='assets/img/Headshot.jpg';" 
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Bio Copy -->
+            <div class="flex-1 space-y-3 font-mono text-xs sm:text-sm text-synth-lavender leading-relaxed">
+              <p>
+                I grew up in Addis Ababa, where I was fortunate to gain real-world industry exposure outside of high school early on. I'm passionate about teaching and love learning new concepts, dedicating much of my free time to learning math and coding with AI.
+              </p>
+              <p class="text-synth-lavender/90">
+                I'm an avid chess player, gym rat, and a Weeknd-music enthusiast.
+              </p>
+            </div>
+          </div>
+        </div>
 <!-- Technical Skills Matrix -->
           <div class="hud-chamfer bg-synth-panel/80 border border-synth-purple/40 p-5 font-mono text-xs space-y-4 shadow-[0_0_18px_rgba(168,85,247,0.15)]">
             <div class="flex items-center justify-between border-b border-synth-purple/30 pb-2">
@@ -230,7 +255,7 @@
 <!-- TELEMETRY GRIDS: GITHUB, SPOTIFY DUAL-TAB, CHESS DUAL-TAB -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-<!-- GitHub Commits Stream + Cyberpunk Activity Heatmap -->
+<!-- GitHub Commits Stream + Activity Heatmap -->
             <div class="bg-purple-950/20 border border-purple-500/30 p-4 rounded-xl font-mono text-xs space-y-3 hover:border-purple-400 transition-all duration-300">
               <div class="flex items-center justify-between border-b border-purple-900/60 pb-2">
                 <div class="flex items-center gap-2">
@@ -238,7 +263,7 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
                   </span>
-                  <span class="text-purple-300 font-bold">/ GIT_ACTIVITY_STREAM</span>
+                  <span class="text-purple-300 font-bold">/ Git Commits</span>
                 </div>
                 <span id="gitTime" class="text-[10px] text-purple-400/60">ACTIVE</span>
               </div>
@@ -246,8 +271,8 @@
               <!-- GitHub contribution heatmap -->
               <div class="p-2 bg-synth-bg/90 rounded border border-purple-900/40 overflow-hidden">
                 <div class="flex items-center justify-between text-[10px] font-mono text-synth-cyan pb-1">
-                  <span>CONTRIBUTION GRAPH</span>
-                  <span id="git-signal-label" class="text-synth-purple">LAST 60 DAYS</span>
+                  <span>CONTRIBUTIONS</span>
+                  <span id="git-signal-label" class="text-synth-purple">LOADING ACTIVITY...</span>
                 </div>
                 <div
                   id="gitContributionGraph"
@@ -258,25 +283,29 @@
                 </div>
               </div>
 
-              <div id="gitCommitStream" class="space-y-2 max-h-36 overflow-y-auto pr-1">
-                <div class="flex items-start justify-between border-b border-purple-900/40 pb-2 text-[11px]">
-                  <div class="space-y-0.5 truncate pr-2">
-                    <div class="flex items-center gap-1.5 font-bold text-purple-300">
-                      <span>Website-Folio</span>
-                      <span class="text-[9px] bg-purple-900/60 px-1 rounded text-purple-400 font-mono">HEAD</span>
-                    </div>
-                    <p class="text-purple-200/80 truncate italic">"Portfolio HUD with live Lanyard & Chess telemetry"</p>
+              <div class="mt-4 pt-3 border-t border-synth-purple/20 font-mono text-xs">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2 truncate">
+                    <span id="git-latest-repo" class="text-white font-bold tracking-wide truncate">LOADING...</span>
+                    <span class="px-1.5 py-0.2 rounded text-[9px] bg-synth-purple/30 text-synth-lavender border border-synth-purple/40">HEAD</span>
+                    <span id="git-latest-date" class="text-[10px] text-synth-lavender/60 shrink-0">--/--/--</span>
                   </div>
-                  <a href="https://github.com/Brook-nimuit/Website-Folio" target="_blank" rel="noopener noreferrer" class="text-[9px] text-purple-400 hover:text-purple-200 shrink-0 font-mono mt-0.5">
+                  <a
+                    id="git-latest-link"
+                    href="https://github.com/Brook-nimuit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-synth-cyan hover:text-white transition text-[11px] shrink-0"
+                  >
                     VIEW ↗
                   </a>
                 </div>
-              </div>
-
-              <div class="pt-1 flex justify-end">
-                <a id="gitCommitUrl" href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-[10px] text-purple-400 hover:text-purple-200 transition-colors">
-                  / VIEW ON GITHUB ↗
-                </a>
+                <p id="git-latest-message" class="text-synth-lavender/80 italic mt-1 text-[11px] truncate">"Fetching latest Commit..."</p>
+                <div class="flex justify-end mt-2">
+                  <a href="https://github.com/Brook-nimuit" target="_blank" rel="noopener noreferrer" class="text-synth-lavender/60 hover:text-synth-cyan transition text-[10px]">
+                    / VIEW ON GITHUB ↗
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -285,10 +314,10 @@
               <div>
                 <div class="flex items-center justify-between border-b border-purple-900/60 pb-2 mb-3">
                   <div class="flex items-center gap-4">
-                    <button id="tab-spotify-queue" onclick="switchSpotifyTab('queue')" class="font-bold text-white border-b-2 border-synth-neonMagenta pb-0.5 text-xs">
+                    <button id="tab-spotify-queue" onclick="switchSpotifyTab('queue')" class="font-bold text-purple-400/80 hover:text-white pb-0.5 text-xs">
                       / QUEUE
                     </button>
-                    <button id="tab-spotify-aux" onclick="switchSpotifyTab('aux')" class="font-bold text-purple-400/80 hover:text-white pb-0.5 text-xs">
+                    <button id="tab-spotify-aux" onclick="switchSpotifyTab('aux')" class="font-bold text-white border-b-2 border-synth-neonMagenta pb-0.5 text-xs">
                       / AUX
                     </button>
                   </div>
@@ -296,7 +325,7 @@
                 </div>
 
                 <!-- Tab 1: / QUEUE (Live Playback) -->
-                <div id="spotifyQueueView" class="space-y-4 pt-2">
+                <div id="spotifyQueueView" class="hidden space-y-4 pt-2">
                   <div class="flex items-center gap-3">
                     <div class="relative w-14 h-14 rounded bg-purple-900/40 border border-purple-500/20 overflow-hidden shrink-0">
                       <img id="spotifyAlbumArt" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' fill='%2316122a'/%3E%3Ccircle cx='24' cy='24' r='16' fill='%234dd7a0' fill-opacity='.12'/%3E%3Cpath d='M16 30c5.5-1 10.5-.6 16 2M16 24c7-1.2 12.5-.5 18 2.7M16 18.5c8.2-1.8 14.4-.7 20 3.6' stroke='%23d1fae5' stroke-width='2.2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" alt="Album Art" class="w-full h-full object-cover" />
@@ -313,14 +342,14 @@
                       <div class="w-1 bg-emerald-400 h-1/2 animate-[bounce_1s_infinite_300ms]"></div>
                       <div class="w-1 bg-emerald-400 h-3/4 animate-[bounce_1s_infinite_200ms]"></div>
                     </div>
-                    <span class="text-[10px] text-emerald-400/80 font-mono">SPOTIFY GATEWAY</span>
+                    <span class="text-[10px] text-emerald-400/80 font-mono">SPOTIFY</span>
                   </div>
                 </div>
 
                 <!-- Tab 2: / AUX (Recent 6 Songs with Album Covers) -->
-                <div id="spotifyAuxView" class="hidden space-y-2 max-h-56 overflow-y-auto pr-1">
+                <div id="spotifyAuxView" class="space-y-2 max-h-56 overflow-y-auto pr-1">
                   <div id="recentTracksList" class="space-y-2">
-                    <div class="text-[11px] text-purple-400/60 italic p-3">Waiting for playback stream...</div>
+                    <div class="text-[11px] text-purple-400/60 italic p-3">Waiting for music stream...</div>
                   </div>
                 </div>
               </div>
