@@ -547,9 +547,25 @@
           <label class="flex items-center gap-2 text-white">
             <input type="checkbox" name="hasCarousel" /> ENABLE IMAGE CAROUSEL
           </label>
-          <div class="grid grid-cols-2 gap-2">
-            <input name="carouselPrefix" class="bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="Prefix (e.g. cafe, RBpic)" />
-            <input name="carouselCount" type="number" class="bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="Count (e.g. 4)" />
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <label class="block text-[10px] text-synth-cyan mb-1">CAROUSEL PREFIX</label>
+              <input name="carouselPrefix" class="w-full bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="e.g. indyhackers" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-synth-cyan mb-1">SLIDE COUNT</label>
+              <input name="carouselCount" type="number" min="0" max="15" class="w-full bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white" placeholder="e.g. 4" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-synth-cyan mb-1">FILE EXTENSION</label>
+              <select name="carouselExt" class="w-full bg-synth-bg border border-synth-purple/40 p-1.5 rounded text-white">
+                <option value="webp" selected>.webp</option>
+                <option value="png">.png</option>
+                <option value="jpg">.jpg</option>
+                <option value="jpeg">.jpeg</option>
+                <option value="gif">.gif</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">

@@ -358,8 +358,9 @@ function renderDynamicContent() {
       let carouselHTML = '';
       if (proj.hasCarousel && (parseInt(proj.carouselCount, 10) || 0) > 0) {
         const prefix = proj.carouselPrefix || 'proj';
+        const ext = proj.carouselExt || 'webp';
         const count = parseInt(proj.carouselCount, 10) || 1;
-        const firstImage = `assets/img/${prefix}1.webp`;
+        const firstImage = `assets/img/${prefix}1.${ext}`;
         carouselHTML = `
           <div class="mt-3">
             <div class="relative flex items-center gap-3">
@@ -450,13 +451,14 @@ window.stepDynamicCarousel = function(projectIndex, step) {
 
   const count = parseInt(project.carouselCount, 10) || 1;
   const prefix = project.carouselPrefix || 'proj';
+  const ext = project.carouselExt || 'webp';
   const currentIndex = dynamicCarouselIndices[projectIndex] || 0;
   dynamicCarouselIndices[projectIndex] = (currentIndex + step + count) % count;
   const currentNumber = dynamicCarouselIndices[projectIndex] + 1;
   const image = document.getElementById(`dyn-carousel-img-${projectIndex}`);
   const counter = document.getElementById(`dyn-carousel-counter-${projectIndex}`);
 
-  if (image) image.src = `assets/img/${prefix}${currentNumber}.webp`;
+  if (image) image.src = `assets/img/${prefix}${currentNumber}.${ext}`;
   if (counter) counter.textContent = `${currentNumber} / ${count}`;
 };
 
@@ -466,7 +468,8 @@ window.openDynamicLightbox = function(projectIndex) {
 
   const count = parseInt(project.carouselCount, 10) || 1;
   const prefix = project.carouselPrefix || 'proj';
-  const gallery = Array.from({ length: count }, (_, index) => `assets/img/${prefix}${index + 1}.webp`);
+  const ext = project.carouselExt || 'webp';
+  const gallery = Array.from({ length: count }, (_, index) => `assets/img/${prefix}${index + 1}.${ext}`);
   window.openLightbox(gallery, dynamicCarouselIndices[projectIndex] || 0);
 };
 
@@ -531,6 +534,7 @@ window.submitAdminProject = function(e) {
     hasCarousel: f.hasCarousel.checked,
     carouselPrefix: f.carouselPrefix.value || 'proj',
     carouselCount: parseInt(f.carouselCount.value) || 0,
+    carouselExt: f.carouselExt?.value || 'webp',
     liveUrl: f.liveUrl.value || null,
     githubUrl: f.githubUrl.value || null
   });
@@ -668,6 +672,7 @@ window.editAdminItem = function(type, index) {
     form.hasCarousel.checked = !!item.hasCarousel;
     form.carouselPrefix.value = item.carouselPrefix || 'proj';
     form.carouselCount.value = item.carouselCount || 0;
+    form.carouselExt.value = item.carouselExt || 'webp';
     form.liveUrl.value = item.liveUrl || '';
     form.githubUrl.value = item.githubUrl || '';
   } else if (type === 'experiences') {
@@ -702,6 +707,7 @@ window.submitAdminProject = function(e) {
     hasCarousel: f.hasCarousel.checked,
     carouselPrefix: f.carouselPrefix.value || 'proj',
     carouselCount: parseInt(f.carouselCount.value) || 0,
+    carouselExt: f.carouselExt?.value || 'webp',
     liveUrl: f.liveUrl.value || null,
     githubUrl: f.githubUrl.value || null
   };
